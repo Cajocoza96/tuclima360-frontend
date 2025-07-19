@@ -61,7 +61,7 @@ export default function AnimacionBienvenida() {
             </div>
 
             <div className="w-full min-h-screen overflow-y-auto flex flex-col
-                        items-center justify-between touch-pan-y overscroll-contain px-2">
+                        items-center justify-center md:justify-between touch-pan-y overscroll-contain px-2">
 
                 <motion.div
                     className="mt-3 absolute left-3"
