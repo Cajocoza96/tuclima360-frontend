@@ -1,0 +1,14 @@
+# .gitignore
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Local env files
+.env
+
+# Editor configs
+.vscode/
+.DS_Store

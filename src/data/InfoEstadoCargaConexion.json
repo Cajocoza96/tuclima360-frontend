@@ -1,0 +1,10 @@
+{
+    "cargando": {
+        "cargSugeCiudades": "Loading suggestion of cities...",
+        "carginfoClimaCiudad": "Obtaining the information and climate of the city..."
+    },
+    "conexion": {
+        "conConexion": "Connection has been re-established",
+        "sinConexion": "No connection"
+    }
+}

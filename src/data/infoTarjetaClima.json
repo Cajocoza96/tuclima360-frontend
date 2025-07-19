@@ -1,0 +1,19 @@
+{
+    "pedirUbicacion": {
+        "titulo": "Location and your climate",
+        "parrafo1": "The app will use your device's location in the background to keep the weather widget, notifications, local forecast and alerts updated, even if you are not using it.",
+        "parrafo2": "If you prefer not to allow constant access to your location, you can set the permissions so that it is only used when you open the app or enter the location manually.",
+        "politicaDePrivacidad": "Privacy Policy"
+    },
+
+    "activarServicioGps": {
+        "titulo": "Location",
+        "parrafo1": "The location service is not activated. Do you want to activate the GPS location service?",
+        "parrafo2": "Let TuClima360 use your device's location to provide you with accurate weather forecasts."
+    },
+
+    "agregarCiudad":{
+        "mensajeAdvertenciaSinGPS": "The automatic location detection function of your device is not available at the moment, but will be available soon.",
+        "mensajeAdvertenciaGPS": "In some places the automatic detection function does not work well, for example: the found location is too far away from your actual location. A good internet connection will help to determine your position accurately."
+    }
+}

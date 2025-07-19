@@ -1,0 +1,19 @@
+{
+    "registrate":{
+        "titulo": "Register",
+        "lema": "Join and stay one step ahead of the weather",
+        "iconoUsuario": "Use telephone or mail",
+        "footerInfoCuenta": "Already have an account?",
+        "footerAccion": "Login",
+        "footerAccionInvisible": "Login"
+    },
+    "iniciarSesion":{
+        "titulo": "Login",
+        "lema": "Access and discover the forecast in real time, wherever you are.",
+        "iconoUsuario": "Use phone, mail or username",
+        "continuarComoInvitado": "Continue as a guest",
+        "footerInfoCuenta": "Don't have an account?",
+        "footerAccion": "Register",
+        "footerAccionInvisible": "Register"
+    }
+}

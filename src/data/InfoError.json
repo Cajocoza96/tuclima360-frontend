@@ -1,0 +1,7 @@
+{
+    "paginaNoEncontrada":{
+        "numeroErrorPagina": "404",
+        "tituloNoPagina": "Page not found",
+        "mensajeNoPagina":"Sorry, the path you are trying to access does not exist or contains invalid characters."
+    }
+}
