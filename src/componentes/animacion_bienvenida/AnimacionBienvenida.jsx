@@ -44,8 +44,8 @@ export default function AnimacionBienvenida() {
     };
 
     const backgroundClasses = encendidoFondoVivo
-        ? "fixed w-screen h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-40 dark:brightness-30"
-        : "fixed w-screen h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-40 dark:brightness-30 bg-blue-500 dark:bg-black";
+        ? "fixed w-screen h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-50 dark:brightness-40"
+        : "fixed w-screen h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-50 dark:brightness-40 bg-blue-500 dark:bg-black";
 
     const backgroundStyle = encendidoFondoVivo
         ? { backgroundImage: `url(${imgUrl})` }
@@ -60,8 +60,8 @@ export default function AnimacionBienvenida() {
                 style={backgroundStyle}>
             </div>
 
-            <div className="w-full h-screen overflow-y-auto flex flex-col
-                        items-center justify-between">
+            <div className="w-full min-h-screen overflow-y-auto flex flex-col
+                        items-center justify-between touch-pan-y overscroll-contain px-2">
 
                 <motion.div
                     className="mt-3 absolute left-3"
