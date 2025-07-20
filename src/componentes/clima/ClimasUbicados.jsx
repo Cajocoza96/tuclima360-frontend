@@ -266,12 +266,12 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
                             {/* Indicador de ubicación activa */}
                             {esActiva && !iconoEliminar && (
                                 <div className="bg-green-400 w-fit absolute right-0 bottom-0">
-                                    <HiCheck className="text-xs lg:text-base 2xl:text-xl text-white" />
+                                    <HiCheck className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white" />
                                 </div>
                             )}
 
-                            <div className={`bg-violet-900 dark:bg-gray-900 
-                                                h-16 2xs:h-14 md:h-18 lg:h-17 2xl:h-22 overflow-hidden
+                            <div className={`bg-violet-900 dark:bg-gray-900
+                                                h-23 2xs:h-19 md:h-19 lg:h-18 2xl:h-23 overflow-hidden
                                     ${!iconoEliminar ? 'hover:bg-violet-700 dark:hover:bg-gray-700 active:bg-violet-600 dark:active:bg-gray-600' : 'hover:bg-red-800 dark:hover:bg-blue-900'}
                                     w-full p-1 rounded-lg
                                     flex flex-row items-center justify-around
@@ -281,21 +281,21 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
 
                                     <div className="flex flex-row items-center gap-1">
                                         {iconoEliminar && (
-                                            <div className="w-fit xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                            <div className="w-fit text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
                                                 {iconoEliminar}
                                             </div>
                                         )}
 
-                                        <p className="font-bold xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                        <p className="font-bold text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
                                             {miUbicacion}
                                         </p>
 
                                     </div>
-                                    <p className="text-xs xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                    <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
                                         <span>{ubicacion?.ciudad || null}</span>
                                     </p>
 
-                                    <p className="text-xs xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                    <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
                                         <span>{ubicacion?.departamento || null}<span translate="no">,</span></span> <span>{ubicacion?.pais || null}</span>
                                     </p>
                                 </div>

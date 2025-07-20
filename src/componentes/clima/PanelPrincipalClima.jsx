@@ -114,7 +114,7 @@ export default function PanelPrincipalClima() {
     return (
         <>
             <div
-                className={`${!encendidoFondoVivo || !imagenFondo ? 'fixed w-screen h-screen inset-0 brightness-40 dark:brightness-30 bg-blue-500 dark:bg-black' : 'fixed w-screen h-screen inset-0 brightness-40 dark:brightness-30 bg-blue-500 dark:bg-black'}`}
+                className={`${!encendidoFondoVivo || !imagenFondo ? 'fixed w-screen h-screen inset-0 brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black' : 'fixed w-screen h-screen inset-0 brightness-40 dark:brightness-30 bg-blue-500 dark:bg-black'}`}
                 style={estiloFondo}
             >
             </div>

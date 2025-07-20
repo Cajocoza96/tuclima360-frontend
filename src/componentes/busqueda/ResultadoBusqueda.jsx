@@ -36,18 +36,21 @@ export default function ResultadoBusqueda() {
                     key={index}
                     onClick={() => manejarSeleccion(item)}
                 >
-                    <HiLocationMarker className="xss:text-xs 2xs:text-base 
-                                                md:text-xl 2xl:text-3xl 
+                    <HiLocationMarker className="text-base xss:text-base 2xs:text-base 
+                                                    md:text-xl 2xl:text-3xl 
                                                 text-black dark:text-gray-300"/>
                     <div className="w-[90%]">
-                        <span className="xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl 
+                        <span className="text-base xss:text-base 2xs:text-base 
+                                                    md:text-xl 2xl:text-3xl 
                                                 text-black dark:text-gray-300">
                             <span>{item.ciudad} - </span>
-                        </span> <span className="xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                        </span> <span className="text-base xss:text-base 2xs:text-base 
+                                                    md:text-xl 2xl:text-3xl
                                                 text-black dark:text-gray-300">
                             <span>{item.departamento} / </span>
                         </span>
-                        <span className="xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                        <span className="text-base xss:text-base 2xs:text-base 
+                                                    md:text-xl 2xl:text-3xl
                                                 text-black dark:text-gray-300">
                             <span> {item.pais} </span>
                         </span>

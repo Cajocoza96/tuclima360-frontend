@@ -14,12 +14,14 @@ export default function ModalConfirmacion({ciudad, mensaje, onCancelar, onAcepta
 
                 <div className="mx-auto w-full flex flex-col gap-4 2xl:gap-5">
                     <div className="flex flex-col gap-2 2xl:gap-3">
-                        <p className="font-bold text-xs xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
-                            text-black dark:text-white">
+                        <p className="font-bold text-base xss:text-base 
+                                    2xs:text-base md:text-xl 2xl:text-3xl
+                                text-black dark:text-white">
                             <span>{ciudad}</span>
                         </p>
 
-                        <p className="text-xs xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                        <p className="text-base xss:text-base 2xs:text-base 
+                                        md:text-xl 2xl:text-3xl
                             text-black dark:text-white">
                             {mensaje}
                         </p>
@@ -27,7 +29,8 @@ export default function ModalConfirmacion({ciudad, mensaje, onCancelar, onAcepta
 
                     <div className="flex flex-row items-center justify-end gap-6 2xl:gap-7">
                         <p 
-                            className="font-bold text-xs xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                            className="font-bold text-base xss:text-base 
+                                        2xs:text-base md:text-xl 2xl:text-3xl
                                         text-blue-800 dark:text-white cursor-pointer"
                             onClick={onCancelar}
                             >
@@ -35,7 +38,8 @@ export default function ModalConfirmacion({ciudad, mensaje, onCancelar, onAcepta
                         </p>
 
                         <p 
-                            className="font-bold text-xs xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                            className="font-bold text-base xss:text-base 
+                                        2xs:text-base md:text-xl 2xl:text-3xl
                                         text-blue-800 dark:text-white cursor-pointer"
                             onClick={onAceptar}
                             >

@@ -31,18 +31,18 @@ export default function BotonCiudadClima({ ciudad, departamento, pais }) {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-            <p className="xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+            <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
                                         text-white">
                 <span>{ciudad}</span>
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-1">
-                <p className="xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
                                         text-gray-200">
                     <span>{departamento}<span translate="no">,</span></span>
                 </p>
 
-                <p className="xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
                                         text-gray-200">
                     <span>{pais}</span>
                 </p>

@@ -21,12 +21,15 @@ export default function ModalExitoError({ ciudad, mensaje, onCerrar, esError = f
                             <HiCheckCircle className="text-8xl 2xl:text-10xl text-green-500"/>
                         )}
                         
-                        <p className="text-center font-bold text-xs xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                        <p className="text-center font-bold 
+                                        text-base xss:text-base 2xs:text-base 
+                                        md:text-xl 2xl:text-3xl
                                     text-black dark:text-white">
                             <span>{ciudad}</span>
                         </p>
 
-                        <p className="text-center text-xs xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                        <p className="text-center text-base xss:text-base 
+                                        2xs:text-base md:text-xl 2xl:text-3xl
                                     text-black dark:text-white">
                             {mensaje}
                         </p>
@@ -38,8 +41,9 @@ export default function ModalExitoError({ ciudad, mensaje, onCerrar, esError = f
                         className={`w-fit ${esError 
                             ? 'bg-red-600 active:bg-red-400' 
                             : 'bg-green-600 active:bg-green-400'
-                        } text-center 
-                                        font-bold text-xs xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                        } text-center font-bold 
+                                    text-base xss:text-base 2xs:text-base 
+                                    md:text-xl 2xl:text-3xl
                                     text-white cursor-pointer py-2 px-4 rounded`}>
                         Ok
                     </button>

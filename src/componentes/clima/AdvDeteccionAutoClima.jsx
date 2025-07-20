@@ -16,7 +16,7 @@ export default function AdvDeteccionAutoClima({ mensajeNoConexion }) {
             {!mensajeNoConexion && (
                 <motion.p
                     className="ml-20 text-white whitespace-nowrap
-                                xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl"
+                                text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl"
                     key={reiniPosText}
                     initial={{ x: "100%" }}
                     animate={{ x: "-100%" }}
@@ -32,7 +32,7 @@ export default function AdvDeteccionAutoClima({ mensajeNoConexion }) {
 
             {mensajeNoConexion && (
                 <p className="text-center text-white 
-                                xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl">
+                                text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl">
                     {mensajeNoConexion}
                 </p>
             )}

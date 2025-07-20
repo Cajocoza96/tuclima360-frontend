@@ -46,7 +46,7 @@ export default function BarraBusqueda() {
             <div className="my-1 p-2 w-[99%] bg-white dark:bg-gray-900 rounded-md
                                         flex flex-row items-center justify-between relative gap-2">
                 <Link to="/">
-                <HiHome className="xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl 
+                <HiHome className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl 
                                     text-black dark:text-gray-300 cursor-pointer"/>
                 </Link>
 
@@ -54,11 +54,14 @@ export default function BarraBusqueda() {
                     ref={inputRef}
                     className="bg-white dark:bg-gray-900 w-[85%] border-none
                                                 focus:outline-none focus:ring-0
-                                                xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                                                text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
                                                 text-black dark:text-gray-200
                                                 placeholder:text-gray-500 dark:placeholder:text-gray-500
-                                                placeholder:xss:text-xs placeholder:2xs:text-base
-                                                placeholder:md:text-xl placeholder:2xl:text-3xl"
+                                                placeholder:text-base placeholder:xss:text-base
+                                                placeholder:2xs:text-base placeholder:md:text-xl
+                                                placeholder:2xl:text-3xl"
+
+                                                    
                     type="text"
                     placeholder={isOnline ? "Write the name of the city" : "No internet connection"}
                     onChange={manejarCambio}
@@ -67,7 +70,7 @@ export default function BarraBusqueda() {
 
                 <HiX 
                     onClick={cerrarFondo}
-                    className="xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl
+                    className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
                             text-black dark:text-gray-300 cursor-pointer"/>
 
                 <ResultadoBusqueda /> 
