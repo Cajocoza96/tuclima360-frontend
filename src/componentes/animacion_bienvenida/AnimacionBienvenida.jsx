@@ -60,8 +60,8 @@ export default function AnimacionBienvenida() {
                 style={backgroundStyle}>
             </div>
 
-            <div className="w-full h-screen overflow-y-auto flex flex-col
-                        items-center justify-between">
+            <div className="w-full min-h-screen flex flex-col items-center justify-between
+                            md:h-screen md:overflow-y-auto">
 
                 <motion.div
                     className="mt-3 absolute left-3"
