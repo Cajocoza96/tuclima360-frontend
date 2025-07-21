@@ -71,7 +71,7 @@ export default function AnimacionBienvenida() {
                         } />
                 </motion.div>
 
-            <div className="w-full h-screen overflow-y-auto flex flex-col
+            <div className="w-full xss:h-auto 2xs:h-screen overflow-hidden flex flex-col
                         items-center justify-between">
 
                 <motion.div
