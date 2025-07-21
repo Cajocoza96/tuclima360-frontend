@@ -44,8 +44,8 @@ export default function AnimacionBienvenida() {
     };
 
     const backgroundClasses = encendidoFondoVivo
-        ? "fixed w-screen h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50"
-        : "fixed w-screen h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black";
+        ? "fixed w-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50"
+        : "fixed w-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black";
 
     const backgroundStyle = encendidoFondoVivo
         ? { backgroundImage: `url(${imgUrl})` }
@@ -53,9 +53,7 @@ export default function AnimacionBienvenida() {
 
     return (
         <>  
-            {/*
             <ConexionSinConexion />
-            */}
 
             <div
                 className={backgroundClasses}
@@ -71,10 +69,10 @@ export default function AnimacionBienvenida() {
                         valor1={
                             <MenuHamburguesa />
                         } />
-            </motion.div>
+                </motion.div>
 
-            <div className="w-full h-screen overflow-y-auto flex flex-col
-                        items-center xss:justity-center 2xs:justify-between ">
+            <div className="w-full min-h-screen overflow-y-auto flex flex-col
+                        items-center justify-between">
 
                 <motion.div
                     className="mt-2 w-full
@@ -86,10 +84,10 @@ export default function AnimacionBienvenida() {
                     transition={{ duration: 0.5, delay: 0.5 }}>
 
                     <motion.div
-                        className="w-[56%] h-auto overflow-hidden 
-                                            2xs:w-[29%] sm:w-[29%] 
-                                            md:w-[29%] lg:w-[29%] 
-                                            xl:w-[29%] 2xl:w-[39%]
+                        className="w-[57%] h-auto overflow-hidden 
+                                            2xs:w-[30%] sm:w-[33%] 
+                                            md:w-[33%] lg:w-[33%] 
+                                            xl:w-[33%] 2xl:w-[40%]
                                             flex flex-col items-center justify-center"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -101,11 +99,10 @@ export default function AnimacionBienvenida() {
                     </motion.div>
 
                     <motion.div
-                        className="w-[56%] h-auto overflow-hidden 
-                                            2xs:w-[29%] sm:w-[29%] 
-                                            md:w-[29%] lg:w-[29%] 
-                                            xl:w-[29%] 2xl:w-[39%]
-                                            flex flex-col items-center justify-center"
+                        className="w-[57%] h-auto overflow-hidden 
+                                    2xs:w-[30%] sm:w-[33%] md:w-[33%] 
+                                    lg:w-[33%] xl:w-[33%] 2xl:w-[40%]
+                                    flex flex-col items-center justify-center"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         whileHover={{
@@ -118,7 +115,7 @@ export default function AnimacionBienvenida() {
                 </motion.div>
 
                 <motion.div
-                    className="xss:my-6 2xs:my-1 z-40"
+                    className="mb-1 z-40"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.5 }}
