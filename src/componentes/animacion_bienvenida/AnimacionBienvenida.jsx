@@ -71,12 +71,14 @@ export default function AnimacionBienvenida() {
                         } />
                 </motion.div>
 
-            <div className="w-screen h-screen overflow-y-auto flex flex-col
+            <div className="w-full h-screen flex flex-col
                         items-center 
                         justify-center 2xs:justify-between sm:justify-between md:justify-between 
                         lg:justify-between xl:justify-between 2xl:justify-between
                         gap-4 2xs:gap-0 sm:gap-0 md:gap-0 
-                        lg:gap-0 xl:gap-0 2xl:gap-0">
+                        lg:gap-0 xl:gap-0 2xl:gap-0
+                        2xs:overflow-y-auto sm:overflow-y-auto md:overflow-y-auto 
+                        lg:overflow-y-auto xl:overflow-y-auto 2xl:overflow-y-auto">
 
                 <motion.div
                     className="mt-2 w-full
