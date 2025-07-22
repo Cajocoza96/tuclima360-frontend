@@ -62,7 +62,7 @@ export default function GestionUbicaEditAgre() {
 
                     </div>
 
-                    <div className="w-[95%] xs:pb-32 h-100 xs:h-120 xs2:h-160 xs3:h-170 
+                    <div className="w-[95%] h-100 xs:h-120 xs2:h-160 xs3:h-170 
                                 2xs:h-43 md:h-50 lg:h-100 2xl:h-190 
                                 overflow-y-auto overflow-x-hidden rounded-md">
 
@@ -78,10 +78,10 @@ export default function GestionUbicaEditAgre() {
 
                 </div>
 
-                <div className="xss:mt-0 xss:mb-0 mt-1 mb-3 lg:mb-4 w-[90%]
-                grid gap-4 overflow-hidden
-                xss:fixed xss:bottom-0 xss:left-0 xss:w-full xss:px-5 
-                xss:pb-3 xss:bg-blue-950 xss:dark:bg-gray-800 xss:z-50"
+                <div className="mt-1 mb-3 lg:mb-4 w-[95%]
+                                grid gap-4 overflow-hidden
+                                xss:bottom-0 xss:left-0 
+                               xss:bg-blue-950 xss:dark:bg-gray-800 xss:z-50"
                     style={{
                         gridTemplateColumns: modoEdicion || !mostrarBotonEditar ? '1fr' : '1fr 1fr'
                     }}>
