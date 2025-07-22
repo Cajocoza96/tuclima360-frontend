@@ -69,7 +69,7 @@ export default function GestionUbicaEditAgre() {
                                 2xs:h-43 md:h-50 lg:h-100 2xl:h-190 
                                 overflow-y-auto overflow-x-hidden rounded-md">
 
-                        <div className="mx-auto w-full 
+                        <div className="mx-auto w-full overflow-hidden
                                             flex flex-col items-center">
                             <ClimasUbicados
                                 iconoEliminar={modoEdicion ? <HiTrash /> : null}
