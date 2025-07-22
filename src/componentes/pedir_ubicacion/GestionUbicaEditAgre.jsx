@@ -65,7 +65,7 @@ export default function GestionUbicaEditAgre() {
 
                     </div>
 
-                    <div className="w-[95%] h-100 xs:h-120 xs2:h-160 xs3:h-170 
+                    <div className="w-[95%] h-100 xs:h-120 xs2:h-140
                                 2xs:h-43 md:h-50 lg:h-100 2xl:h-190 
                                 overflow-y-auto overflow-x-hidden rounded-md">
 
