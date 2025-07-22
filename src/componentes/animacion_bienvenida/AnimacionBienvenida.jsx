@@ -44,15 +44,15 @@ export default function AnimacionBienvenida() {
     };
 
     const backgroundClasses = encendidoFondoVivo
-        ? "xss:overflow-hidden 2xs:overflow-y-auto  fixed w-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50"
-        : "xss:overflow-hidden 2xs:overflow-y-auto  fixed w-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black";
+        ? "fixed w-screen xss:h-[100svh] h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50"
+        : "fixed w-screen xss:h-[100svh] h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black";
 
     const backgroundStyle = encendidoFondoVivo
         ? { backgroundImage: `url(${imgUrl})` }
         : {};
 
     return (
-        <>
+        <>  
             <ConexionSinConexion />
 
             <div
@@ -61,18 +61,18 @@ export default function AnimacionBienvenida() {
             </div>
 
             <motion.div
-                className="mt-3 absolute left-3"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 2.1 }}>
-                <ValorValorValor
-                    valor1={
-                        <MenuHamburguesa />
-                    } />
-            </motion.div>
+                    className="mt-3 absolute left-3"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 2.1 }}>
+                    <ValorValorValor
+                        valor1={
+                            <MenuHamburguesa />
+                        } />
+                </motion.div>
 
-            <div className="w-full min-h-screen overflow-hidden flex flex-col
-                        items-center xss:justify-center 2xs:justify-between">
+            <div className="w-full xss:h-[100svh] h-screen overflow-y-auto flex flex-col
+                        items-center justify-between">
 
                 <motion.div
                     className="mt-2 w-full
@@ -115,7 +115,7 @@ export default function AnimacionBienvenida() {
                 </motion.div>
 
                 <motion.div
-                    className="xss:mb-8 2xs:mb-1 z-40"
+                    className="mb-1 z-40"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.5 }}

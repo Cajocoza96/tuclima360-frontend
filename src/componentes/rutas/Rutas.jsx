@@ -19,14 +19,11 @@ import Error from "../error/Error";
 
 import InfoError from "../../data/InfoError.json";
 
-import ScrollToTop from "../scroll_control/ScrollToTop";
-
 const infoErrorPagina = InfoError.paginaNoEncontrada;
 
 export default function Rutas() {
     return (
         <Routes>
-            <ScrollToTop />
             <Route path="*" element={
                 <Error
                     numeroError={infoErrorPagina.numeroErrorPagina}
