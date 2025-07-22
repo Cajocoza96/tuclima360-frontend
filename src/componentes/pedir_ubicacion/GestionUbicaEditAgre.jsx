@@ -9,12 +9,15 @@ import { Link } from "react-router-dom";
 import { useVariasUbicaciones } from "../../context/VariasUbicacionesContext";
 import useConexionInternet from "../../hooks/useConexionInternet";
 import InfoEstadoCargaConexion from "../../data/InfoEstadoCargaConexion.json";
+import useIsMobile from "../../hooks/useIsMobile";
 
 const MotionBoton = motion.create(BotonAccion);
 
 export default function GestionUbicaEditAgre() {
     const [modoEdicion, setModoEdicion] = useState(false);
     const { ubicaciones } = useVariasUbicaciones();
+
+    const isMobile = useIsMobile();
 
     const manejarEditar = () => {
         setModoEdicion(true);
@@ -78,10 +81,10 @@ export default function GestionUbicaEditAgre() {
 
                 </div>
 
-                <div className="mt-1 mb-3 lg:mb-4 w-[95%]
+                <div className={`${isMobile ? 'fixed bottom-0 left-1/2 transform -translate-x-1/2' : 'static'} 
+                                mt-1 mb-3 lg:mb-4 w-[90%]
                                 grid gap-4 overflow-hidden
-                                xss:bottom-0 xss:left-0 
-                               xss:bg-blue-950 xss:dark:bg-gray-800 xss:z-50"
+                                xss:z-50`}
                     style={{
                         gridTemplateColumns: modoEdicion || !mostrarBotonEditar ? '1fr' : '1fr 1fr'
                     }}>
