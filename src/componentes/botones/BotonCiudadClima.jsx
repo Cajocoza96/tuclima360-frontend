@@ -27,7 +27,6 @@ export default function BotonCiudadClima({ ciudad, departamento, pais }) {
                                         dark:active:bg-gray-600
                                         py-2  flex flex-col items-center justify-center 
                                         gap-2 cursor-pointer"
-            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >

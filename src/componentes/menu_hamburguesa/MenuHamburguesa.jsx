@@ -197,7 +197,9 @@ export default function MenuHamburguesa({ className = "" }) {
                             exit={{ x: "-100%" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
                             className="fixed top-0 left-0 h-full overflow-y-auto 
-                                    w-70 sm:w-100 md:w-120 lg:w-150 xl:w-170 2xl:w-175
+                                        w-65
+                                        xss:w-70 sm:w-100 md:w-120 
+                                        lg:w-150 xl:w-170 2xl:w-175
                                 bg-amber-100 dark:bg-black shadow-2xl z-50 p-6 flex flex-col gap-8 cursor-default"
                         >
                             <p onClick={handleInicio} className="w-fit 

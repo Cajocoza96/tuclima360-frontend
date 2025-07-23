@@ -240,5 +240,6 @@
     --breakpoint-xs: 375px;
     --breakpoint-xs2: 390px;
     --breakpoint-xs3: 414px;
+    --breakpoint-xs4: 470px;
     --breakpoint-2xs: 600px;
 }

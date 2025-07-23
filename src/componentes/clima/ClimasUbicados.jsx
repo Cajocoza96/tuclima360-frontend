@@ -257,7 +257,6 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
                             className={`border-2 2xl:border-4 rounded-lg relative ${esActiva
                                 ? 'border-green-400'
                                 : 'border-violet-900 dark:border-gray-900'}`}
-                            whileHover={{ scale: iconoEliminar ? 1 : 1.02 }}
                             whileTap={{ scale: iconoEliminar ? 1 : 0.95 }}
                             transition={{ type: "spring", stiffness: 400, damping: 17 }}
                             onClick={() => manejarClickUbicacion(ubicacion)}
