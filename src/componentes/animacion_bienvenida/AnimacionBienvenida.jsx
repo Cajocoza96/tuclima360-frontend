@@ -84,11 +84,11 @@ export default function AnimacionBienvenida() {
 
                     <motion.div
                         className="w-[45%] h-auto overflow-hidden 
-                                            xss:w-[57]
+                                            xss:w-[55%]
                                             xs4:w-[28%]
-                                            2xs:w-[30%] sm:w-[33%] 
+                                            2xs:w-[28%] sm:w-[33%] 
                                             md:w-[33%] lg:w-[33%] 
-                                            xl:w-[33%] 2xl:w-[40%]
+                                            xl:w-[33%] 2xl:w-[38%]
                                             flex flex-col items-center justify-center"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -101,11 +101,12 @@ export default function AnimacionBienvenida() {
 
                     <motion.div
                         className="w-[45%] h-auto overflow-hidden 
-                                    xss:w-[57]
-                                    xs4:w-[28%]
-                                    2xs:w-[30%] sm:w-[33%] md:w-[33%] 
-                                    lg:w-[33%] xl:w-[33%] 2xl:w-[40%]
-                                    flex flex-col items-center justify-center"
+                                            xss:w-[55%]
+                                            xs4:w-[28%]
+                                            2xs:w-[28%] sm:w-[33%] 
+                                            md:w-[33%] lg:w-[33%] 
+                                            xl:w-[33%] 2xl:w-[38%]
+                                            flex flex-col items-center justify-center"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         whileHover={{
