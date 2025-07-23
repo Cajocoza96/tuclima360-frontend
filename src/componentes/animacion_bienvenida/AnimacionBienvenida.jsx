@@ -44,8 +44,8 @@ export default function AnimacionBienvenida() {
     };
 
     const backgroundClasses = encendidoFondoVivo
-        ? "fixed w-screen xss:h-[100svh] h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50"
-        : "fixed w-screen xss:h-[100svh] h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black";
+        ? "fixed w-screen smm:h-[100svh] h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50"
+        : "fixed w-screen smm:h-[100svh] h-screen inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black";
 
     const backgroundStyle = encendidoFondoVivo
         ? { backgroundImage: `url(${imgUrl})` }
@@ -71,8 +71,8 @@ export default function AnimacionBienvenida() {
                         } />
                 </motion.div>
 
-            <div className="w-full xss:h-[100svh] h-screen overflow-y-auto flex flex-col
-                        items-center justify-between">
+            <div className={`w-full ${isMobile ? 'h-[100svh]' : 'h-screen'} overflow-y-auto flex flex-col
+                        items-center justify-between`}>
 
                 <motion.div
                     className="mt-2 w-full

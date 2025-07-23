@@ -235,6 +235,7 @@
 }
 
 @theme {
+    --breakpoint-smm: 150px;
     --breakpoint-xss: 360px;
     --breakpoint-xs: 375px;
     --breakpoint-xs2: 390px;

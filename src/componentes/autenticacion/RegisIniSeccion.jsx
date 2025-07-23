@@ -17,12 +17,16 @@ import Toast from "../toast/Toast";
 
 import ConexionSinConexion from "../conexion_sin_conexion/ConexionSinConexion";
 
+import useIsMobile from "../../hooks/useIsMobile";
+
 export default function RegisIniSeccion({ titulo, lema, iconoUsuario, continuarComoInvitado,
     footerInfoCuenta, footerAccion, footerAccionInvisible, ...props }) {
 
     const controls = useAnimation();
     const MotionHiHome = motion.create(HiHome);
     const MotionHiOutlineQuestionMarkCircle = motion.create(HiOutlineQuestionMarkCircle);
+
+    const isMobile = useIsMobile();
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -54,10 +58,10 @@ export default function RegisIniSeccion({ titulo, lema, iconoUsuario, continuarC
     }
 
     return (
-        <div className="bg-amber-50 dark:bg-black w-full xss:h-[100svh] h-screen 
+        <div className={`bg-amber-50 dark:bg-black w-full ${isMobile ? 'h-[100svh]' : 'h-screen'} 
                         flex flex-col items-center 
                         justify-start gap-3 
-                        overflow-y-auto overflow-x-hidden">
+                        overflow-y-auto overflow-x-hidden`}>
             
             <ConexionSinConexion />
 
@@ -87,7 +91,7 @@ export default function RegisIniSeccion({ titulo, lema, iconoUsuario, continuarC
 
             />
 
-            <div className="w-full xss:h-[100svh] h-screen flex flex-col justify-between gap-1">
+            <div className={`w-full ${isMobile ? 'h-[100svh]' : 'h-screen'} flex flex-col justify-between gap-1`}>
 
                 <div className="flex flex-col items-center gap-3">
                     <motion.div
