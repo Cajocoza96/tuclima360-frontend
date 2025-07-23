@@ -72,10 +72,10 @@ export default function AgregarCiudadClima() {
     });
 
     return (
-        <div className={`w-full ${isMobile ? 'h-[100svh]' : 'h-screen'} bg-blue-950 dark:bg-gray-800 
+        <div className={`w-full ${isMobile ? 'h-[100svh]' : 'h-[100svh]'} bg-blue-950 dark:bg-gray-800 
                         flex flex-col items-center`}>
 
-            <div className={`mt-7 w-full ${isMobile ? 'h-[100svh]' : 'h-screen'} overflow-hidden
+            <div className={`mt-7 w-full ${isMobile ? 'h-[100svh]' : 'h-[100svh]'} overflow-hidden
                             flex flex-col  items-center justify-between gap-2`}>
 
                 <BarraBusqueda />
