@@ -52,7 +52,7 @@ export default function AnimacionBienvenida() {
         : {};
 
     return (
-        <>  
+        <div className="min-h-[100svh] w-full overflow-y-auto touch-pan-y">
             <ConexionSinConexion />
 
             <div
@@ -61,18 +61,18 @@ export default function AnimacionBienvenida() {
             </div>
 
             <motion.div
-                    className="mt-3 absolute left-3"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 2.1 }}>
-                    <ValorValorValor
-                        valor1={
-                            <MenuHamburguesa />
-                        } />
-                </motion.div>
+                className="mt-3 absolute left-4 z-50"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 2.1 }}>
+                <ValorValorValor
+                    valor1={
+                        <MenuHamburguesa />
+                    } />
+            </motion.div>
 
-            <div className="w-full h-[100svh] flex flex-col
-                        items-center justify-between">
+            <div className="w-full min-h-[100svh] flex flex-col
+                        items-center justify-between relative touch-pan-y">
 
                 <motion.div
                     className="mt-2 w-full
@@ -181,6 +181,6 @@ export default function AnimacionBienvenida() {
 
             </div>
 
-        </>
+        </div>
     );
 }
