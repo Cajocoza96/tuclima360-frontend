@@ -71,7 +71,7 @@ export default function AnimacionBienvenida() {
                         } />
                 </motion.div>
 
-            <div className="w-full h-[100svh] overflow-y-auto flex flex-col
+            <div className="w-full h-[100svh] flex flex-col
                         items-center justify-between">
 
                 <motion.div
