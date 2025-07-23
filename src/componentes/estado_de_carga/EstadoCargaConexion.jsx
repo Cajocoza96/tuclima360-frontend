@@ -43,8 +43,8 @@ export default function EstadoCargaConexion({
     return (
         <>
             {estadoMensajeCargaCiudadClima && (
-                <div className="xss:h-[100svh] h-screen">
-                    <div className="bg-violet-900 dark:bg-black w-screen xss:h-[100svh] h-screen z-50 p-3 
+                <div className="xss:min-h-[100svh] min-h-screen">
+                    <div className="bg-violet-900 dark:bg-black w-screen xss:min-h-[100svh] min-h-screen z-50 p-3 
                                 absolute top-1/2 left-1/2 transform 
                                 -translate-x-1/2 -translate-y-1/2
                                 flex flex-col items-center justify-center">
@@ -94,8 +94,8 @@ export default function EstadoCargaConexion({
             )}
 
             {estadoMensajeConexionCiudadClima && (
-                <div className="xss:h-[100svh] h-screen">
-                    <div className="bg-violet-900 dark:bg-black w-screen xss:h-[100svh] h-screen z-50 p-3 
+                <div className="xss:min-h-[100svh] min-h-screen">
+                    <div className="bg-violet-900 dark:bg-black w-screen xss:min-h-[100svh] min-h-screen z-50 p-3 
                                 absolute top-1/2 left-1/2 transform 
                                 -translate-x-1/2 -translate-y-1/2
                                 flex flex-col items-center justify-center">
