@@ -114,7 +114,7 @@ export default function PanelPrincipalClima() {
     return (
         <>
             <div
-                className={`${!encendidoFondoVivo || !imagenFondo ? 'fixed w-screen h-screen inset-0 brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black' : 'fixed w-screen h-screen inset-0 brightness-40 dark:brightness-30 bg-blue-500 dark:bg-black'}`}
+                className={`${!encendidoFondoVivo || !imagenFondo ? 'fixed w-screen h-[100svh] inset-0 brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black' : 'fixed w-screen h-[100svh] inset-0 brightness-40 dark:brightness-30 bg-blue-500 dark:bg-black'}`}
                 style={estiloFondo}
             >
             </div>
@@ -125,8 +125,8 @@ export default function PanelPrincipalClima() {
             )}
             
             
-            <div className={`min-h-screen max-h-screen flex flex-col 
-                        items-center justify-start relative py-4 ${mostrarUbicacion ? 'overflow-hidden' : 'overflow-y-auto'}`}>
+            <div className={`min-h-[100svh] max-h-[100svh] flex flex-col 
+                        items-center justify-start relative py-4 ${mostrarUbicacion ? 'overflow-hidden touch-none overscroll-none' : 'overflow-y-auto'}`}>
 
                 {/* Overlay */}
                 {mostrarUbicacion && (

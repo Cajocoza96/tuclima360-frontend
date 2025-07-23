@@ -40,7 +40,7 @@ export default function GestionUbicaEditAgre() {
             <div className="w-full mx-auto min-h-[100svh]
                                 flex flex-col items-center relative justify-between">
 
-                <div className="mt-2 w-full mx-auto flex flex-col items-center justify-center gap-2">
+                <div className="w-full mx-auto flex flex-col items-center justify-center gap-2">
 
                     <ValorValorValor
 
