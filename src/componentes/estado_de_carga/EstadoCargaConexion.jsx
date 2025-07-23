@@ -42,94 +42,94 @@ export default function EstadoCargaConexion({
     return (
         <>
             {estadoMensajeCargaCiudadClima && (
-                <div className="bg-violet-900 dark:bg-black w-screen h-screen z-50 p-3 
+                <div className="z-50 bg-violet-900 dark:bg-black w-screen h-[100svh]  
                                 absolute top-1/2 left-1/2 transform 
-                                -translate-x-1/2 -translate-y-1/2
-                                flex flex-col items-center justify-center">
-
-                    <div 
-                        onClick={handleInicio}
-                        className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-row items-center justify-center gap-2 2xl-gap-4">
-                        <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
-                            Go back home?
-                        </p>
-                        <HiHome className="text-white
+                                -translate-x-1/2 -translate-y-1/2">
+                    <div className="p-3 flex flex-col items-center justify-center w-screen h-[100svh]">
+                        <div
+                            onClick={handleInicio}
+                            className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-row items-center justify-center gap-2 2xl-gap-4">
+                            <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
+                                Go back home?
+                            </p>
+                            <HiHome className="text-white
                                             text-xl md:text-2xl 2xl:text-4xl" />
-                    </div>
+                        </div>
 
 
-                    <motion.p
-                        className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl"
-                        initial={{ opacity: 0.2 }}
-                        animate={{ opacity: [0.2, 1, 0.2] }}
-                        transition={{ duration: 1.2, repeat: Infinity }}
-                    >
-                        {estadoMensajeCargaCiudadClima}
-                    </motion.p>
+                        <motion.p
+                            className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl"
+                            initial={{ opacity: 0.2 }}
+                            animate={{ opacity: [0.2, 1, 0.2] }}
+                            transition={{ duration: 1.2, repeat: Infinity }}
+                        >
+                            {estadoMensajeCargaCiudadClima}
+                        </motion.p>
 
-                    <div className="w-30 2xl:w-50 overflow-hidden">
-                        {animacionCargada && !errorCargaAnimacion ? (
-                            <Lottie
-                                className="w-full object-cover"
-                                animationData={cargaInfoCiudadClima}
-                                loop={true}
-                                onError={handleAnimacionError}
-                            />
-                        ) : (
-                            <div className="w-full h-24 flex items-center justify-center">
-                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-                            </div>
-                        )}
-                    </div>
+                        <div className="w-30 2xl:w-50 overflow-hidden">
+                            {animacionCargada && !errorCargaAnimacion ? (
+                                <Lottie
+                                    className="w-full object-cover"
+                                    animationData={cargaInfoCiudadClima}
+                                    loop={true}
+                                    onError={handleAnimacionError}
+                                />
+                            ) : (
+                                <div className="w-full h-24 flex items-center justify-center">
+                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                                </div>
+                            )}
+                        </div>
 
-                    <p className="font-extrabold text-transparent bg-clip-text 
+                        <p className="font-extrabold text-transparent bg-clip-text 
                                     bg-gradient-to-r from-blue-500 to-green-400
                                     text-2xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-4xl">
-                        <span translate="no">TuClima360</span>
-                    </p>
+                            <span translate="no">TuClima360</span>
+                        </p>
+                    </div>
                 </div>
             )}
 
             {estadoMensajeConexionCiudadClima && (
-                <div className="bg-violet-900 dark:bg-black w-screen h-screen z-50 p-3 
+                <div className="z-50 bg-violet-900 dark:bg-black w-screen h-[100svh]  
                                 absolute top-1/2 left-1/2 transform 
-                                -translate-x-1/2 -translate-y-1/2
-                                flex flex-col items-center justify-center">
-
-                    <div 
-                        onClick={handleInicio}
-                        className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-row items-center justify-center gap-2 2xl-gap-4">
-                        <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
-                            Go back home?
-                        </p>
-                        <HiHome className="text-white
+                                -translate-x-1/2 -translate-y-1/2">
+                    <div className="p-3 flex flex-col items-center justify-center w-screen h-[100svh]">
+                        <div
+                            onClick={handleInicio}
+                            className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-row items-center justify-center gap-2 2xl-gap-4">
+                            <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
+                                Go back home?
+                            </p>
+                            <HiHome className="text-white
                                             text-xl md:text-2xl 2xl:text-4xl" />
-                    </div>
+                        </div>
 
-                    <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
-                        {estadoMensajeConexionCiudadClima}
-                    </p>
+                        <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
+                            {estadoMensajeConexionCiudadClima}
+                        </p>
 
-                    <div className="w-30 2xl:w-50 overflow-hidden">
-                        {animacionCargada && !errorCargaAnimacion ? (
-                            <Lottie
-                                className="w-full object-cover"
-                                animationData={noCargaInfoCiudadClima}
-                                loop={true}
-                                onError={handleAnimacionError}
-                            />
-                        ) : (
-                            <div className="w-full h-24 flex items-center justify-center">
-                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-                            </div>
-                        )}
-                    </div>
+                        <div className="w-30 2xl:w-50 overflow-hidden">
+                            {animacionCargada && !errorCargaAnimacion ? (
+                                <Lottie
+                                    className="w-full object-cover"
+                                    animationData={noCargaInfoCiudadClima}
+                                    loop={true}
+                                    onError={handleAnimacionError}
+                                />
+                            ) : (
+                                <div className="w-full h-24 flex items-center justify-center">
+                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                                </div>
+                            )}
+                        </div>
 
-                    <p className="font-extrabold text-transparent bg-clip-text 
+                        <p className="font-extrabold text-transparent bg-clip-text 
                                     bg-gradient-to-r from-blue-500 to-green-400
                                     text-2xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-4xl">
-                        <span translate="no">TuClima360</span>
-                    </p>
+                            <span translate="no">TuClima360</span>
+                        </p>
+                    </div>
                 </div>
             )}
 
