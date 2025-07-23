@@ -35,9 +35,9 @@ export default function GestionUbicaEditAgre() {
     const { isOnline } = useConexionInternet();
 
     return (
-        <div className="bg-blue-950 dark:bg-gray-800 mx-auto xss:min-h-[100svh] min-h-screen">
+        <div className="bg-blue-950 dark:bg-gray-800 mx-auto min-h-[100svh]">
 
-            <div className="w-full mx-auto xss:min-h-[100svh] min-h-screen 
+            <div className="w-full mx-auto min-h-[100svh]
                                 flex flex-col items-center relative justify-between">
 
                 <div className="mt-2 w-full mx-auto flex flex-col items-center justify-center gap-2">
