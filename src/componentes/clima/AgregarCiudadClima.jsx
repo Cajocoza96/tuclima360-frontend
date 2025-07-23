@@ -8,11 +8,15 @@ import useConexionInternet from "../../hooks/useConexionInternet";
 import EstadoCargaConexion from "../estado_de_carga/EstadoCargaConexion";
 import InfoEstadoCargaConexion from "../../data/InfoEstadoCargaConexion.json";
 
+import useIsMobile from "../../hooks/useIsMobile";
+
 export default function AgregarCiudadClima() {
     const { ciudadesColombia, obtenerCiudadesColombia, cargandoCiudadesColombia } = useContext(BusquedaContext);
     const { isOnline, justReconnected, resetReconnectionState } = useConexionInternet();
     const [mostrandoMensajeReconexion, setMostrandoMensajeReconexion] = useState(false);
     const timerRef = useRef(null);
+
+    const isMobile = useIsMobile();
 
     const mensajeCarga = InfoEstadoCargaConexion.cargando.cargSugeCiudades;
     const mensajeSinConexion = InfoEstadoCargaConexion.conexion.sinConexion;
@@ -68,11 +72,11 @@ export default function AgregarCiudadClima() {
     });
 
     return (
-        <div className="w-full h-screen bg-blue-950 dark:bg-gray-800 
-                        flex flex-col items-center">
+        <div className={`w-full ${isMobile ? 'h-[100svh]' : 'h-screen'} bg-blue-950 dark:bg-gray-800 
+                        flex flex-col items-center`}>
 
-            <div className="mt-7 w-full h-screen overflow-hidden
-                            flex flex-col  items-center justify-between gap-2">
+            <div className={`mt-7 w-full ${isMobile ? 'h-[100svh]' : 'h-screen'} overflow-hidden
+                            flex flex-col  items-center justify-between gap-2`}>
 
                 <BarraBusqueda />
 
