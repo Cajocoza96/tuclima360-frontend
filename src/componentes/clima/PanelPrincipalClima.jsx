@@ -167,7 +167,7 @@ export default function PanelPrincipalClima() {
                                     </div>
                                     <CarruselHoraDiaClima />
 
-                                    <div className="w-full h-full">
+                                    <div className="w-full h-full flex flex-col items-center justify-center gap-1">
                                         <p className="text-base text-white text-center
                                                         md:text-xl 2xl:text-4xl">
                                             Precipitations

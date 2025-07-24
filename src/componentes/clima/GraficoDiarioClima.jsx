@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -53,117 +53,164 @@ const GraficoBarras = ({ probabilidadMax, probabilidadMin, esNieveBoolean, index
     const canvasRef = useRef(null);
     const chartRef = useRef(null);
     const containerRef = useRef(null);
+    const resizeObserverRef = useRef(null);
+
+    // Función para redimensionar el gráfico
+    const resizeChart = useCallback(() => {
+        if (chartRef.current && containerRef.current) {
+            try {
+                chartRef.current.resize();
+            } catch (error) {
+                console.warn('Error resizing chart:', error);
+            }
+        }
+    }, []);
+
+    // Función para crear el gráfico
+    const createChart = useCallback(() => {
+        try {
+            // Verificar que el canvas y el contenedor existan
+            if (!canvasRef.current || !containerRef.current) return;
+
+            // Destruir el gráfico anterior si existe
+            if (chartRef.current) {
+                chartRef.current.destroy();
+                chartRef.current = null;
+            }
+
+            const ctx = canvasRef.current.getContext('2d');
+            if (!ctx) return;
+
+            // Configurar los datos para el gráfico
+            const data = {
+                labels: ['Max', 'Min'],
+                datasets: [{
+                    data: [probabilidadMax || 0, probabilidadMin || 0],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.8)', // Azul para Max
+                        'rgba(147, 197, 253, 0.8)'  // Azul claro para Min
+                    ],
+                    borderColor: [
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(147, 197, 253, 1)'
+                    ],
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                }]
+            };
+
+            const options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false // Deshabilitar tooltips
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            color: '#ffffff',
+                            font: {
+                                size: 10
+                            },
+                            callback: function (value) {
+                                return value + '%';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)',
+                            drawBorder: false
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#ffffff',
+                            font: {
+                                size: 10
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                animation: {
+                    duration: 800,
+                    easing: 'easeOutQuart'
+                },
+                // Agregar padding superior para dar espacio a los valores
+                layout: {
+                    padding: {
+                        top: 20
+                    }
+                }
+            };
+
+            // Crear el nuevo gráfico con el plugin personalizado
+            chartRef.current = new Chart.Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options,
+                plugins: [pluginValoresArriba] // Agregar el plugin personalizado
+            });
+
+        } catch (error) {
+            console.warn('Error creating chart:', error);
+        }
+    }, [probabilidadMax, probabilidadMin, esNieveBoolean]);
 
     useEffect(() => {
         let timeoutId;
 
-        const createChart = () => {
-            try {
-                // Verificar que el canvas y el contenedor existan
-                if (!canvasRef.current || !containerRef.current) return;
+        // Crear el gráfico con un pequeño delay
+        timeoutId = setTimeout(createChart, 100);
 
-                // Destruir el gráfico anterior si existe
-                if (chartRef.current) {
-                    chartRef.current.destroy();
-                    chartRef.current = null;
-                }
+        // Configurar ResizeObserver para detectar cambios de tamaño
+        if (containerRef.current && 'ResizeObserver' in window) {
+            resizeObserverRef.current = new ResizeObserver((entries) => {
+                // Debounce para evitar múltiples llamadas
+                setTimeout(resizeChart, 50);
+            });
+            resizeObserverRef.current.observe(containerRef.current);
+        }
 
-                const ctx = canvasRef.current.getContext('2d');
-                if (!ctx) return;
-
-                // Configurar los datos para el gráfico
-                const data = {
-                    labels: ['Max', 'Min'],
-                    datasets: [{
-                        data: [probabilidadMax || 0, probabilidadMin || 0],
-                        backgroundColor: [
-                            'rgba(59, 130, 246, 0.8)', // Azul para Max
-                            'rgba(147, 197, 253, 0.8)'  // Azul claro para Min
-                        ],
-                        borderColor: [
-                            'rgba(59, 130, 246, 1)',
-                            'rgba(147, 197, 253, 1)'
-                        ],
-                        borderWidth: 1,
-                        borderRadius: 4,
-                        borderSkipped: false,
-                    }]
-                };
-
-                const options = {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: false // Deshabilitar tooltips
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: {
-                                color: '#ffffff',
-                                font: {
-                                    size: 10
-                                },
-                                callback: function (value) {
-                                    return value + '%';
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)',
-                                drawBorder: false
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#ffffff',
-                                font: {
-                                    size: 10
-                                }
-                            },
-                            grid: {
-                                display: false
-                            }
-                        }
-                    },
-                    animation: {
-                        duration: 800,
-                        easing: 'easeOutQuart'
-                    },
-                    // Agregar padding superior para dar espacio a los valores
-                    layout: {
-                        padding: {
-                            top: 20
-                        }
-                    }
-                };
-
-                // Crear el nuevo gráfico con el plugin personalizado
-                chartRef.current = new Chart.Chart(ctx, {
-                    type: 'bar',
-                    data: data,
-                    options: options,
-                    plugins: [pluginValoresArriba] // Agregar el plugin personalizado
-                });
-
-            } catch (error) {
-                console.warn('Error creating chart:', error);
-            }
+        // Listener para cambios de orientación
+        const handleOrientationChange = () => {
+            // Esperar a que la orientación se complete
+            setTimeout(() => {
+                resizeChart();
+            }, 250);
         };
 
-        // Usar setTimeout para evitar conflictos con el renderizado
-        timeoutId = setTimeout(createChart, 100);
+        // Listener para redimensionamiento de ventana
+        const handleResize = () => {
+            setTimeout(resizeChart, 100);
+        };
+
+        // Agregar event listeners
+        window.addEventListener('orientationchange', handleOrientationChange);
+        window.addEventListener('resize', handleResize);
 
         // Cleanup function
         return () => {
             if (timeoutId) {
                 clearTimeout(timeoutId);
             }
+            
+            if (resizeObserverRef.current) {
+                resizeObserverRef.current.disconnect();
+            }
+            
+            window.removeEventListener('orientationchange', handleOrientationChange);
+            window.removeEventListener('resize', handleResize);
+            
             if (chartRef.current) {
                 try {
                     chartRef.current.destroy();
@@ -173,7 +220,7 @@ const GraficoBarras = ({ probabilidadMax, probabilidadMin, esNieveBoolean, index
                 }
             }
         };
-    }, [probabilidadMax, probabilidadMin, esNieveBoolean, index]);
+    }, [createChart, resizeChart]);
 
     return (
         <div ref={containerRef} className="w-full h-24 sm:h-28 lg:h-32 2xl:h-36 relative">
@@ -192,6 +239,7 @@ export default function GraficoDiarioClima() {
         obtenerTemperaturaMinConvertida } = useContext(ClimaContext);
 
     const { encendidoTemperaturaModo } = useFonVivoFormHoraTemp();
+    const swiperRef = useRef(null);
 
     // Esperar a que los datos estén disponibles para evitar parpadeo
     if (!clima || !pronosticoDiario) {
@@ -217,9 +265,29 @@ export default function GraficoDiarioClima() {
 
     const dias = obtenerDiasConNombre();
 
+    // Efecto para manejar cambios de orientación en el Swiper
+    useEffect(() => {
+        const handleOrientationChange = () => {
+            setTimeout(() => {
+                if (swiperRef.current && swiperRef.current.swiper) {
+                    swiperRef.current.swiper.update();
+                }
+            }, 300);
+        };
+
+        window.addEventListener('orientationchange', handleOrientationChange);
+        window.addEventListener('resize', handleOrientationChange);
+
+        return () => {
+            window.removeEventListener('orientationchange', handleOrientationChange);
+            window.removeEventListener('resize', handleOrientationChange);
+        };
+    }, []);
+
     return (
         <div className="w-full flex flex-col gap-4 z-30">
             <Swiper
+                ref={swiperRef}
                 modules={[Pagination]}
                 pagination={{
                     clickable: true,
@@ -235,7 +303,7 @@ export default function GraficoDiarioClima() {
                     const esNieveBoolean = esNieve(dia.weathercode);
 
                     return (
-                        <SwiperSlide className="" key={index}>
+                        <SwiperSlide className="" key={`${dia.fecha}-${index}`}>
                             <div className="flex flex-col items-center justify-center gap-3">
 
                                 {/* Indicador del tipo de precipitación */}
