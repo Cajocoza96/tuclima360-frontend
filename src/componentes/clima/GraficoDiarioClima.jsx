@@ -19,6 +19,35 @@ const esNieve = (codigo) => {
     return codigosNieve.includes(codigo);
 };
 
+// Plugin personalizado para mostrar valores arriba de las barras
+const pluginValoresArriba = {
+    id: 'valoresArriba',
+    afterDatasetsDraw: (chart) => {
+        const { ctx, data, scales: { x, y } } = chart;
+
+        ctx.save();
+        ctx.font = 'bold 11px Arial';
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+
+        data.datasets.forEach((dataset, datasetIndex) => {
+            chart.getDatasetMeta(datasetIndex).data.forEach((bar, index) => {
+                const value = dataset.data[index];
+                if (value >= 0) {
+                    const barTop = bar.y;
+                    const barX = bar.x;
+
+                    // Mostrar el valor con símbolo de porcentaje
+                    ctx.fillText(`${value}%`, barX, barTop - 4);
+                }
+            });
+        });
+
+        ctx.restore();
+    }
+};
+
 // Componente para el gráfico de barras individual
 const GraficoBarras = ({ probabilidadMax, probabilidadMin, esNieveBoolean, index }) => {
     const canvasRef = useRef(null);
@@ -81,7 +110,7 @@ const GraficoBarras = ({ probabilidadMax, probabilidadMin, esNieveBoolean, index
                                 font: {
                                     size: 10
                                 },
-                                callback: function(value) {
+                                callback: function (value) {
                                     return value + '%';
                                 }
                             },
@@ -105,14 +134,21 @@ const GraficoBarras = ({ probabilidadMax, probabilidadMin, esNieveBoolean, index
                     animation: {
                         duration: 800,
                         easing: 'easeOutQuart'
+                    },
+                    // Agregar padding superior para dar espacio a los valores
+                    layout: {
+                        padding: {
+                            top: 20
+                        }
                     }
                 };
 
-                // Crear el nuevo gráfico
+                // Crear el nuevo gráfico con el plugin personalizado
                 chartRef.current = new Chart.Chart(ctx, {
                     type: 'bar',
                     data: data,
-                    options: options
+                    options: options,
+                    plugins: [pluginValoresArriba] // Agregar el plugin personalizado
                 });
 
             } catch (error) {
@@ -141,8 +177,8 @@ const GraficoBarras = ({ probabilidadMax, probabilidadMin, esNieveBoolean, index
 
     return (
         <div ref={containerRef} className="w-full h-24 sm:h-28 lg:h-32 2xl:h-36 relative">
-            <canvas 
-                ref={canvasRef} 
+            <canvas
+                ref={canvasRef}
                 className="w-full h-full"
                 key={`chart-${index}-${probabilidadMax}-${probabilidadMin}`}
             />
@@ -201,7 +237,7 @@ export default function GraficoDiarioClima() {
                     return (
                         <SwiperSlide className="" key={index}>
                             <div className="flex flex-col items-center justify-center gap-3">
-                                
+
                                 {/* Indicador del tipo de precipitación */}
                                 <div className="flex flex-row items-center gap-2">
                                     {esNieveBoolean ? (
@@ -217,7 +253,7 @@ export default function GraficoDiarioClima() {
                                 {/* Gráfico de barras */}
                                 {(probabilidadMax >= 0 && probabilidadMin >= 0) && (
                                     <div className="w-full px-1">
-                                        <GraficoBarras 
+                                        <GraficoBarras
                                             probabilidadMax={probabilidadMax}
                                             probabilidadMin={probabilidadMin}
                                             esNieveBoolean={esNieveBoolean}
@@ -225,14 +261,6 @@ export default function GraficoDiarioClima() {
                                         />
                                     </div>
                                 )}
-
-                                {/* Valores numéricos debajo del gráfico */}
-                                <div className="flex flex-col gap-1 items-center">
-                                    <div className="flex flex-row gap-3 text-xs sm:text-sm lg:text-base text-white">
-                                        <span>Max: {probabilidadMax}%</span>
-                                        <span>Min: {probabilidadMin}%</span>
-                                    </div>
-                                </div>
 
                                 {/* Fecha y día */}
                                 <div className="flex flex-col gap-1 items-center justify-center">
