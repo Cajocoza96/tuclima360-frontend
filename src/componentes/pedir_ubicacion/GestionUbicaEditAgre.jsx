@@ -9,15 +9,12 @@ import { Link } from "react-router-dom";
 import { useVariasUbicaciones } from "../../context/VariasUbicacionesContext";
 import useConexionInternet from "../../hooks/useConexionInternet";
 import InfoEstadoCargaConexion from "../../data/InfoEstadoCargaConexion.json";
-import useIsMobile from "../../hooks/useIsMobile";
 
 const MotionBoton = motion.create(BotonAccion);
 
 export default function GestionUbicaEditAgre() {
     const [modoEdicion, setModoEdicion] = useState(false);
     const { ubicaciones } = useVariasUbicaciones();
-
-    const isMobile = useIsMobile();
 
     const manejarEditar = () => {
         setModoEdicion(true);
@@ -38,9 +35,10 @@ export default function GestionUbicaEditAgre() {
         <div className="bg-blue-950 dark:bg-gray-800 mx-auto min-h-[100svh]">
 
             <div className="w-full mx-auto min-h-[100svh]
-                                flex flex-col items-center relative justify-between">
+                                flex flex-col items-center justify-between"
+                style={{ maxHeight: '100vh' }}>
 
-                <div className="w-full mx-auto flex flex-col items-center justify-center gap-2">
+                <div className="w-full mx-auto flex flex-col items-center justify-center gap-2 flex-shrink-0">
 
                     <ValorValorValor
 
@@ -65,26 +63,27 @@ export default function GestionUbicaEditAgre() {
 
                     </div>
 
-                    <div className="w-[95%] h-100 xs:h-120 xs2:h-140
-                                2xs:h-43 md:h-50 lg:h-100 2xl:h-190 
-                                overflow-y-auto overflow-x-hidden rounded-md">
+                </div>
 
-                        <div className="mx-auto w-full overflow-hidden
-                                            flex flex-col items-center">
-                            <ClimasUbicados
-                                iconoEliminar={modoEdicion ? <HiTrash /> : null}
-                                modoEdicion={modoEdicion}
-                            />
-                        </div>
+                <div className="w-[95%] overflow-y-auto overflow-x-hidden rounded-md 
+                                my-2"
+                    style={{
+                        maxHeight: 'calc(100svh - 150px)',
+                        minHeight: '20px'
+                    }}>
 
+                    <div className="mx-auto w-full  overflow-hidden 
+                                        flex flex-col items-center">
+                        <ClimasUbicados
+                            iconoEliminar={modoEdicion ? <HiTrash /> : null}
+                            modoEdicion={modoEdicion}
+                        />
                     </div>
 
                 </div>
 
-                <div className={`${isMobile ? 'fixed bottom-0 left-1/2 transform -translate-x-1/2' : 'static'} 
-                                mt-1 mb-3 lg:mb-4 w-[90%]
-                                grid gap-4 overflow-hidden
-                                xss:z-50`}
+                <div className="flex-shrink-0 w-[90%] mb-4
+                                grid gap-4 overflow-hidden"
                     style={{
                         gridTemplateColumns: modoEdicion || !mostrarBotonEditar ? '1fr' : '1fr 1fr'
                     }}>
@@ -97,7 +96,7 @@ export default function GestionUbicaEditAgre() {
                                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                                     nombre="Edit"
                                     onClick={manejarEditar}
-                                    className="p-1 w-full
+                                    className="p-1 w-full 
                                 border border-gray-300  dark:border-gray-800
                                 bg-gray-300 dark:bg-gray-950
                                 active:bg-gray-100 dark:active:bg-gray-600

@@ -84,9 +84,9 @@ export default function AnimacionBienvenida() {
 
                     <motion.div
                         className="w-[45%] h-auto overflow-hidden 
-                                            xss:w-[55%]
-                                            xs4:w-[28%]
-                                            2xs:w-[28%] sm:w-[33%] 
+                                            xss:w-[54%]
+                                            xs4:w-[27%]
+                                            2xs:w-[27%] sm:w-[32%] 
                                             md:w-[33%] lg:w-[33%] 
                                             xl:w-[33%] 2xl:w-[38%]
                                             flex flex-col items-center justify-center"
@@ -101,9 +101,9 @@ export default function AnimacionBienvenida() {
 
                     <motion.div
                         className="w-[45%] h-auto overflow-hidden 
-                                            xss:w-[55%]
-                                            xs4:w-[28%]
-                                            2xs:w-[28%] sm:w-[33%] 
+                                            xss:w-[54%]
+                                            xs4:w-[27%]
+                                            2xs:w-[27%] sm:w-[32%] 
                                             md:w-[33%] lg:w-[33%] 
                                             xl:w-[33%] 2xl:w-[38%]
                                             flex flex-col items-center justify-center"
