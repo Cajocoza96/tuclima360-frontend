@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 
 // Importar imágenes verticales
 import dayclearVertical from "../assets/img/fondo_estado_tiempo/vertical/dayclear.png";
@@ -50,11 +50,11 @@ import { obtenerDescripcionClima } from "../utils/formato";
 
 const useImagenFondo = () => {
   // Función para determinar si es día o noche
-  const determinarEsDia = (hora24) => {
+  const determinarEsDia = useCallback((hora24) => {
     return hora24 >= 6 && hora24 < 19;
-  };
+  }, []);
 
-  // Mapeo de imágenes verticales
+  // Mapeo de imágenes verticales - Memoizado para evitar recreaciones
   const imagenesVerticales = useMemo(() => ({
     // Clear sky
     0: { dia: dayclearVertical, noche: nightclearVertical },
@@ -97,7 +97,7 @@ const useImagenFondo = () => {
     99: thunderstormVertical
   }), []);
 
-  // Mapeo de imágenes horizontales
+  // Mapeo de imágenes horizontales - Memoizado para evitar recreaciones
   const imagenesHorizontales = useMemo(() => ({
     // Clear sky
     0: { dia: dayclearHorizontal, noche: nightclearHorizontal },
@@ -140,11 +140,11 @@ const useImagenFondo = () => {
     99: thunderstormHorizontal
   }), []);
 
-  // Función principal para obtener imagen de fondo
-  const obtenerImagenFondo = (codigoClima, hora24, isMobile, debug = false) => {
-
+  // Función principal para obtener imagen de fondo - Memoizada con useCallback
+  const obtenerImagenFondo = useCallback((codigoClima, hora24, isMobile, debug = false) => {
     // Validar datos requeridos
     if (codigoClima === null || codigoClima === undefined || hora24 === null || hora24 === undefined) {
+      if (debug) console.log('Datos faltantes para imagen de fondo:', { codigoClima, hora24 });
       return null;
     }
 
@@ -155,21 +155,34 @@ const useImagenFondo = () => {
     const imagenData = imagenesMapeo[codigoClima];
     
     if (!imagenData) {
+      if (debug) console.log('No se encontró imagen para código:', codigoClima);
       return null;
     }
 
     // Para thunderstorm que no tiene jornada específica
     if (typeof imagenData === 'string') {
+      if (debug) console.log('Imagen thunderstorm seleccionada:', imagenData);
       return imagenData;
     }
 
     // Para imágenes con jornada específica
     const imagenSeleccionada = esDia ? imagenData.dia : imagenData.noche;
+    
+    if (debug) {
+      console.log('Imagen seleccionada:', {
+        codigoClima,
+        hora24,
+        esDia,
+        isMobile,
+        imagenSeleccionada
+      });
+    }
+    
     return imagenSeleccionada;
-  };
+  }, [determinarEsDia, imagenesVerticales, imagenesHorizontales]);
 
-  // Función para obtener el estilo de fondo
-  const obtenerEstiloFondo = (encendido, imagenFondo) => {
+  // Función para obtener el estilo de fondo - Memoizada con useCallback
+  const obtenerEstiloFondo = useCallback((encendido, imagenFondo) => {
     if (!encendido || !imagenFondo) {
       return {};
     }
@@ -178,9 +191,11 @@ const useImagenFondo = () => {
       backgroundImage: `url(${imagenFondo})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
+      backgroundRepeat: 'no-repeat',
+      // Agregar will-change para optimizar el rendering
+      willChange: 'background-image'
     };
-  };
+  }, []);
 
   return {
     obtenerImagenFondo,

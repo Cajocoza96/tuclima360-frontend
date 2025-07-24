@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import CabeceraCiudadClima from "./CabeceraCiudadClima";
 import CarruselHoraDiaClima from "./CarruselHoraDiaClima";
 import ClimCentEstadFechaActual from "./ClimCentEstadFechaActual";
@@ -25,7 +25,7 @@ export default function PanelPrincipalClima() {
     const { hora24, cargandoFechaHora, datosIniciales } = useContext(FechaHoraContext);
     const { encendidoFondoVivo } = useFonVivoFormHoraTemp();
     const isMobile = useIsMobile();
-    const { obtenerImagenFondo, obtenerEstiloFondo } = useImagenFondo();
+    const { obtenerImagenFondo } = useImagenFondo();
     const { isOnline, wasOffline, justReconnected, timeOffline, resetReconnectionState } = useConexionInternet();
 
     const [mostrarUbicacion, setMostrarUbicacion] = useState(false);
@@ -37,11 +37,37 @@ export default function PanelPrincipalClima() {
     const mensajeSinConexion = InfoEstadoCargaConexion.conexion.sinConexion;
     const mensajeConConexion = InfoEstadoCargaConexion.conexion.conConexion;
 
-    // Obtener la imagen de fondo actual usando el hook
-    const imagenFondo = encendidoFondoVivo && clima ?
-        obtenerImagenFondo(clima.codigoClima, hora24, isMobile, true) : null;
+    // Memoizar la imagen de fondo para evitar recálculos innecesarios
+    const imagenFondo = useMemo(() => {
+        if (!encendidoFondoVivo || !clima || hora24 === null || hora24 === undefined) {
+            return null;
+        }
+        return obtenerImagenFondo(clima.codigoClima, hora24, isMobile, true);
+    }, [encendidoFondoVivo, clima, hora24, isMobile, obtenerImagenFondo]);
 
-    const estiloFondo = obtenerEstiloFondo(encendidoFondoVivo, imagenFondo);
+    // Memoizar el estilo de fondo para evitar recreaciones
+    const estiloFondo = useMemo(() => {
+        if (!encendidoFondoVivo || !imagenFondo) {
+            return {};
+        }
+        return {
+            backgroundImage: `url(${imagenFondo})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+        };
+    }, [encendidoFondoVivo, imagenFondo]);
+
+    // Memoizar las clases CSS del fondo para evitar cambios innecesarios
+    const clasesFondo = useMemo(() => {
+        const clasesBase = 'fixed w-screen h-[100svh] inset-0 bg-blue-500 dark:bg-black';
+        
+        if (!encendidoFondoVivo || !imagenFondo) {
+            return `${clasesBase} brightness-60 dark:brightness-50`;
+        }
+        
+        return `${clasesBase} brightness-60 dark:brightness-50`;
+    }, [encendidoFondoVivo, imagenFondo]);
 
     const estaCargando = cargandoBusquedaCiudad || cargandoClima || cargandoFechaHora;
     const datosCompletos = ciudadSeleccionada &&
@@ -115,17 +141,16 @@ export default function PanelPrincipalClima() {
 
     return (
         <>
+            {/* Div de fondo con key para forzar re-render cuando cambie la orientación */}
             <div
-                className={`${!encendidoFondoVivo || !imagenFondo ? 'fixed w-screen h-[100svh] inset-0 brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black' : 'fixed w-screen h-[100svh] inset-0 brightness-40 dark:brightness-30 bg-blue-500 dark:bg-black'}`}
+                key={`fondo-${isMobile}-${encendidoFondoVivo}-${imagenFondo ? 'con-imagen' : 'sin-imagen'}`}
+                className={clasesFondo}
                 style={estiloFondo}
-            >
-            </div>
-
+            />
 
             {datosCompletos && (
                 <ConexionSinConexion />
             )}
-
 
             <div className={`min-h-[100svh] max-h-[100svh] flex flex-col 
                         items-center justify-start relative py-4 ${mostrarUbicacion ? 'overflow-hidden touch-none overscroll-none' : 'overflow-y-auto'}`}>
