@@ -12,10 +12,12 @@ import { ClimaContext } from "../../context/ClimaContext";
 import { FechaHoraContext } from "../../context/FechaHoraContext";
 import { useFonVivoFormHoraTemp } from "../../context/FonVivoFormHoraTempContext";
 import useIsMobile from "../../hooks/useIsMobile";
-import useImagenFondo from "../../hooks/useImagenFondo"; 
+import useImagenFondo from "../../hooks/useImagenFondo";
 import useConexionInternet from "../../hooks/useConexionInternet";
 
 import ConexionSinConexion from "../conexion_sin_conexion/ConexionSinConexion";
+
+import GraficoDiarioClima from "./GraficoDiarioClima";
 
 export default function PanelPrincipalClima() {
     const { ciudadSeleccionada, obtenerCoordenadas, cargandoBusquedaCiudad } = useContext(BusquedaContext);
@@ -23,7 +25,7 @@ export default function PanelPrincipalClima() {
     const { hora24, cargandoFechaHora, datosIniciales } = useContext(FechaHoraContext);
     const { encendidoFondoVivo } = useFonVivoFormHoraTemp();
     const isMobile = useIsMobile();
-    const { obtenerImagenFondo, obtenerEstiloFondo } = useImagenFondo(); 
+    const { obtenerImagenFondo, obtenerEstiloFondo } = useImagenFondo();
     const { isOnline, wasOffline, justReconnected, timeOffline, resetReconnectionState } = useConexionInternet();
 
     const [mostrarUbicacion, setMostrarUbicacion] = useState(false);
@@ -75,15 +77,15 @@ export default function PanelPrincipalClima() {
         if (justReconnected && !datosCompletos) {
             setMostrarMensajeConConexion(true);
             setMostrarMensajeSinConexion(false);
-            
+
             // Determinar tiempo de espera basado en cuánto tiempo estuvo offline
             const tiempoEspera = timeOffline > 30 ? 3000 : 2000; // 3 segundos si estuvo offline más de 30 segundos
-            
+
             // Mostrar mensaje de reconexión por el tiempo determinado
             const timeoutId = setTimeout(() => {
                 setMostrarMensajeConConexion(false);
                 setReintentoAutomatico(true);
-                
+
                 // Pequeño delay adicional para asegurar que el estado se actualice
                 setTimeout(() => {
                     recargarDatos();
@@ -119,12 +121,12 @@ export default function PanelPrincipalClima() {
             >
             </div>
 
-            
-            { datosCompletos && (
+
+            {datosCompletos && (
                 <ConexionSinConexion />
             )}
-            
-            
+
+
             <div className={`min-h-[100svh] max-h-[100svh] flex flex-col 
                         items-center justify-start relative py-4 ${mostrarUbicacion ? 'overflow-hidden touch-none overscroll-none' : 'overflow-y-auto'}`}>
 
@@ -164,6 +166,14 @@ export default function PanelPrincipalClima() {
                                         <ClimCentEstadFechaActual />
                                     </div>
                                     <CarruselHoraDiaClima />
+
+                                    <div className="w-full h-full">
+                                        <p className="text-base text-white text-center
+                                                        md:text-xl 2xl:text-4xl">
+                                            Precipitations
+                                        </p>
+                                        <GraficoDiarioClima />
+                                    </div>
                                 </div>
                             )}
                         </>

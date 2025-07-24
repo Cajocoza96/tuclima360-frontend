@@ -59,8 +59,6 @@ export default function CarruselHoraDiaClima() {
         return null;
     }
 
-    const diasSemana = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
     const obtenerDiasConNombre = () => {
         return pronosticoDiario.map((item, index) => {
             const fechaConZona = DateTime.fromISO(item.fecha, { zone: clima?.zonaHoraria || "UTC" });
