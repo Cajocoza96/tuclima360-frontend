@@ -73,7 +73,7 @@ function IconoDarkMode2() {
                 <div className="cursor-pointer">
                     <p className="text-base md:text-xl lg:text-xl xl:text-xl 2xl:text-3xl 
                             text-black dark:text-gray-300">
-                        Color Scheme
+                        Color scheme
                     </p>
 
                     <div className="text-xs md:text-base lg:text-base xl:text-base 2xl:text-2xl 

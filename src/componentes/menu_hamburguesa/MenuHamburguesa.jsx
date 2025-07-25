@@ -84,7 +84,8 @@ export default function MenuHamburguesa({ className = "" }) {
         const labelUsuario = tipoUsuario === "guest" ?
             (
                 <div className="flex flex-row items-center gap-2 2xl:gap-3 w-fit">
-                    <HiUserCircle className="xss:text-xs 2xs:text-base md:text-xl 2xl:text-3xl 
+                    <HiUserCircle className="text-base md:text-xl lg:text-xl 
+                                            xl:text-xl 2xl:text-3xl
                                     text-black dark:text-gray-300"/>
                     <p className="text-black dark:text-gray-300">{capitalizedNombreUsuario}</p>
                 </div>
@@ -100,8 +101,8 @@ export default function MenuHamburguesa({ className = "" }) {
 
         if (isRootPathInicio) {
             menuItems.push(
-                { id: "addweather", label: "Add Weather", path: "/add-city-weather" },
-                { id: "managelocation", label: "Manage Location", path: "/manage-location" }
+                { id: "addweather", label: "Add weather", path: "/add-city-weather" },
+                { id: "managelocation", label: "Manage location", path: "/manage-location" }
             );
 
             // Solo mostrar "Delete All Weathers" si hay ubicaciones disponibles
@@ -110,9 +111,9 @@ export default function MenuHamburguesa({ className = "" }) {
                     id: "deleteAllweathers",
                     label: (
                         <div style={{ display: "flex", flexDirection: "column", lineHeight: "1.2" }}>
-                            <span className="text-red-700">Delete All Weathers</span>
+                            <span className="text-red-700">Delete all weathers</span>
                             <span className="text-red-700">
-                                (Fixes Redirect With Wrong Default Location)
+                                (Fixes redirect with wrong default location)
                             </span>
                         </div>
                     ),
@@ -124,8 +125,8 @@ export default function MenuHamburguesa({ className = "" }) {
 
         if (isRootPathInicio) {
             menuItems.push(
-                { id: "termsofservice", label: "Terms Of Service", path: "/terms-of-service" },
-                { id: "privacypolicy", label: "Privacy Policy", path: "/privacy-policy" }
+                { id: "termsofservice", label: "Terms of service", path: "/terms-of-service" },
+                { id: "privacypolicy", label: "Privacy policy", path: "/privacy-policy" }
             );
         }
         menuItems.push(
@@ -133,7 +134,7 @@ export default function MenuHamburguesa({ className = "" }) {
                 id: "known-issues",
                 label: (
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "4px"}}>
-                        <p className="text-red-700">Known Issues</p>
+                        <p className="text-red-700">Known issues</p>
                         <HiExclamationCircle className="xss:text-xs 2xs:text-base 
                                                         md:text-xl 2xl:text-3xl 
                                                         text-black dark:text-gray-300"/>
@@ -148,7 +149,7 @@ export default function MenuHamburguesa({ className = "" }) {
 
     } else {
         menuItems.push(
-            { id: "noseccion", label: "Please, To Access All Menu Features, Please Log In." }
+            { id: "noseccion", label: "Please, to access all menu features, please log in." }
         );
     }
 
@@ -218,7 +219,7 @@ export default function MenuHamburguesa({ className = "" }) {
                                         animate="visible"
                                         exit="hidden"
                                         variants={itemVariants}
-                                        className="capitalize text-base md:text-xl lg:text-xl xl:text-xl 2xl:text-3xl 
+                                        className=" text-base md:text-xl lg:text-xl xl:text-xl 2xl:text-3xl 
                                             text-black dark:text-gray-300 hover:text-blue-500 w-fit"
                                     >
 

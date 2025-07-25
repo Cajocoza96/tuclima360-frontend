@@ -18,7 +18,7 @@ export default function CerrarSesion() {
                 <HiLogout className="text-red-500" />
 
                 <p className="text-red-500">
-                    Sign Out
+                    Sign-out
                 </p>
             </div>
         </div>

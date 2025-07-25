@@ -16,7 +16,7 @@ export default function IconoFormatoHoras() {
                 <div className="flex flex-col items-center">
                     <p className="text-base md:text-xl lg:text-xl xl:text-xl 2xl:text-3xl 
                             text-black dark:text-gray-300">
-                        24 Hours Format
+                        Hours-format
                     </p>
 
                     {encendidoFormatoHora ? (

@@ -16,7 +16,7 @@ export default function IconoFondoVivo() {
 
                 <p className="text-base md:text-xl lg:text-xl xl:text-xl 2xl:text-3xl 
                             text-black dark:text-gray-300">
-                    Live Background
+                    Live background
                 </p>
             </div>
 
