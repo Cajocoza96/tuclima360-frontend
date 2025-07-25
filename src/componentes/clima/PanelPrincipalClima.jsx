@@ -61,11 +61,11 @@ export default function PanelPrincipalClima() {
     // Memoizar las clases CSS del fondo para evitar cambios innecesarios
     const clasesFondo = useMemo(() => {
         const clasesBase = 'fixed w-screen h-[100svh] inset-0 bg-blue-500 dark:bg-black';
-        
+
         if (!encendidoFondoVivo || !imagenFondo) {
             return `${clasesBase} brightness-60 dark:brightness-50`;
         }
-        
+
         return `${clasesBase} brightness-60 dark:brightness-50`;
     }, [encendidoFondoVivo, imagenFondo]);
 
@@ -191,14 +191,8 @@ export default function PanelPrincipalClima() {
                                         <ClimCentEstadFechaActual />
                                     </div>
                                     <CarruselHoraDiaClima />
-
-                                    <div className="w-full h-full flex flex-col items-center justify-center gap-1">
-                                        <p className="text-base text-white text-center
-                                                        md:text-xl 2xl:text-4xl">
-                                            Precipitations
-                                        </p>
-                                        <GraficoDiarioClima />
-                                    </div>
+                                    
+                                    <GraficoDiarioClima />
                                 </div>
                             )}
                         </>

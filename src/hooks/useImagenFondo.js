@@ -139,10 +139,9 @@ const useImagenFondo = () => {
   }), []);
 
   // Función principal para obtener imagen de fondo - Memoizada con useCallback
-  const obtenerImagenFondo = useCallback((codigoClima, hora24, isMobile, debug = false) => {
+  const obtenerImagenFondo = useCallback((codigoClima, hora24, isMobile) => {
     // Validar datos requeridos
     if (codigoClima === null || codigoClima === undefined || hora24 === null || hora24 === undefined) {
-      if (debug) console.log('Datos faltantes para imagen de fondo:', { codigoClima, hora24 });
       return null;
     }
 
@@ -153,29 +152,16 @@ const useImagenFondo = () => {
     const imagenData = imagenesMapeo[codigoClima];
     
     if (!imagenData) {
-      if (debug) console.log('No se encontró imagen para código:', codigoClima);
       return null;
     }
 
     // Para thunderstorm que no tiene jornada específica
     if (typeof imagenData === 'string') {
-      if (debug) console.log('Imagen thunderstorm seleccionada:', imagenData);
       return imagenData;
     }
 
     // Para imágenes con jornada específica
     const imagenSeleccionada = esDia ? imagenData.dia : imagenData.noche;
-    
-    if (debug) {
-      console.log('Imagen seleccionada:', {
-        codigoClima,
-        hora24,
-        esDia,
-        isMobile,
-        imagenSeleccionada
-      });
-    }
-    
     return imagenSeleccionada;
   }, [determinarEsDia, imagenesVerticales, imagenesHorizontales]);
 
