@@ -507,7 +507,7 @@ export default function GraficoDiarioClima() {
 
     return (
         <div className="w-full flex flex-col gap-4 z-30">
-            <div className="w-full flex flex-col items-center justify-center gap-1">
+            <div className="bg-black/40 w-full flex flex-col items-center justify-center gap-1">
                 <p className="text-white text-base md:text-xl 2xl:text-4xl font-bold text-center">
                     Precipitations
                 </p>
@@ -578,7 +578,7 @@ export default function GraficoDiarioClima() {
 
 
 
-            <div className="w-full flex flex-col items-center justify-center gap-1">
+            <div className="bg-black/40 w-full flex flex-col items-center justify-center gap-1">
                 <p className="text-white text-base md:text-xl 2xl:text-4xl font-bold text-center">
                     Temperatures
                 </p>
