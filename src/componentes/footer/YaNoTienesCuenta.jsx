@@ -48,9 +48,11 @@ export default function YaNoTienesCuenta({ footerInfoCuenta, footerAccion, foote
                 initial={{ x: 0, opacity: 1 }}
             >
                 {footerInfoCuenta} {""}
+                <span translate="no"></span>
                 <span className="text-red-600 cursor-pointer" onClick={handleVisibleClick}>
                     {footerAccion}
                 </span>
+                <span translate="no"></span>
                 <span 
                     ref={hiddenSpanRef}
                     className="text-red-600 cursor-pointer absolute top-0 left-0 w-full h-full opacity-0 pointer-events-auto"
