@@ -44,7 +44,7 @@ export default function AnimacionBienvenida() {
     };
 
     const backgroundClasses = encendidoFondoVivo
-        ? "fixed w-screen h-[100svh]  inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50"
+        ? "fixed w-screen h-[100svh]  inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black"
         : "fixed w-screen h-[100svh]  inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black";
 
     const backgroundStyle = encendidoFondoVivo
