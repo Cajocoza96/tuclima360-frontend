@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import useIsMobile from "../../hooks/useIsMobile";
-import pedirUbiVistaVertical from "../../assets/img/pedir_ubicacion/pedirUbiVistaVertical.png";
-import pedirUbiVistaHorizontal from "../../assets/img/pedir_ubicacion/pedirUbiVistaHorizontal.png";
+import pedirUbiVistaVertical from "/assets/img/pedir_ubicacion/pedirUbiVistaVertical.webp";
+import pedirUbiVistaHorizontal from "/assets/img/pedir_ubicacion/pedirUbiVistaHorizontal.webp";
 import Lottie from "lottie-react";
 import iconoUbicacion from "../../assets/animaciones/lottie_animation/ubicacion/iconoUbicacion.json";
 import infoTarjetaClima from "../../data/infoTarjetaClima.json";

@@ -9,8 +9,8 @@ import MenuHamburguesa from "../menu_hamburguesa/MenuHamburguesa";
 import { useAuth } from "../../context/AuthContext";
 
 import useIsMobile from "../../hooks/useIsMobile";
-import bienvenidaVistaVertical from "/assets/img/bienvenida/bienvenidaVistaVertical.png";
-import bienvenidaVistaHorizontal from "/assets/img/bienvenida/bienvenidaVistaHorizontal.png";
+import bienvenidaVistaVertical from "/assets/img/bienvenida/bienvenidaVistaVertical.webp";
+import bienvenidaVistaHorizontal from "/assets/img/bienvenida/bienvenidaVistaHorizontal.webp";
 
 import ValorValorValor from "../cabecera/ValorValorValor";
 

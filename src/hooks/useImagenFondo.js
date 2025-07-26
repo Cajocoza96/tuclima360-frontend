@@ -6,7 +6,7 @@ const useImagenFondo = () => {
   }, []);
 
   const construirRuta = useCallback((orientacion, nombre) => {
-    return `/assets/img/fondo_estado_tiempo/${orientacion}/${nombre}.png`;
+    return `/assets/img/fondo_estado_tiempo/${orientacion}/${nombre}.webp`;
   }, []);
 
   const imagenesVerticales = useMemo(() => ({
