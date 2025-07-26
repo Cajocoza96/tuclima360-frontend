@@ -9,8 +9,8 @@ import MenuHamburguesa from "../menu_hamburguesa/MenuHamburguesa";
 import { useAuth } from "../../context/AuthContext";
 
 import useIsMobile from "../../hooks/useIsMobile";
-import bienvenidaVistaVertical from "../../assets/img/bienvenida/bienvenidaVistaVertical.png";
-import bienvenidaVistaHorizontal from "../../assets/img/bienvenida/bienvenidaVistaHorizontal.png";
+import bienvenidaVistaVertical from "/assets/img/bienvenida/bienvenidaVistaVertical.png";
+import bienvenidaVistaHorizontal from "/assets/img/bienvenida/bienvenidaVistaHorizontal.png";
 
 import ValorValorValor from "../cabecera/ValorValorValor";
 
@@ -44,8 +44,8 @@ export default function AnimacionBienvenida() {
     };
 
     const backgroundClasses = encendidoFondoVivo
-        ? "fixed w-screen h-[100svh]  inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black"
-        : "fixed w-screen h-[100svh]  inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-blue-500 dark:bg-black";
+        ? "fixed w-screen h-[100svh]  inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-violet-900 dark:bg-black"
+        : "fixed w-screen h-[100svh]  inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-violet-900 dark:bg-black";
 
     const backgroundStyle = encendidoFondoVivo
         ? { backgroundImage: `url(${imgUrl})` }

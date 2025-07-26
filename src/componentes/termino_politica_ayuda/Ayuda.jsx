@@ -11,7 +11,7 @@ export default function Ayuda() {
   const handleToast = () => {
     setShowToast4(true);
     setTimeout(() => setShowToast4(false), 2500);
-}
+  }
 
   const [expandedSection, setExpandedSection] = useState(null);
 
@@ -54,9 +54,9 @@ export default function Ayuda() {
     <div className="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-gray-900">
 
       <ConexionSinConexion />
-      
-      <Toast show4={showToast4} message4="Not available"/>
-      
+
+      <Toast show4={showToast4} message4="Not available" />
+
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <button className="flex items-center px-4 py-2 rounded-lg 
@@ -79,11 +79,11 @@ export default function Ayuda() {
               </div>
             </div>
             <h1 className="capitalize py-2 text-4xl 2xl:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Login Help
+              Login Help
             </h1>
             <h2 className="text-2xl 2xl:text-4xl font-semibold mb-2"><span translate="no">TuClima360</span></h2>
             <p className="text-base 2xl:text-2xl text-gray-600 dark:text-gray-400">
-            Everything you need to know about accessing your account
+              Everything you need to know about accessing your account
             </p>
           </div>
 
@@ -114,7 +114,7 @@ export default function Ayuda() {
               <div className="p-6 rounded-xl bg-gray-50 dark:bg-gray-700">
                 <h4 className="font-semibold text-lg 2xl:text-3xl mb-3">Step 1: Go to Login</h4>
                 <p className="text-gray-600 dark:text-gray-300 mb-3 text-base 2xl:text-2xl">
-                Click "Continue as Guest."
+                  Click "Continue as Guest."
                 </p>
                 <div className="text-base 2xl:text-2xl p-3 rounded-lg bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                   ✅ No registration required
@@ -142,7 +142,7 @@ export default function Ayuda() {
             <div className="p-6 rounded-xl bg-gray-50 dark:bg-gray-700 mb-6">
               <h4 className="font-semibold text-lg 2xl:text-2xl mb-4">What is LocalStorage?</h4>
               <p className="text-gray-600 dark:text-gray-300 mb-4 text-base 2xl:text-2xl">
-              It's a technology that allows your browser to store information locally on your device. It's like a "notebook" that only your browser can read.
+                It's a technology that allows your browser to store information locally on your device. It's like a "notebook" that only your browser can read.
               </p>
 
               <div className="grid md:grid-cols-2 gap-4">
@@ -264,7 +264,7 @@ export default function Ayuda() {
 
             <div className="p-6 rounded-xl bg-purple-50 border-purple-200 dark:bg-purple-900 dark:border-purple-700 border">
               <p className="text-purple-800 dark:text-purple-200 mb-6 text-base 2xl:text-2xl">
-              We're working to implement user account options that will allow you to:
+                We're working to implement user account options that will allow you to:
               </p>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -358,10 +358,10 @@ export default function Ayuda() {
             <h3 className="text-2xl font-semibold mb-6">Need More Help?</h3>
             <div className="p-6 rounded-xl bg-blue-50 border-blue-200 border dark:bg-blue-900 dark:border-blue-700 text-center">
               <p className="text-blue-800 dark:text-blue-200 mb-4 text-base 2xl:text-2xl">
-              If you have any additional questions or technical issues, please don't hesitate to contact us.
+                If you have any additional questions or technical issues, please don't hesitate to contact us.
               </p>
               <button onClick={handleToast} className="text-base 2xl:text-2xl px-6 py-3 rounded-lg font-medium transition-colors bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white cursor-pointer">
-              Contact Support
+                Contact Support
               </button>
             </div>
           </section>

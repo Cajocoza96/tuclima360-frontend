@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import CerrarSesion from "../cerrar_sesion/CerrarSesion";
 import IconoDarkMode2 from "../../assets/iconos/IconoDarkMode2";
-import IconoFondoVivo from "../../assets/iconos/IconoFondoVivo";
+import IconoFondoVivoNotificaciones from "../../assets/iconos/IconoFondoVivoNotificaciones";
 import IconoFormatoHoras from "../../assets/iconos/IconoFormatoHoras";
 import IconoTemperatura from "../../assets/iconos/IconoTemperatura";
 
@@ -36,6 +36,9 @@ export default function MenuHamburguesa({ className = "" }) {
             document.body.style.overflow = "auto";
         }
     }, [isOpen]);
+
+    const fondoVivo = true;
+    const notificacion = true;
 
     const toggleMenu = () => {
         if (menuAnimationComplete) {
@@ -94,7 +97,8 @@ export default function MenuHamburguesa({ className = "" }) {
 
         menuItems.push(
             { id: "darkmode", label: <IconoDarkMode2 /> },
-            { id: "livebackground", label: <IconoFondoVivo /> },
+            { id: "notifications", label: <IconoFondoVivoNotificaciones notificacion={notificacion} /> },
+            { id: "livebackground", label: <IconoFondoVivoNotificaciones fondoVivo={fondoVivo} /> },
             { id: "hourformat", label: <IconoFormatoHoras /> },
             { id: "temperaturamode", label: <IconoTemperatura /> },
         );

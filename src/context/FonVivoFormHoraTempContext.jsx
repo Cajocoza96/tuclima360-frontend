@@ -52,6 +52,20 @@ const getInitialStateTemperaturaModo = () => {
     }
 };
 
+// Función para obtener el estado inicial desde localStorage del notificacion
+const getInitialStateNotificacion = () => {
+    try {
+        const estadoGuardado = localStorage.getItem('notificacion');
+        if (estadoGuardado !== null) {
+            return JSON.parse(estadoGuardado);
+        }
+        return false; // valor por defecto
+    } catch (error) {
+        console.error('Error al leer localStorage:', error);
+        return false; // valor por defecto en caso de error
+    }
+};
+
 export const FonVivoFormHoraTempProvider = ({ children }) => {
     // Inicializar directamente desde localStorage el Fondo Vivo
     const [encendidoFondoVivo, setEncendidoFondoVivo] = useState(getInitialStateFondoVivo);
@@ -96,6 +110,20 @@ export const FonVivoFormHoraTempProvider = ({ children }) => {
         }
     };
 
+    // Inicializar directamente desde localStorage el Notificacion
+    const [encendidoNotificacion, setEncendidoNotificacion] = useState(getInitialStateNotificacion);
+
+    // Guardar el estado en localStorage cada vez que cambie el Formato Hora
+    const toggleEncendidoNotificacion = () => {
+        const nuevoEstado = !encendidoNotificacion;
+        setEncendidoNotificacion(nuevoEstado);
+        try {
+            localStorage.setItem('notificacion', JSON.stringify(nuevoEstado));
+        } catch (error) {
+            console.error('Error al guardar en localStorage:', error);
+        }
+    };
+
     // Combinar ambos valores en un solo objeto
     const contextValue = {
         // Propiedades del fondo vivo
@@ -106,8 +134,10 @@ export const FonVivoFormHoraTempProvider = ({ children }) => {
         toggleEncendidoFormatoHora,
         // Propiedad del temperatura modo
         encendidoTemperaturaModo,
-        toggleEncendidoTemperaturaModo
-
+        toggleEncendidoTemperaturaModo,
+        // Propiedad del notificacion
+        encendidoNotificacion,
+        toggleEncendidoNotificacion
     };
 
     return (

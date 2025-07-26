@@ -33,6 +33,16 @@ export default function PanelPrincipalClima() {
     const [mostrarMensajeConConexion, setMostrarMensajeConConexion] = useState(false);
     const [reintentoAutomatico, setReintentoAutomatico] = useState(false);
 
+    const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     const mensajeCarga = InfoEstadoCargaConexion.cargando.carginfoClimaCiudad;
     const mensajeSinConexion = InfoEstadoCargaConexion.conexion.sinConexion;
     const mensajeConConexion = InfoEstadoCargaConexion.conexion.conConexion;
@@ -44,6 +54,13 @@ export default function PanelPrincipalClima() {
         }
         return obtenerImagenFondo(clima.codigoClima, hora24, isMobile, true);
     }, [encendidoFondoVivo, clima, hora24, isMobile, obtenerImagenFondo]);
+
+    useEffect(() => {
+        if(encendidoFondoVivo && imagenFondo){
+            const preloadImg = new Image();
+            preloadImg.src = imagenFondo;
+        }
+    }, [imagenFondo, encendidoFondoVivo]);
 
     // Memoizar el estilo de fondo para evitar recreaciones
     const estiloFondo = useMemo(() => {
@@ -60,7 +77,7 @@ export default function PanelPrincipalClima() {
 
     // Memoizar las clases CSS del fondo para evitar cambios innecesarios
     const clasesFondo = useMemo(() => {
-        const clasesBase = 'fixed w-screen h-[100svh] inset-0 bg-blue-500 dark:bg-black';
+        const clasesBase = 'fixed w-screen h-[100svh] inset-0 bg-violet-900 dark:bg-black';
 
         if (!encendidoFondoVivo || !imagenFondo) {
             return `${clasesBase} brightness-60 dark:brightness-50`;
@@ -143,7 +160,7 @@ export default function PanelPrincipalClima() {
         <>
             {/* Div de fondo con key para forzar re-render cuando cambie la orientación */}
             <div
-                key={`fondo-${isMobile}-${encendidoFondoVivo}-${imagenFondo ? 'con-imagen' : 'sin-imagen'}`}
+                key={`fondo-${isMobile}-${encendidoFondoVivo}-${imagenFondo}-${windowSize.width}x${windowSize.height}`}
                 className={clasesFondo}
                 style={estiloFondo}
             />
