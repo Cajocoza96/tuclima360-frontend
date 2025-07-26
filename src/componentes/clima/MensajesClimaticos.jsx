@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import { WiThermometer, WiHumidity, WiStrongWind, WiDaySunny } from "react-icons/wi";
 import { ClimaContext } from "../../context/ClimaContext";
 import { useFonVivoFormHoraTemp } from "../../context/FonVivoFormHoraTempContext";
-import { obtenerMensajeTemperatura, obtenerMensajeHumedad, obtenerMensajeViento,
-        obtenerMensajeUV, obtenerDireccionViento } from "../../utils/formato";
+import {
+    obtenerMensajeTemperatura, obtenerMensajeHumedad, obtenerMensajeViento,
+    obtenerMensajeUV, obtenerDireccionViento
+} from "../../utils/formato";
 
 export default function MensajesClimaticos() {
     const { clima, obtenerTemperaturaConvertida } = useContext(ClimaContext);
@@ -22,7 +24,8 @@ export default function MensajesClimaticos() {
             id: 'temperatura',
             icono: WiThermometer,
             titulo: 'Temperature',
-            mensaje: obtenerMensajeTemperatura(parseFloat(temperaturaConvertida)),
+            // Ahora pasamos también la información sobre si es Celsius o no
+            mensaje: obtenerMensajeTemperatura(parseFloat(temperaturaConvertida), encendidoTemperaturaModo),
             color: 'text-red-400'
         },
         {

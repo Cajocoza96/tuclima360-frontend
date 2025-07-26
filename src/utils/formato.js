@@ -64,15 +64,27 @@ export const obtenerIndiceUV = (uv) => {
     return `Extreme (${uv})`;
 };
 
-//Mensaje Segun Temperatura
-export const obtenerMensajeTemperatura = (temp) => {
-    if (temp <= 0) return "Below zero temperatures, risk of frostbite. Wear thermal clothing.";
-    if (temp <= 10) return "It's quite cold, dress warmly in several layers.";
-    if (temp <= 15) return "Cool weather, a light jacket will suffice.";
-    if (temp <= 25) return "Pleasant temperature, ideal for outdoor activities.";
-    if (temp <= 30) return "Warm and comfortable weather to go out.";
-    if (temp <= 35) return "It's hot, stay hydrated.";
-    return "Extreme heat! Drink plenty of water.";
+//Mensaje Segun Temperatura - para Celsius y Fahrenheit
+export const obtenerMensajeTemperatura = (temp, esCelsius = true) => {
+    if (esCelsius) {
+        // Rangos para Celsius
+        if (temp <= 0) return "Below zero temperatures, risk of frostbite. Wear thermal clothing.";
+        if (temp <= 10) return "It's quite cold, dress warmly in several layers.";
+        if (temp <= 15) return "Cool weather, a light jacket will suffice.";
+        if (temp <= 25) return "Pleasant temperature, ideal for outdoor activities.";
+        if (temp <= 30) return "Warm and comfortable weather to go out.";
+        if (temp <= 35) return "It's hot, stay hydrated.";
+        return "Extreme heat! Drink plenty of water.";
+    } else {
+        // Rangos para Fahrenheit
+        if (temp <= 32) return "Below zero temperatures, risk of frostbite. Wear thermal clothing.";
+        if (temp <= 50) return "It's quite cold, dress warmly in several layers.";
+        if (temp <= 59) return "Cool weather, a light jacket will suffice.";
+        if (temp <= 77) return "Pleasant temperature, ideal for outdoor activities.";
+        if (temp <= 86) return "Warm and comfortable weather to go out.";
+        if (temp <= 95) return "It's hot, stay hydrated.";
+        return "Extreme heat! Drink plenty of water.";
+    }
 };
 
 //Mensaje Segun Humedad
