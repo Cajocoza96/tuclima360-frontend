@@ -99,6 +99,6 @@ export const obtenerMensajeUV = (uv) => {
     if (uv <= 2) return "Low UV index, minimal risk. You can stay outdoors without worry.";
     if (uv <= 5) return "Moderate solar radiation, wear sunglasses and some protection if you will be outside for a long time.";
     if (uv <= 7) return "High UV index, use SPF 30+ sunscreen, hat and sunglasses.";
-    if (uv <= 10) return "Very high radiation, limit exposure between 10 am (10:00) and 4 pm (16:00), use full protection.";
+    if (uv <= 10) return "Very high radiation, limit exposure, use full protection.";
     return "Extreme UV index, avoid going out during peak hours or use maximum protection.";
 };

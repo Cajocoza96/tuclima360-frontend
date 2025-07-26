@@ -578,7 +578,7 @@ export default function GraficoDiarioClima() {
 
 
 
-            <div className="bg-black/40 w-full flex flex-col items-center justify-center gap-1">
+            <div className="p-2 bg-black/40 w-full flex flex-col items-center justify-center gap-1">
                 <p className="text-white text-base md:text-xl 2xl:text-4xl font-bold text-center">
                     Daily temperatures
                 </p>
