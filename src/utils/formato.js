@@ -63,3 +63,42 @@ export const obtenerIndiceUV = (uv) => {
     if (uv <= 10) return `Very high (${uv})`;
     return `Extreme (${uv})`;
 };
+
+//Mensaje Segun Temperatura
+export const obtenerMensajeTemperatura = (temp) => {
+    if (temp <= 0) return "Below zero temperatures, risk of frostbite. Wear thermal clothing.";
+    if (temp <= 10) return "It's quite cold, dress warmly in several layers.";
+    if (temp <= 15) return "Cool weather, a light jacket will suffice.";
+    if (temp <= 25) return "Pleasant temperature, ideal for outdoor activities.";
+    if (temp <= 30) return "Warm and comfortable weather to go out.";
+    if (temp <= 35) return "It's hot, stay hydrated and seek shade.";
+    return "Extreme heat! Avoid prolonged sun exposure and drink plenty of water.";
+};
+
+//Mensaje Segun Humedad
+export const obtenerMensajeHumedad = (humedad) => {
+    if (humedad <= 25) return "Very dry environment, consider using a humidifier or moisturizer.";
+    if (humedad <= 40) return "The environment is dry, which can cause dryness in the skin and throat.";
+    if (humedad <= 60) return "Humidity at optimal levels for comfort.";
+    if (humedad <= 75) return "Slightly high humidity, you may feel a bit muggy.";
+    return "Very humid environment, feeling of oppressive heat and possible condensation.";
+};
+
+//Mensaje Segun Direccion Y Velocidad Del Viento
+export const obtenerMensajeViento = (direccion, velocidad) => {
+    if (velocidad < 5) return `Very soft breeze from the ${direccion}, faint.`;
+    if (velocidad < 15) return `Light wind from the ${direccion}, pleasant and refreshing.`;
+    if (velocidad < 25) return `Moderate wind from the ${direccion}, it is clearly felt.`;
+    if (velocidad < 40) return `Strong wind from the ${direccion}, can make walking difficult.`;
+    if (velocidad < 60) return `Very strong wind from the ${direccion}, caution outdoors.`;
+    return `Dangerous winds from the ${direccion}, stay indoors if possible.`;
+};
+
+//Mensaje Segun Indice UV
+export const obtenerMensajeUV = (uv) => {
+    if (uv <= 2) return "Low UV index, minimal risk. You can stay outdoors without worry.";
+    if (uv <= 5) return "Moderate solar radiation, wear sunglasses and some protection if you will be outside for a long time.";
+    if (uv <= 7) return "High UV index, use SPF 30+ sunscreen, hat and sunglasses.";
+    if (uv <= 10) return "Very high radiation, limit exposure between 10 am (10:00) and 4 pm (16:00), use full protection.";
+    return "Extreme UV index, avoid going out during peak hours or use maximum protection.";
+};

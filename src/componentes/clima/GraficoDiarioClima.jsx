@@ -509,7 +509,7 @@ export default function GraficoDiarioClima() {
         <div className="w-full flex flex-col gap-4 z-30">
             <div className="bg-black/40 w-full flex flex-col items-center justify-center gap-1">
                 <p className="text-white text-base md:text-xl 2xl:text-4xl font-bold text-center">
-                    Precipitations
+                    Daily precipitations
                 </p>
                 <Swiper
                     ref={swiperRef}
@@ -580,7 +580,7 @@ export default function GraficoDiarioClima() {
 
             <div className="bg-black/40 w-full flex flex-col items-center justify-center gap-1">
                 <p className="text-white text-base md:text-xl 2xl:text-4xl font-bold text-center">
-                    Temperatures
+                    Daily temperatures
                 </p>
                 <Swiper
                     ref={swiperRef}
