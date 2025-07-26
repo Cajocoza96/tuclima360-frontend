@@ -71,8 +71,8 @@ export const obtenerMensajeTemperatura = (temp) => {
     if (temp <= 15) return "Cool weather, a light jacket will suffice.";
     if (temp <= 25) return "Pleasant temperature, ideal for outdoor activities.";
     if (temp <= 30) return "Warm and comfortable weather to go out.";
-    if (temp <= 35) return "It's hot, stay hydrated and seek shade.";
-    return "Extreme heat! Avoid prolonged sun exposure and drink plenty of water.";
+    if (temp <= 35) return "It's hot, stay hydrated.";
+    return "Extreme heat! Drink plenty of water.";
 };
 
 //Mensaje Segun Humedad
@@ -86,12 +86,12 @@ export const obtenerMensajeHumedad = (humedad) => {
 
 //Mensaje Segun Direccion Y Velocidad Del Viento
 export const obtenerMensajeViento = (direccion, velocidad) => {
-    if (velocidad < 5) return `Very soft breeze from the ${direccion}, faint.`;
-    if (velocidad < 15) return `Light wind from the ${direccion}, pleasant and refreshing.`;
-    if (velocidad < 25) return `Moderate wind from the ${direccion}, it is clearly felt.`;
-    if (velocidad < 40) return `Strong wind from the ${direccion}, can make walking difficult.`;
-    if (velocidad < 60) return `Very strong wind from the ${direccion}, caution outdoors.`;
-    return `Dangerous winds from the ${direccion}, stay indoors if possible.`;
+    if (velocidad < 5) return `Very soft breeze from the direction ${direccion}, faint.`;
+    if (velocidad < 15) return `Light wind from the direction ${direccion}, pleasant and refreshing.`;
+    if (velocidad < 25) return `Moderate wind from the direction ${direccion}, it is clearly felt.`;
+    if (velocidad < 40) return `Strong wind from the direction ${direccion}, can make walking difficult.`;
+    if (velocidad < 60) return `Very strong wind from the direction ${direccion}, caution outdoors.`;
+    return `Dangerous winds from the direction ${direccion}, stay indoors if possible.`;
 };
 
 //Mensaje Segun Indice UV

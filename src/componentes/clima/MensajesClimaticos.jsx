@@ -49,7 +49,7 @@ export default function MensajesClimaticos() {
     ];
 
     return (
-        <div className="p-2 mt-4 mb-4 w-full flex flex-col gap-3 2xl:gap-4 bg-black/40 overflow-hidden">
+        <div className="rounded-md p-2 mt-4 mb-4 w-full flex flex-col gap-3 2xl:gap-4 bg-black/40 overflow-hidden">
 
             {/* Título de la sección */}
             <div className="w-full flex flex-row items-center justify-center gap-2 mb-2">
