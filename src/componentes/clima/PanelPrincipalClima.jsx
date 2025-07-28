@@ -26,7 +26,7 @@ export default function PanelPrincipalClima() {
     const { encendidoFondoVivo } = useFonVivoFormHoraTemp();
     const isMobile = useIsMobile();
     const { obtenerImagenFondo } = useImagenFondo();
-    const { isOnline, wasOffline, justReconnected, timeOffline, resetReconnectionState } = useConexionInternet();
+    const { isOnline, justReconnected, timeOffline, resetReconnectionState } = useConexionInternet();
 
     const [mostrarUbicacion, setMostrarUbicacion] = useState(false);
     const [mostrarMensajeSinConexion, setMostrarMensajeSinConexion] = useState(false);

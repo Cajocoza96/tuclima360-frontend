@@ -123,16 +123,32 @@ export const BusquedaProvider = ({ children }) => {
     }
   };
 
+  // 🔧 MODIFICACIÓN 1: Nueva función de normalización más flexible
   const normalizarTexto = (texto) => {
     return texto
       .toLowerCase()
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // quita tildes
       .replace(/'/g, "") // elimina comillas simples/apostrofes
       .replace(/'/g, "") // elimina comillas simples curvadas
-      .replace(/[^\w\s]/g, "") // elimina caracteres especiales excepto letras, números y espacios
-      .replace(/[-/]/g, " ") // reemplaza guiones y barras por espacios
+      .replace(/[^\w\s-]/g, "") // elimina caracteres especiales excepto letras, números, espacios y guiones
+      .replace(/[-\s]+/g, " ") // ⭐ CAMBIO CLAVE: convierte guiones Y espacios múltiples a espacios únicos
       .replace(/\s+/g, " ") // unifica espacios múltiples
       .trim();
+  };
+
+  // 🔧 MODIFICACIÓN 2: Nueva función para comparar ubicaciones de manera flexible
+  const compararUbicaciones = (ubicacion1, ubicacion2) => {
+    const texto1 = normalizarTexto(ubicacion1);
+    const texto2 = normalizarTexto(ubicacion2);
+    
+    // Comparación exacta
+    if (texto1 === texto2) return true;
+    
+    // Comparación sin considerar separadores (ni guiones ni espacios)
+    const sinSeparadores1 = texto1.replace(/[-\s]/g, "");
+    const sinSeparadores2 = texto2.replace(/[-\s]/g, "");
+    
+    return sinSeparadores1 === sinSeparadores2;
   };
 
   // 🎯 FUNCIÓN PARA VERIFICAR SI ES UNA RUTA VÁLIDA
@@ -421,7 +437,7 @@ export const BusquedaProvider = ({ children }) => {
     }
   };
 
-  // 🎯 VERIFICACIÓN DE URL OPTIMIZADA CON CONTADOR - VERSIÓN CORREGIDA PARA MAYÚSCULAS
+  // 🔧 MODIFICACIÓN 3: Verificación de URL con comparación flexible
   useEffect(() => {
     const verificarRutaManual = async () => {
       // 🚫 VERIFICAR SI ES UNA RUTA VÁLIDA ANTES DE PROCESARLA
@@ -454,7 +470,7 @@ export const BusquedaProvider = ({ children }) => {
         // Solo redirigir a error si no es una ruta válida conocida
         if (!esRutaValida(location.pathname)) {
           console.log(`❌ URL no válida: ${location.pathname} - Redirigiendo a /error`);
-          //Aqui quiero que me siga direccionando a error, esto se queda
+          
           navigate("/error");
         }
         return;
@@ -493,27 +509,24 @@ export const BusquedaProvider = ({ children }) => {
             maxRows: 10, lang: "en"}
         });
 
-        // Buscar coincidencia usando la nueva función de normalización
+        // ⭐ MODIFICACIÓN PRINCIPAL: Usar comparación flexible
         const coincidencia = response.data.geonames.find((item) => {
-          const ciudadNormalizada = normalizarParaComparacion(item.name);
-          const departamentoNormalizado = normalizarParaComparacion(item.adminName1 || "");
-          const paisNormalizado = normalizarParaComparacion(item.countryName || "");
+          const ciudadAPI = item.name || "";
+          const departamentoAPI = item.adminName1 || "";
+          const paisAPI = item.countryName || "";
 
-          const ciudadBuscada = normalizarParaComparacion(ciudadParaBuscar);
-          const departamentoBuscado = normalizarParaComparacion(departamentoParaBuscar);
-          const paisBuscado = normalizarParaComparacion(paisParaBuscar);
+          // Usar la nueva función de comparación flexible
+          const ciudadCoincide = compararUbicaciones(ciudadAPI, ciudadParaBuscar);
+          const departamentoCoincide = compararUbicaciones(departamentoAPI, departamentoParaBuscar);
+          const paisCoincide = compararUbicaciones(paisAPI, paisParaBuscar);
 
-          console.log('🔍 Comparando:', {
-            ciudad: `"${ciudadNormalizada}" === "${ciudadBuscada}"`,
-            departamento: `"${departamentoNormalizado}" === "${departamentoBuscado}"`,
-            pais: `"${paisNormalizado}" === "${paisBuscado}"`
+          console.log('🔍 Comparando con función flexible:', {
+            ciudad: `"${ciudadAPI}" ≈ "${ciudadParaBuscar}" = ${ciudadCoincide}`,
+            departamento: `"${departamentoAPI}" ≈ "${departamentoParaBuscar}" = ${departamentoCoincide}`,
+            pais: `"${paisAPI}" ≈ "${paisParaBuscar}" = ${paisCoincide}`
           });
 
-          return (
-            ciudadNormalizada === ciudadBuscada &&
-            departamentoNormalizado === departamentoBuscado &&
-            paisNormalizado === paisBuscado
-          );
+          return ciudadCoincide && departamentoCoincide && paisCoincide;
         });
 
         if (coincidencia) {
@@ -595,7 +608,6 @@ export const BusquedaProvider = ({ children }) => {
       obtenerCoordenadas,
       cargandoBusquedaCiudad,
       cargandoCiudadesColombia,
-      // 🔢 AGREGAR EL CONTADOR AL CONTEXTO
       peticionesHoy,
       resetearContadorSiEsNuevoDia
     }}>
