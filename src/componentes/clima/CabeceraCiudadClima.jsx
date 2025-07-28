@@ -24,7 +24,7 @@ export default function CabeceraCiudadClima({ onOpenUbicacion }) {
                         className="text-center text-white cursor-pointer"
                         onClick={onOpenUbicacion} // <<< clic que abre GestioUbicaPrincipal
                     >
-                        <span>{ciudadSeleccionada?.ciudad || null}</span>
+                        <span translate="no">{ciudadSeleccionada?.ciudad || null}</span>
                     </p>
                 }
                 valor3={

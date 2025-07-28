@@ -21,7 +21,7 @@ const infoDelModalElimErronea = infoModal.eliminacionErroneaUbicacion.mensaje;
 
 export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) {
 
-    const { ubicaciones, ubicacionActiva, obtenerClimaUbicacion,
+    const { ubicacionActiva, obtenerClimaUbicacion,
         cambiarUbicacionActiva, eliminarUbicacion, obtenerUbicacionesValidas,
         tieneClimaValido } = useVariasUbicaciones();
 
@@ -291,11 +291,11 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
 
                                     </div>
                                     <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                        <span>{ubicacion?.ciudad || null}</span>
+                                        <span translate="no">{ubicacion?.ciudad || null}</span>
                                     </p>
 
                                     <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                        <span>{ubicacion?.departamento || null}<span translate="no">,</span></span> <span>{ubicacion?.pais || null}</span>
+                                        <span translate="no">{ubicacion?.departamento || null}<span translate="no">,</span></span> <span translate="no">{ubicacion?.pais || null}</span>
                                     </p>
                                 </div>
 

@@ -43,16 +43,16 @@ export default function ResultadoBusqueda() {
                         <span className="text-base xss:text-base 2xs:text-base 
                                                     md:text-xl 2xl:text-3xl 
                                                 text-black dark:text-gray-300">
-                            <span>{item.ciudad} - </span>
+                            <span translate="no">{item.ciudad} - </span>
                         </span> <span className="text-base xss:text-base 2xs:text-base 
                                                     md:text-xl 2xl:text-3xl
                                                 text-black dark:text-gray-300">
-                            <span>{item.departamento} / </span>
+                            <span translate="no">{item.departamento} / </span>
                         </span>
                         <span className="text-base xss:text-base 2xs:text-base 
                                                     md:text-xl 2xl:text-3xl
                                                 text-black dark:text-gray-300">
-                            <span> {item.pais} </span>
+                            <span translate="no"> {item.pais} </span>
                         </span>
                     </div>
 

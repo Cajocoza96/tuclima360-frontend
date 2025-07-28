@@ -17,7 +17,7 @@ export default function ModalConfirmacion({ciudad, mensaje, onCancelar, onAcepta
                         <p className="font-bold text-base xss:text-base 
                                     2xs:text-base md:text-xl 2xl:text-3xl
                                 text-black dark:text-white">
-                            <span>{ciudad}</span>
+                            <span translate="no">{ciudad}</span>
                         </p>
 
                         <p className="text-base xss:text-base 2xs:text-base 

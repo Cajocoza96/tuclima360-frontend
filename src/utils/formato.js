@@ -49,8 +49,10 @@ export const formatearHumedad = (valor) => `${valor}%`;
 
 // 3. Dirección del viento
 export const obtenerDireccionViento = (grados, velocidad) => {
-    const direcciones = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
-        "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"];
+    const direcciones = ["North","North-Northeast","Northeast","East-Northeast",    
+                            "East","East-Southeast","Southeast","South-Southeast",   
+                            "South","South-Southwest","Southwest","West-Southwest",
+                            "West","West-Northwest","Northwest","North-Northwest"];
     const index = Math.round(grados / 22.5) % 16;
     return `${direcciones[index]} ${velocidad} km/h`;
 };

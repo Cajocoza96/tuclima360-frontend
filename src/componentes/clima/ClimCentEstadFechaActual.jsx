@@ -96,13 +96,13 @@ export default function ClimCentEstadFechaActual() {
                 </div>
 
                 <div className="flex flex-col items-center">
-                    <span className="text-center text-base md:text-xl 2xl:text-4xl text-white">
+                    <span translate="no" className="text-center text-base md:text-xl 2xl:text-4xl text-white">
                         {ciudadSeleccionada?.ciudad || null}
                     </span>
-                    <span className="text-center text-base md:text-xl 2xl:text-4xl text-white">
+                    <span translate="no" className="text-center text-base md:text-xl 2xl:text-4xl text-white">
                         {ciudadSeleccionada?.departamento || null}
                     </span>
-                    <span className="text-center text-base md:text-xl 2xl:text-4xl text-white">
+                    <span translate="no" className="text-center text-base md:text-xl 2xl:text-4xl text-white">
                         {ciudadSeleccionada?.pais || null}
                     </span>
                 </div>

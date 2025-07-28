@@ -25,7 +25,7 @@ export default function ModalExitoError({ ciudad, mensaje, onCerrar, esError = f
                                         text-base xss:text-base 2xs:text-base 
                                         md:text-xl 2xl:text-3xl
                                     text-black dark:text-white">
-                            <span>{ciudad}</span>
+                            <span translate="no">{ciudad}</span>
                         </p>
 
                         <p className="text-center text-base xss:text-base 

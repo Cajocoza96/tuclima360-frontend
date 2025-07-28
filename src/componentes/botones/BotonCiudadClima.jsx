@@ -32,18 +32,18 @@ export default function BotonCiudadClima({ ciudad, departamento, pais }) {
         >
             <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
                                         text-white">
-                <span>{ciudad}</span>
+                <span translate="no">{ciudad}</span>
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-1">
                 <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
                                         text-gray-200">
-                    <span>{departamento}<span translate="no">,</span></span>
+                    <span translate="no">{departamento}<span translate="no">,</span></span>
                 </p>
 
                 <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
                                         text-gray-200">
-                    <span>{pais}</span>
+                    <span translate="no">{pais}</span>
                 </p>
             </div>
         </motion.button>
