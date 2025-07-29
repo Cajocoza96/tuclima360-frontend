@@ -69,21 +69,28 @@ export default function AgregarCiudadClima() {
 
     return (
         <div className="w-full h-[100svh] bg-blue-950 dark:bg-gray-800 
-                        flex flex-col items-center overflow-hidden touch-none overscroll-none">
+                        flex flex-col items-center 
+                        overflow-hidden overscroll-none
+                        fixed inset-0">
 
-            <div className="mt-7 w-full overflow-hidden touch-none overscroll-none
-                            flex flex-col flex-1 items-center justify-between gap-2">
+            <div className="mt-7 w-full h-full 
+                            flex flex-col items-center justify-between gap-2
+                            overflow-hidden">
 
-                <BarraBusqueda />
+                {/* Sección fija superior - BarraBusqueda */}
+                <div className="flex-shrink-0 w-full">
+                    <BarraBusqueda />
+                </div>
 
-                <div className="bg-blue-700 dark:bg-gray-700
-                                    w-full py-2 overflow-hidden
-                                    flex items-center">
+                {/* Sección fija intermedia - AdvDeteccionAutoClima */}
+                <div className="flex-shrink-0 w-full bg-blue-700 dark:bg-gray-700 py-2">
                     <AdvDeteccionAutoClima />
                 </div>
 
-                <div className="flex-1 overflow-y-auto w-full  bg-blue-900 dark:bg-gray-700
-                                    py-4 ">
+                {/* Sección con scroll - Lista de ciudades */}
+                <div className="flex-1 w-full bg-blue-900 dark:bg-gray-700 py-4 
+                                overflow-y-auto overscroll-contain
+                                min-h-0">
 
                     {shouldShowOfflineMessage ? (
                         <EstadoCargaConexion estadoMensajeConexion={mensajeSinConexion} />
@@ -93,7 +100,7 @@ export default function AgregarCiudadClima() {
                         <EstadoCargaConexion estadoMensajeCargaCiudColom={mensajeCarga} />
                     ) : shouldShowCities ? (
                         <div className="mx-auto w-[97%]
-                                    grid  gap-4 
+                                    grid gap-4 
                                     grid-cols-1
                                     xs:grid-cols-2
                                     sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 
