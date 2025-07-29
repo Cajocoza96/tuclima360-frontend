@@ -25,7 +25,7 @@ export default function ResultadoBusqueda() {
     }
 
     return (
-        <div className="w-full max-h-60 
+        <div className="w-full max-h-[30svh]
                         rounded-md flex flex-col
                         absolute left-0 top-full
                         border-t border-t-gray-700 dark:border-t-white
