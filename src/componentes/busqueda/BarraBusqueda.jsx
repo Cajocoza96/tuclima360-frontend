@@ -44,7 +44,7 @@ export default function BarraBusqueda() {
                 <div className="fixed inset-0 w-screen h-[100svh] bg-black/70 touch-none overscroll-none"></div>
             )}
             <div className="my-1 p-2 w-[99%] bg-white dark:bg-gray-900 rounded-md
-                                        flex flex-row items-center justify-between relative gap-2 overflow-hidden touch-none overscroll-none">
+                                        flex flex-row items-center justify-between relative gap-2">
                 <Link to="/">
                 <HiHome className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl 
                                     text-black dark:text-gray-300 cursor-pointer"/>
