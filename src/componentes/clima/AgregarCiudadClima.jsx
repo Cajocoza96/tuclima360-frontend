@@ -71,7 +71,7 @@ export default function AgregarCiudadClima() {
         <div className="w-full h-[100svh] bg-blue-950 dark:bg-gray-800 
                         flex flex-col items-center overflow-hidden touch-none overscroll-none">
 
-            <div className="mt-7 w-full h-[100svh] overflow-hidden
+            <div className="mt-7 w-full h-[100svh] overflow-hidden touch-none overscroll-none
                             flex flex-col  items-center justify-between gap-2">
 
                 <BarraBusqueda />
