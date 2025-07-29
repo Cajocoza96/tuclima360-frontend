@@ -23,6 +23,38 @@ export default function BarraBusqueda() {
         }
     }, [isOnline, limpiarBusqueda]);
 
+    useEffect(() => {
+        const body = document.body;
+    
+        if (!mostrarFondo) {
+            // Evita el scroll cuando el fondo no está activo (input visible)
+            body.classList.add("overflow-hidden", "touch-none", "overscroll-none");
+        } else {
+            body.classList.remove("overflow-hidden", "touch-none", "overscroll-none");
+        }
+    
+        return () => {
+            body.classList.remove("overflow-hidden", "touch-none", "overscroll-none");
+        };
+    }, [mostrarFondo]);
+
+    useEffect(() => {
+        const input = inputRef.current;
+    
+        const handleFocus = () => {
+            setTimeout(() => {
+                input?.scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 300); 
+        };
+    
+        input?.addEventListener("focus", handleFocus);
+    
+        return () => {
+            input?.removeEventListener("focus", handleFocus);
+        };
+    }, []);
+    
+
     const manejarCambio = (e) => {
         if (isOnline) {
             buscarCiudades(e.target.value);
