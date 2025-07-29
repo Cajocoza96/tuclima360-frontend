@@ -20,7 +20,7 @@ export default function ResultadoBusqueda() {
     };
 
     return (
-        <div className="w-full max-h-[40svh]
+        <div className="w-full max-h-[40svh] touch-none overscroll-none
                         rounded-md 
                         absolute left-0 top-full
                         border-t border-t-gray-700 dark:border-t-white
