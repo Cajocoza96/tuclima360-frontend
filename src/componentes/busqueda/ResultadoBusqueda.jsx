@@ -33,9 +33,8 @@ export default function ResultadoBusqueda() {
                         overflow-hidden touch-none overscroll-none">
             
             {/* Contenedor con scroll controlado */}
-            <div className="overflow-y-auto overscroll-contain touch-pan-y
-                            flex flex-col gap-3 sm:gap-4 p-0
-                            max-h-60">
+            <div className="max-h-[30svh] overflow-y-auto overscroll-contain touch-pan-y
+                            flex flex-col gap-3 sm:gap-4 p-0">
 
                 {resultados.map((item, index) => (
                     <div
