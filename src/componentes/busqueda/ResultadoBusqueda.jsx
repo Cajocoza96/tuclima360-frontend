@@ -103,7 +103,7 @@ export default function ResultadoBusqueda() {
     return (
         <div 
             ref={containerRef}
-            className="w-full max-h-[30svh]
+            className="w-full max-h-[30svh] 2xs:max-h-[50svh]
                         rounded-md flex flex-col
                         absolute left-0 top-full
                         border-t border-t-gray-700 dark:border-t-white
@@ -121,7 +121,8 @@ export default function ResultadoBusqueda() {
             {/* Contenedor con scroll controlado */}
             <div 
                 ref={scrollContainerRef}
-                className="max-h-[30svh] overflow-y-auto overscroll-contain
+                className="max-h-[30svh] 2xs:max-h-[50svh]
+                            overflow-y-auto overscroll-contain
                             flex flex-col gap-3 sm:gap-4 p-0
                             scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent"
                 style={{ 
