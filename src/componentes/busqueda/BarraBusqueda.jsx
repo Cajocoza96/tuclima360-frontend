@@ -13,10 +13,16 @@ export default function BarraBusqueda() {
     const [mostrarFondo, setMostrarFondo] = useState(true);
     const inputRef = useRef(null);
     const overlayRef = useRef(null);
+    // Nueva ref para el contenedor de scroll
+    const scrollContainerRef = useRef(null);
     
     const { isOnline } = useConexionInternet();
 
-    useCloseKeyboardOnScroll();
+    // Pasar la referencia del contenedor al hook
+    useCloseKeyboardOnScroll({
+        container: scrollContainerRef,
+        delay: 100 // Pequeño delay para mejor UX
+    });
 
     useEffect(() => {
         if (!isOnline) {
@@ -115,7 +121,7 @@ export default function BarraBusqueda() {
                             text-black dark:text-gray-300 cursor-pointer"/>
 
                 <div data-search-results>
-                    <ResultadoBusqueda /> 
+                    <ResultadoBusqueda scrollContainerRef={scrollContainerRef} /> 
                 </div>
 
             </div>

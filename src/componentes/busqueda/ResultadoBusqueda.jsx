@@ -4,11 +4,13 @@ import { HiLocationMarker } from "react-icons/hi";
 import { BusquedaContext } from "../../context/BusquedaContext";
 import { normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula } from "../../utils/normalizarURL";
 
-export default function ResultadoBusqueda() {
+export default function ResultadoBusqueda({ scrollContainerRef }) {
     const { resultados, setCiudadSeleccionada, limpiarBusqueda } = useContext(BusquedaContext);
     const navigate = useNavigate();
     const containerRef = useRef(null);
-    const scrollContainerRef = useRef(null);
+    // Usar la ref pasada como prop o crear una local como fallback
+    const internalScrollRef = useRef(null);
+    const scrollRef = scrollContainerRef || internalScrollRef;
 
     const manejarSeleccion = (item) => {
         setCiudadSeleccionada(item);
@@ -21,10 +23,10 @@ export default function ResultadoBusqueda() {
         navigate(`/${ciudad}/${departamento}/${pais}`);
     };
 
-    // Prevenir la propagación de eventos touch
+    // Manejo de eventos touch más simplificado
     useEffect(() => {
         const container = containerRef.current;
-        const scrollContainer = scrollContainerRef.current;
+        const scrollContainer = scrollRef.current;
 
         if (!container || !scrollContainer) return;
 
@@ -39,32 +41,16 @@ export default function ResultadoBusqueda() {
         const handleTouchMove = (e) => {
             e.stopPropagation();
             
-            // Permitir scroll solo dentro del contenedor
+            // IMPORTANTE: No usar preventDefault aquí para permitir que el scroll funcione
+            // y se dispare el evento scroll que escucha el hook
+            
+            const scrollContainer = scrollRef.current;
+            if (!scrollContainer) return;
+            
+            // Permitir scroll normal dentro del contenedor
             const isScrollable = scrollContainer.scrollHeight > scrollContainer.clientHeight;
-            if (isScrollable) {
-                // Verificar si estamos en los límites del scroll
-                const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
-                const touchY = e.touches[0].clientY;
-                const containerRect = scrollContainer.getBoundingClientRect();
-                const relativeY = touchY - containerRect.top;
-                
-                // Si estamos en el límite superior y tratamos de hacer scroll hacia arriba
-                if (scrollTop <= 0 && relativeY > 0) {
-                    const deltaY = e.touches[0].clientY - (e.touches[0].startY || e.touches[0].clientY);
-                    if (deltaY > 0) {
-                        e.preventDefault();
-                    }
-                }
-                
-                // Si estamos en el límite inferior y tratamos de hacer scroll hacia abajo
-                if (scrollTop >= scrollHeight - clientHeight && relativeY < clientHeight) {
-                    const deltaY = e.touches[0].clientY - (e.touches[0].startY || e.touches[0].clientY);
-                    if (deltaY < 0) {
-                        e.preventDefault();
-                    }
-                }
-            } else {
-                // Si no es scrollable, prevenir completamente el movimiento
+            if (!isScrollable) {
+                // Solo prevenir si no es scrollable
                 e.preventDefault();
             }
         };
@@ -93,7 +79,7 @@ export default function ResultadoBusqueda() {
             container.removeEventListener('mousemove', preventPropagation);
             container.removeEventListener('mouseup', preventPropagation);
         };
-    }, [resultados]);
+    }, [resultados, scrollRef]);
 
     // Si no hay resultados, no renderizar nada
     if (!resultados || resultados.length === 0) {
@@ -120,7 +106,7 @@ export default function ResultadoBusqueda() {
             
             {/* Contenedor con scroll controlado */}
             <div 
-                ref={scrollContainerRef}
+                ref={scrollRef}
                 className="max-h-[30svh] 2xs:max-h-[50svh]
                             overflow-y-auto overscroll-contain
                             flex flex-col gap-3 sm:gap-4 p-0
