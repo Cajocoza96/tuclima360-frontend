@@ -41,9 +41,6 @@ export default function ResultadoBusqueda({ scrollContainerRef }) {
         const handleTouchMove = (e) => {
             e.stopPropagation();
             
-            // IMPORTANTE: No usar preventDefault aquí para permitir que el scroll funcione
-            // y se dispare el evento scroll que escucha el hook
-            
             const scrollContainer = scrollRef.current;
             if (!scrollContainer) return;
             

@@ -4,6 +4,7 @@ import BotonCiudadClima from "../botones/BotonCiudadClima";
 import BarraBusqueda from "../busqueda/BarraBusqueda";
 import AdvDeteccionAutoClima from "./AdvDeteccionAutoClima";
 import useConexionInternet from "../../hooks/useConexionInternet";
+import { useCloseKeyboardOnScroll } from "../../hooks/useCloseKeyboardOnScroll";
 
 import EstadoCargaConexion from "../estado_de_carga/EstadoCargaConexion";
 import InfoEstadoCargaConexion from "../../data/InfoEstadoCargaConexion.json";
@@ -13,6 +14,15 @@ export default function AgregarCiudadClima() {
     const { isOnline, justReconnected, resetReconnectionState } = useConexionInternet();
     const [mostrandoMensajeReconexion, setMostrandoMensajeReconexion] = useState(false);
     const timerRef = useRef(null);
+    
+    // Ref para el contenedor de scroll donde se mostrará la lista de ciudades
+    const scrollContainerRef = useRef(null);
+
+    // Configurar el hook para cerrar el teclado al hacer scroll
+    useCloseKeyboardOnScroll({
+        container: scrollContainerRef,
+        delay: 100 // Pequeño delay para mejor UX
+    });
 
     const mensajeCarga = InfoEstadoCargaConexion.cargando.cargSugeCiudades;
     const mensajeSinConexion = InfoEstadoCargaConexion.conexion.sinConexion;
@@ -88,7 +98,9 @@ export default function AgregarCiudadClima() {
                 </div>
 
                 {/* Sección con scroll - Lista de ciudades */}
-                <div className="flex-1 w-full bg-blue-900 dark:bg-gray-700 py-4 
+                <div 
+                    ref={scrollContainerRef}
+                    className="flex-1 w-full bg-blue-900 dark:bg-gray-700 py-4 
                                 overflow-y-auto overscroll-contain
                                 min-h-0">
 
