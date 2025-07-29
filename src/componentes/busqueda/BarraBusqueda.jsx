@@ -41,7 +41,7 @@ export default function BarraBusqueda() {
     return (
         <>
             {mostrarFondo && (
-                <div className="fixed inset-0 w-screen h-screen bg-black/70"></div>
+                <div className="fixed inset-0 w-screen h-[100svh] bg-black/70"></div>
             )}
             <div className="my-1 p-2 w-[99%] bg-white dark:bg-gray-900 rounded-md
                                         flex flex-row items-center justify-between relative gap-2">
