@@ -26,7 +26,7 @@ export default function ResultadoBusqueda() {
                         border-t border-t-gray-700 dark:border-t-white
                         bg-white dark:bg-gray-900 z-50 overflow-hidden overscroll-none ">
             
-            <div className="max-h-70 overflow-y-auto overscroll-contain touch-pan-y
+            <div className="max-h-70 overflow-y-auto touch-none overscroll-none 
                             flex flex-col gap-3 sm:gap-4 p-0">
             {resultados.map((item, index) => (
                 <div
