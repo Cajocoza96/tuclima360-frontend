@@ -9,10 +9,11 @@ import EstadoCargaConexion from "../estado_de_carga/EstadoCargaConexion";
 import InfoEstadoCargaConexion from "../../data/InfoEstadoCargaConexion.json";
 
 export default function AgregarCiudadClima() {
-    const { ciudadesColombia, obtenerCiudadesColombia, cargandoCiudadesColombia } = useContext(BusquedaContext);
+    const { ciudadesColombia, obtenerCiudadesColombia, cargandoCiudadesColombia, resultados } = useContext(BusquedaContext);
     const { isOnline, justReconnected, resetReconnectionState } = useConexionInternet();
     const [mostrandoMensajeReconexion, setMostrandoMensajeReconexion] = useState(false);
     const timerRef = useRef(null);
+    const mainContainerRef = useRef(null);
 
     const mensajeCarga = InfoEstadoCargaConexion.cargando.cargSugeCiudades;
     const mensajeSinConexion = InfoEstadoCargaConexion.conexion.sinConexion;
@@ -52,6 +53,31 @@ export default function AgregarCiudadClima() {
         };
     }, [justReconnected, isOnline, obtenerCiudadesColombia, resetReconnectionState]);
 
+    // Controlar el comportamiento de scroll cuando hay resultados de búsqueda
+    useEffect(() => {
+        const mainContainer = mainContainerRef.current;
+        if (!mainContainer) return;
+
+        const handleTouchMove = (e) => {
+            // Si hay resultados de búsqueda activos, prevenir el scroll del contenedor principal
+            if (resultados && resultados.length > 0) {
+                // Verificar si el touch viene del área de resultados
+                const targetElement = e.target.closest('[data-search-results]');
+                if (!targetElement) {
+                    e.preventDefault();
+                }
+            }
+        };
+
+        if (resultados && resultados.length > 0) {
+            mainContainer.addEventListener('touchmove', handleTouchMove, { passive: false });
+        }
+
+        return () => {
+            mainContainer.removeEventListener('touchmove', handleTouchMove);
+        };
+    }, [resultados]);
+
     // Determinar qué mostrar
     const shouldShowOfflineMessage = !isOnline;
     const shouldShowReconnectionMessage = mostrandoMensajeReconexion && isOnline;
@@ -68,17 +94,24 @@ export default function AgregarCiudadClima() {
     });
 
     return (
-        <div className="w-full h-[100svh] bg-blue-950 dark:bg-gray-800 
+        <div 
+            ref={mainContainerRef}
+            className="w-full h-[100svh] bg-blue-950 dark:bg-gray-800 
                         flex flex-col items-center 
                         overflow-hidden touch-none overscroll-none
-                        fixed inset-0">
+                        fixed inset-0"
+            style={{ 
+                overscrollBehavior: 'none',
+                touchAction: resultados && resultados.length > 0 ? 'none' : 'pan-y'
+            }}
+        >
 
             <div className="mt-7 w-full h-full 
                             flex flex-col items-center justify-between gap-2
                             overflow-hidden">
 
                 {/* Sección fija superior - BarraBusqueda */}
-                <div className="flex-shrink-0 w-full">
+                <div className="flex-shrink-0 w-full relative z-10">
                     <BarraBusqueda />
                 </div>
 
@@ -90,7 +123,11 @@ export default function AgregarCiudadClima() {
                 {/* Sección con scroll - Lista de ciudades */}
                 <div className="flex-1 w-full bg-blue-900 dark:bg-gray-700 py-4 
                                 overflow-y-auto overscroll-contain
-                                min-h-0">
+                                min-h-0"
+                     style={{ 
+                         touchAction: resultados && resultados.length > 0 ? 'none' : 'pan-y',
+                         overscrollBehavior: 'contain'
+                     }}>
 
                     {shouldShowOfflineMessage ? (
                         <EstadoCargaConexion estadoMensajeConexion={mensajeSinConexion} />
