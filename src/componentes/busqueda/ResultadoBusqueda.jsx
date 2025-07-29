@@ -20,13 +20,13 @@ export default function ResultadoBusqueda() {
     };
 
     return (
-        <div className="w-full max-h-70 overflow-y-auto 
+        <div className="w-full max-h-[50svh] overflow-y-auto 
                         rounded-md flex flex-col gap-3 sm:gap-4
                         absolute left-0 top-full touch-none 
                         border-t border-t-gray-700 dark:border-t-white
                         bg-white dark:bg-gray-900 z-50 overflow-hidden overscroll-none ">
             
-            <div className="max-h-70 overflow-y-auto touch-none overscroll-none 
+            <div className="max-h-[50svh] overflow-y-auto overscroll-contain touch-pan-y
                             flex flex-col gap-3 sm:gap-4 p-0">
             {resultados.map((item, index) => (
                 <div
