@@ -7,10 +7,9 @@ import useConexionInternet from "../../hooks/useConexionInternet";
 import { Link } from "react-router-dom";
 
 export default function BarraBusqueda() {
-    const { buscarCiudades, limpiarBusqueda, resultados } = useContext(BusquedaContext);
+    const { buscarCiudades, limpiarBusqueda } = useContext(BusquedaContext);
     const [mostrarFondo, setMostrarFondo] = useState(true);
     const inputRef = useRef(null);
-    const overlayRef = useRef(null);
     
     const { isOnline } = useConexionInternet();
 
@@ -23,35 +22,6 @@ export default function BarraBusqueda() {
             }
         }
     }, [isOnline, limpiarBusqueda]);
-
-    // Controlar el overlay cuando hay resultados
-    useEffect(() => {
-        const overlay = overlayRef.current;
-        if (!overlay) return;
-
-        const handleTouchMove = (e) => {
-            // Prevenir el scroll del fondo cuando el overlay está activo
-            if (resultados && resultados.length > 0) {
-                e.preventDefault();
-            }
-        };
-
-        const handleTouchStart = (e) => {
-            if (resultados && resultados.length > 0) {
-                e.preventDefault();
-            }
-        };
-
-        if (mostrarFondo && resultados && resultados.length > 0) {
-            overlay.addEventListener('touchmove', handleTouchMove, { passive: false });
-            overlay.addEventListener('touchstart', handleTouchStart, { passive: false });
-        }
-
-        return () => {
-            overlay.removeEventListener('touchmove', handleTouchMove);
-            overlay.removeEventListener('touchstart', handleTouchStart);
-        };
-    }, [mostrarFondo, resultados]);
 
     const manejarCambio = (e) => {
         if (isOnline) {
@@ -70,19 +40,11 @@ export default function BarraBusqueda() {
 
     return (
         <>
-            {mostrarFondo && resultados && resultados.length > 0 && (
-                <div 
-                    ref={overlayRef}
-                    className="fixed inset-0 w-screen h-[100svh] bg-black/70 touch-none overscroll-none z-40"
-                    style={{ 
-                        touchAction: 'none',
-                        overscrollBehavior: 'none'
-                    }}
-                    onClick={cerrarFondo}
-                ></div>
+            {mostrarFondo && (
+                <div className="fixed inset-0 w-screen h-[100svh] bg-black/70 touch-none overscroll-none"></div>
             )}
             <div className="my-1 p-2 w-[99%] bg-white dark:bg-gray-900 rounded-md
-                                        flex flex-row items-center justify-between relative gap-2 z-50">
+                                        flex flex-row items-center justify-between relative gap-2">
                 <Link to="/">
                 <HiHome className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl 
                                     text-black dark:text-gray-300 cursor-pointer"/>
@@ -111,9 +73,7 @@ export default function BarraBusqueda() {
                     className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
                             text-black dark:text-gray-300 cursor-pointer"/>
 
-                <div data-search-results>
-                    <ResultadoBusqueda /> 
-                </div>
+                <ResultadoBusqueda /> 
 
             </div>
         </>

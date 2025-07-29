@@ -78,7 +78,7 @@ export default function AgregarCiudadClima() {
                             overflow-hidden">
 
                 {/* Sección fija superior - BarraBusqueda */}
-                <div className="flex-shrink-0 w-full">
+                <div className="flex justify-center flex-shrink-0 w-full">
                     <BarraBusqueda />
                 </div>
 
