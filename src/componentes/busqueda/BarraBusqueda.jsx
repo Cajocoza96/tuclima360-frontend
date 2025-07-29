@@ -23,38 +23,6 @@ export default function BarraBusqueda() {
         }
     }, [isOnline, limpiarBusqueda]);
 
-    useEffect(() => {
-        const body = document.body;
-    
-        if (!mostrarFondo) {
-            // Evita el scroll cuando el fondo no está activo (input visible)
-            body.classList.add("overflow-hidden", "touch-none", "overscroll-none");
-        } else {
-            body.classList.remove("overflow-hidden", "touch-none", "overscroll-none");
-        }
-    
-        return () => {
-            body.classList.remove("overflow-hidden", "touch-none", "overscroll-none");
-        };
-    }, [mostrarFondo]);
-
-    useEffect(() => {
-        const input = inputRef.current;
-    
-        const handleFocus = () => {
-            setTimeout(() => {
-                input?.scrollIntoView({ behavior: "smooth", block: "center" });
-            }, 300); 
-        };
-    
-        input?.addEventListener("focus", handleFocus);
-    
-        return () => {
-            input?.removeEventListener("focus", handleFocus);
-        };
-    }, []);
-    
-
     const manejarCambio = (e) => {
         if (isOnline) {
             buscarCiudades(e.target.value);
@@ -73,10 +41,10 @@ export default function BarraBusqueda() {
     return (
         <>
             {mostrarFondo && (
-                <div className="fixed inset-0 w-screen h-screen bg-black/70 touch-none overscroll-none"></div>
+                <div className="fixed inset-0 w-screen h-[100svh] bg-black/70 touch-none overscroll-none"></div>
             )}
             <div className="my-1 p-2 w-[99%] bg-white dark:bg-gray-900 rounded-md
-                                        flex flex-row items-center justify-between relative gap-2">
+                                        flex flex-row items-center justify-between relative gap-2 overflow-hidden touch-none overscroll-none">
                 <Link to="/">
                 <HiHome className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl 
                                     text-black dark:text-gray-300 cursor-pointer"/>
