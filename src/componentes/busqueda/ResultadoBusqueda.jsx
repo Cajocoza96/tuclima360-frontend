@@ -24,13 +24,16 @@ export default function ResultadoBusqueda() {
                         rounded-md flex flex-col gap-3 sm:gap-4
                         absolute left-0 top-full
                         border-t border-t-gray-700 dark:border-t-white
-                        bg-white dark:bg-gray-900 z-50">
-
+                        bg-white dark:bg-gray-900 z-50 overflow-hidden overscroll-contain">
+            
+            <div className="overflow-y-auto overscroll-contain touch-pan-y
+                            flex flex-col gap-3 sm:gap-4 p-0
+                            max-h-70">
             {resultados.map((item, index) => (
                 <div
                     className="
                             w-full p-2 flex flex-row items-center 
-                            justify-around cursor-pointer
+                            justify-around cursor-pointer flex-shrink-0
                             hover:bg-gray-400 dark:hover:bg-gray-700
                             active:bg-gray-300 dark:active:bg-gray-600"
                     key={index}
@@ -60,6 +63,7 @@ export default function ResultadoBusqueda() {
 
                 </div>
             ))}
+            </div>
         </div>
     );
 }
