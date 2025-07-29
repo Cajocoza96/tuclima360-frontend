@@ -30,11 +30,11 @@ export default function ResultadoBusqueda() {
                         absolute left-0 top-full
                         border-t border-t-gray-700 dark:border-t-white
                         bg-white dark:bg-gray-900 z-50
-                        overflow-hidden touch-none overscroll-none">
+                        overflow-hidden touch-none overscroll-none flex-shrink-0">
             
             {/* Contenedor con scroll controlado */}
             <div className="max-h-[30svh] overflow-y-auto overscroll-contain touch-pan-y
-                            flex flex-col gap-3 sm:gap-4 p-0">
+                            flex flex-col gap-3 sm:gap-4 p-0 flex-shrink-0">
 
                 {resultados.map((item, index) => (
                     <div
