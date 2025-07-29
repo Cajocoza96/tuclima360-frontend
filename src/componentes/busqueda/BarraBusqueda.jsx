@@ -6,6 +6,8 @@ import useConexionInternet from "../../hooks/useConexionInternet";
 
 import { Link } from "react-router-dom";
 
+import { useCloseKeyboardOnScroll } from "../../hooks/useCloseKeyboardOnScroll";
+
 export default function BarraBusqueda() {
     const { buscarCiudades, limpiarBusqueda, resultados } = useContext(BusquedaContext);
     const [mostrarFondo, setMostrarFondo] = useState(true);
@@ -13,6 +15,8 @@ export default function BarraBusqueda() {
     const overlayRef = useRef(null);
     
     const { isOnline } = useConexionInternet();
+
+    useCloseKeyboardOnScroll();
 
     useEffect(() => {
         if (!isOnline) {
