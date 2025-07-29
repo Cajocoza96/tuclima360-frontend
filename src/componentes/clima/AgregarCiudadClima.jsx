@@ -73,7 +73,7 @@ export default function AgregarCiudadClima() {
                         overflow-hidden overscroll-none
                         fixed inset-0">
 
-            <div className="mt-7 w-full h-full 
+            <div className="mt-7 w-full h-[100svh] 
                             flex flex-col items-center justify-between gap-2
                             overflow-hidden">
 
