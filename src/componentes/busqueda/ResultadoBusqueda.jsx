@@ -30,7 +30,7 @@ export default function ResultadoBusqueda() {
                         absolute left-0 top-full
                         border-t border-t-gray-700 dark:border-t-white
                         bg-white dark:bg-gray-900 z-50
-                        overflow-hidden touch-none overscroll-contain">
+                        overflow-hidden touch-none overscroll-none">
             
             {/* Contenedor con scroll controlado */}
             <div className="overflow-y-auto overscroll-contain touch-pan-y
