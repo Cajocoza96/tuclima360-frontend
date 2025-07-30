@@ -88,7 +88,10 @@ export default function AgregarCiudadClima() {
                             overflow-hidden">
 
                 <div className="w-full flex justify-center flex-shrink-0">
-                    <BarraBusqueda />
+                    <BarraBusqueda 
+                        shouldShowReconnectionMessage={shouldShowReconnectionMessage}
+                        shouldShowLoading={shouldShowLoading}
+                    />
                 </div>
 
                 <div className="w-full flex-shrink-0 bg-blue-700 dark:bg-gray-700 py-2 h-12 md:14 2xl:h-16">

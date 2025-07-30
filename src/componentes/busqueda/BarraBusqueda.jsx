@@ -8,7 +8,10 @@ import { Link } from "react-router-dom";
 
 import { useCloseKeyboardOnScroll } from "../../hooks/useCloseKeyboardOnScroll";
 
-export default function BarraBusqueda() {
+export default function BarraBusqueda({ 
+    shouldShowReconnectionMessage = false, 
+    shouldShowLoading = false 
+}) {
     const { buscarCiudades, limpiarBusqueda, resultados, cargandoCiudadesColombia } = useContext(BusquedaContext);
     const [mostrarFondo, setMostrarFondo] = useState(true);
     const inputRef = useRef(null);
@@ -64,7 +67,7 @@ export default function BarraBusqueda() {
     }, [mostrarFondo, resultados]);
 
     const manejarCambio = (e) => {
-        if (isOnline && !cargandoCiudadesColombia) {
+        if (isOnline && !shouldShowLoading && !shouldShowReconnectionMessage) {
             buscarCiudades(e.target.value);
             setMostrarFondo(true);
         }
@@ -78,16 +81,16 @@ export default function BarraBusqueda() {
         }
     };
 
-    // Recibir los estados de sincronización desde el componente padre
-    // a través de props o usar un mecanismo de comunicación entre componentes hermanos
+    // Estados sincronizados con AgregarCiudadClima
     const getPlaceholderText = () => {
         if (!isOnline) return "No internet connection";
-        if (cargandoCiudadesColombia) return "Loading cities... please wait";
+        if (shouldShowReconnectionMessage) return "Connection has been re-established";
+        if (shouldShowLoading) return "Loading cities... please wait";
         return "Write the name of the city";
     };
 
     const getInputState = () => {
-        return !isOnline || cargandoCiudadesColombia;
+        return !isOnline || shouldShowLoading || shouldShowReconnectionMessage;
     };
 
     return (
