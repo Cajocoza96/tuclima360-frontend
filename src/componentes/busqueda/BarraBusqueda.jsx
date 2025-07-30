@@ -121,9 +121,11 @@ export default function BarraBusqueda() {
                     }}
                 ></div>
             )}
-            <div className="my-1 p-2 w-[99%] bg-white dark:bg-gray-900 rounded-md
-                                        flex flex-row items-center 
-                                        justify-around relative gap-3 z-50">
+            <div className={`${!isOnline || shouldShowLoading 
+                            || shouldShowReconnectionMessage ? 'bg-gray-500 dark:bg-gray-700' : 'bg-white dark:bg-gray-900'}
+                            my-1 p-2 w-[99%]  rounded-md
+                            flex flex-row items-center 
+                            justify-around relative gap-3 z-50`}>
                 <Link to="/">
                 <HiHome className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl 
                                     text-black dark:text-gray-300 cursor-pointer"/>
@@ -131,14 +133,15 @@ export default function BarraBusqueda() {
 
                 <input 
                     ref={inputRef}
-                    className="bg-white dark:bg-gray-900 w-[85%] border-none
-                                                focus:outline-none focus:ring-0
-                                                text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
-                                                text-black dark:text-gray-200
-                                                placeholder:text-gray-500 dark:placeholder:text-gray-500
-                                                placeholder:text-base placeholder:xss:text-base
-                                                placeholder:2xs:text-base placeholder:md:text-xl
-                                                placeholder:2xl:text-3xl"
+                    className={`${!isOnline || shouldShowLoading 
+                                || shouldShowReconnectionMessage ? 'bg-gray-500 dark:bg-gray-700 placeholder:text-gray-800 dark:placeholder:text-gray-400' : 'bg-white dark:bg-gray-900 placeholder:text-gray-500 dark:placeholder:text-gray-500'} 
+                                    w-[85%] border-none
+                                    focus:outline-none focus:ring-0
+                                    text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
+                                    text-black dark:text-gray-200
+                                    placeholder:text-base placeholder:xss:text-base
+                                    placeholder:2xs:text-base placeholder:md:text-xl
+                                    placeholder:2xl:text-3xl`}
 
                                                     
                     type="text"
