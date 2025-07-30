@@ -13,13 +13,15 @@ export default function BarraBusqueda() {
     const [mostrarFondo, setMostrarFondo] = useState(true);
     const inputRef = useRef(null);
     const overlayRef = useRef(null);
+    // Nueva ref para el contenedor de scroll
     const scrollContainerRef = useRef(null);
     
     const { isOnline } = useConexionInternet();
 
+    // Pasar la referencia del contenedor al hook
     useCloseKeyboardOnScroll({
         container: scrollContainerRef,
-        delay: 100
+        delay: 100 // Pequeño delay para mejor UX
     });
 
     useEffect(() => {
@@ -31,6 +33,35 @@ export default function BarraBusqueda() {
             }
         }
     }, [isOnline, limpiarBusqueda]);
+
+    // Controlar el overlay cuando hay resultados
+    useEffect(() => {
+        const overlay = overlayRef.current;
+        if (!overlay) return;
+
+        const handleTouchMove = (e) => {
+            // Prevenir el scroll del fondo cuando el overlay está activo
+            if (resultados && resultados.length > 0) {
+                e.preventDefault();
+            }
+        };
+
+        const handleTouchStart = (e) => {
+            if (resultados && resultados.length > 0) {
+                e.preventDefault();
+            }
+        };
+
+        if (mostrarFondo && resultados && resultados.length > 0) {
+            overlay.addEventListener('touchmove', handleTouchMove, { passive: false });
+            overlay.addEventListener('touchstart', handleTouchStart, { passive: false });
+        }
+
+        return () => {
+            overlay.removeEventListener('touchmove', handleTouchMove);
+            overlay.removeEventListener('touchstart', handleTouchStart);
+        };
+    }, [mostrarFondo, resultados]);
 
     const manejarCambio = (e) => {
         if (isOnline) {
@@ -47,34 +78,24 @@ export default function BarraBusqueda() {
         }
     };
 
-    // Manejar clics/toques en el overlay
-    const manejarClicOverlay = (e) => {
-        // Solo cerrar si el clic/toque es directamente en el overlay
-        if (e.target === e.currentTarget) {
-            cerrarFondo();
-        }
-    };
-
     return (
         <>
             {mostrarFondo && resultados && resultados.length > 0 && (
                 <div 
                     ref={overlayRef}
-                    className="fixed inset-0 w-screen h-[100svh] bg-black/70 z-40"
+                    className="fixed inset-0 w-screen h-[100svh] bg-black/70 touch-none overscroll-none z-40"
                     style={{ 
-                        overscrollBehavior: 'none',
-                        touchAction: 'manipulation' // Permite toques básicos pero previene zoom
+                        overscrollBehavior: 'none'
                     }}
-                    onClick={manejarClicOverlay}
-                    onTouchEnd={manejarClicOverlay} // Para dispositivos táctiles
+                    onClick={cerrarFondo}
                 ></div>
             )}
             <div className="my-1 p-2 w-[99%] bg-white dark:bg-gray-900 rounded-md
                                         flex flex-row items-center 
                                         justify-around relative gap-3 z-50">
                 <Link to="/">
-                    <HiHome className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl 
-                                        text-black dark:text-gray-300 cursor-pointer"/>
+                <HiHome className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl 
+                                    text-black dark:text-gray-300 cursor-pointer"/>
                 </Link>
 
                 <input 
@@ -87,6 +108,8 @@ export default function BarraBusqueda() {
                                                 placeholder:text-base placeholder:xss:text-base
                                                 placeholder:2xs:text-base placeholder:md:text-xl
                                                 placeholder:2xl:text-3xl"
+
+                                                    
                     type="text"
                     placeholder={isOnline ? "Write the name of the city" : "No internet connection"}
                     onChange={manejarCambio}
@@ -101,6 +124,7 @@ export default function BarraBusqueda() {
                 <div data-search-results>
                     <ResultadoBusqueda scrollContainerRef={scrollContainerRef} /> 
                 </div>
+
             </div>
         </>
     );
