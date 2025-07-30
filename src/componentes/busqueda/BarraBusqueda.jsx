@@ -85,7 +85,6 @@ export default function BarraBusqueda() {
                     ref={overlayRef}
                     className="fixed inset-0 w-screen h-[100svh] bg-black/70 overscroll-none z-40"
                     style={{ 
-                        touchAction: 'none',
                         overscrollBehavior: 'none'
                     }}
                     onClick={cerrarFondo}
