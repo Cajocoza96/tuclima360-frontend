@@ -49,7 +49,7 @@ export default function AdvDeteccionAutoClima({ mensajeNoConexion }) {
     return (
         <div 
             ref={containerRef}
-            className="relative w-full overflow-hidden"
+            className="relative w-full overflow-hidden h-8 md:h-10 2xl:h-12"
         >
             {!mensajeNoConexion && (
                 <>

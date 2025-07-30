@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useCloseKeyboardOnScroll } from "../../hooks/useCloseKeyboardOnScroll";
 
 export default function BarraBusqueda() {
-    const { buscarCiudades, limpiarBusqueda, resultados } = useContext(BusquedaContext);
+    const { buscarCiudades, limpiarBusqueda, resultados, cargandoCiudadesColombia } = useContext(BusquedaContext);
     const [mostrarFondo, setMostrarFondo] = useState(true);
     const inputRef = useRef(null);
     const overlayRef = useRef(null);
@@ -17,6 +17,9 @@ export default function BarraBusqueda() {
     const scrollContainerRef = useRef(null);
     
     const { isOnline } = useConexionInternet();
+
+    
+    const shouldShowLoading = cargandoCiudadesColombia && isOnline;
 
     // Pasar la referencia del contenedor al hook
     useCloseKeyboardOnScroll({
@@ -112,7 +115,7 @@ export default function BarraBusqueda() {
                     type="text"
                     placeholder={isOnline ? "Write the name of the city" : "No internet connection"}
                     onChange={manejarCambio}
-                    disabled={!isOnline}
+                    disabled={!isOnline || shouldShowLoading}
                 />
 
                 <HiX 

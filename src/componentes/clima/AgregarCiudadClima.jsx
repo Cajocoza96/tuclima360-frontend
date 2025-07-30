@@ -87,11 +87,11 @@ export default function AgregarCiudadClima() {
                             flex flex-col items-center justify-between gap-2
                             overflow-hidden">
 
-                <div className="flex justify-center flex-shrink-0 w-full">
+                <div className="w-full flex justify-center flex-shrink-0">
                     <BarraBusqueda />
                 </div>
 
-                <div className="flex-shrink-0 w-full bg-blue-700 dark:bg-gray-700 py-2">
+                <div className="w-full flex-shrink-0 bg-blue-700 dark:bg-gray-700 py-2 h-12 md:14 2xl:h-16">
                     <AdvDeteccionAutoClima />
                 </div>
 
