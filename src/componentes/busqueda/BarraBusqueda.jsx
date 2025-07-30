@@ -2,26 +2,21 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import ResultadoBusqueda from "./ResultadoBusqueda";
 import { HiX, HiHome } from "react-icons/hi";
 import { BusquedaContext } from "../../context/BusquedaContext";
-import { useConexion } from "../../context/ConexionContext";
+import useConexionInternet from "../../hooks/useConexionInternet"; 
+
 import { Link } from "react-router-dom";
+
 import { useCloseKeyboardOnScroll } from "../../hooks/useCloseKeyboardOnScroll";
 
 export default function BarraBusqueda() {
     const { buscarCiudades, limpiarBusqueda, resultados, cargandoCiudadesColombia } = useContext(BusquedaContext);
-    const { 
-        isOnline, 
-        shouldShowOfflineMessage,
-        shouldShowReconnectionMessage
-    } = useConexion();
-    
     const [mostrarFondo, setMostrarFondo] = useState(true);
     const inputRef = useRef(null);
     const overlayRef = useRef(null);
     // Nueva ref para el contenedor de scroll
     const scrollContainerRef = useRef(null);
-
-    // Estados derivados sincronizados
-    const shouldShowLoading = cargandoCiudadesColombia && isOnline && !shouldShowReconnectionMessage;
+    
+    const { isOnline } = useConexionInternet();
 
     // Pasar la referencia del contenedor al hook
     useCloseKeyboardOnScroll({
@@ -69,7 +64,7 @@ export default function BarraBusqueda() {
     }, [mostrarFondo, resultados]);
 
     const manejarCambio = (e) => {
-        if (isOnline && !shouldShowLoading && !shouldShowReconnectionMessage) {
+        if (isOnline && !cargandoCiudadesColombia) {
             buscarCiudades(e.target.value);
             setMostrarFondo(true);
         }
@@ -83,14 +78,17 @@ export default function BarraBusqueda() {
         }
     };
 
-    // Debug logs
-    console.log("Estados actuales BarraBusqueda:", {
-        isOnline,
-        shouldShowOfflineMessage,
-        shouldShowReconnectionMessage,
-        shouldShowLoading,
-        cargandoCiudadesColombia
-    });
+    // Recibir los estados de sincronización desde el componente padre
+    // a través de props o usar un mecanismo de comunicación entre componentes hermanos
+    const getPlaceholderText = () => {
+        if (!isOnline) return "No internet connection";
+        if (cargandoCiudadesColombia) return "Loading cities... please wait";
+        return "Write the name of the city";
+    };
+
+    const getInputState = () => {
+        return !isOnline || cargandoCiudadesColombia;
+    };
 
     return (
         <>
@@ -103,8 +101,7 @@ export default function BarraBusqueda() {
                     }}
                 ></div>
             )}
-            <div className={`${shouldShowOfflineMessage || shouldShowLoading 
-                            || shouldShowReconnectionMessage ? 'bg-gray-500 dark:bg-gray-700' : 'bg-white dark:bg-gray-900'}
+            <div className={`${getInputState() ? 'bg-gray-500 dark:bg-gray-700' : 'bg-white dark:bg-gray-900'}
                             my-1 p-2 w-[99%]  rounded-md
                             flex flex-row items-center 
                             justify-around relative gap-3 z-50`}>
@@ -115,8 +112,7 @@ export default function BarraBusqueda() {
 
                 <input 
                     ref={inputRef}
-                    className={`${shouldShowOfflineMessage || shouldShowLoading 
-                                || shouldShowReconnectionMessage ? 'bg-gray-500 dark:bg-gray-700 placeholder:text-gray-800 dark:placeholder:text-gray-400' : 'bg-white dark:bg-gray-900 placeholder:text-gray-500 dark:placeholder:text-gray-500'} 
+                    className={`${getInputState() ? 'bg-gray-500 dark:bg-gray-700 placeholder:text-gray-800 dark:placeholder:text-gray-400' : 'bg-white dark:bg-gray-900 placeholder:text-gray-500 dark:placeholder:text-gray-500'} 
                                     w-[85%] border-none
                                     focus:outline-none focus:ring-0
                                     text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl
@@ -124,12 +120,10 @@ export default function BarraBusqueda() {
                                     placeholder:text-base placeholder:xss:text-base
                                     placeholder:2xs:text-base placeholder:md:text-xl
                                     placeholder:2xl:text-3xl`}
-
-                                                    
                     type="text"
-                    placeholder={shouldShowLoading ? "Loading cities... please wait" : shouldShowReconnectionMessage ? "Connection has been re-established" : isOnline ? "Write the name of the city" : "No internet connection"}
+                    placeholder={getPlaceholderText()}
                     onChange={manejarCambio}
-                    disabled={shouldShowOfflineMessage || shouldShowLoading || shouldShowReconnectionMessage}
+                    disabled={getInputState()}
                 />
 
                 <HiX 
