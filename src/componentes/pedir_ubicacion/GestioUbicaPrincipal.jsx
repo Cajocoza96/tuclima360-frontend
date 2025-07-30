@@ -17,7 +17,7 @@ export default function GestioUbicaPrincipal({ visible, onClose }) {
                     transition={{ duration: 0.3 }}
                     className="h-[75vh] w-[90%]
                         bg-blue-900 dark:bg-gray-800
-                        absolute top-10 z-50
+                        absolute top-10 z-70
                         flex flex-col items-center justify-between overflow-hidden">
 
                     {/* Header fijo */}

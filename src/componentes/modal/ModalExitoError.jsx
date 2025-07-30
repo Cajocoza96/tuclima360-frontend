@@ -4,7 +4,8 @@ import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 export default function ModalExitoError({ ciudad, mensaje, onCerrar, esError = false }) {
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+            onClick={onCerrar}>
 
             <div className="bg-white dark:bg-gray-800 
                                 z-50 p-3 absolute

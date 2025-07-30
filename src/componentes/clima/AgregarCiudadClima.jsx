@@ -87,17 +87,14 @@ export default function AgregarCiudadClima() {
                             flex flex-col items-center justify-between gap-2
                             overflow-hidden">
 
-                {/* Sección fija superior - BarraBusqueda */}
                 <div className="flex justify-center flex-shrink-0 w-full">
                     <BarraBusqueda />
                 </div>
 
-                {/* Sección fija intermedia - AdvDeteccionAutoClima */}
                 <div className="flex-shrink-0 w-full bg-blue-700 dark:bg-gray-700 py-2">
                     <AdvDeteccionAutoClima />
                 </div>
 
-                {/* Sección con scroll - Lista de ciudades */}
                 <div 
                     ref={scrollContainerRef}
                     className="flex-1 w-full bg-blue-900 dark:bg-gray-700 py-4 

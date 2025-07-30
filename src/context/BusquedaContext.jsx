@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useCallback, useRef } from "
 import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 
-import { normalizarParaComparacion, desnormalizarURL } from "../utils/normalizarURL";
+import { normalizarTexto, desnormalizarURL } from "../utils/normalizarURL";
 
 export const BusquedaContext = createContext();
 
@@ -123,20 +123,7 @@ export const BusquedaProvider = ({ children }) => {
     }
   };
 
-  // 🔧 MODIFICACIÓN 1: Nueva función de normalización más flexible
-  const normalizarTexto = (texto) => {
-    return texto
-      .toLowerCase()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // quita tildes
-      .replace(/'/g, "") // elimina comillas simples/apostrofes
-      .replace(/'/g, "") // elimina comillas simples curvadas
-      .replace(/[^\w\s-]/g, "") // elimina caracteres especiales excepto letras, números, espacios y guiones
-      .replace(/[-\s]+/g, " ") // ⭐ CAMBIO CLAVE: convierte guiones Y espacios múltiples a espacios únicos
-      .replace(/\s+/g, " ") // unifica espacios múltiples
-      .trim();
-  };
-
-  // 🔧 MODIFICACIÓN 2: Nueva función para comparar ubicaciones de manera flexible
+  // 🔧 Función para comparar ubicaciones de manera flexible
   const compararUbicaciones = (ubicacion1, ubicacion2) => {
     const texto1 = normalizarTexto(ubicacion1);
     const texto2 = normalizarTexto(ubicacion2);
@@ -437,7 +424,7 @@ export const BusquedaProvider = ({ children }) => {
     }
   };
 
-  // 🔧 MODIFICACIÓN 3: Verificación de URL con comparación flexible
+  // Verificación de URL con comparación flexible
   useEffect(() => {
     const verificarRutaManual = async () => {
       // 🚫 VERIFICAR SI ES UNA RUTA VÁLIDA ANTES DE PROCESARLA
@@ -509,7 +496,7 @@ export const BusquedaProvider = ({ children }) => {
             maxRows: 10, lang: "en"}
         });
 
-        // ⭐ MODIFICACIÓN PRINCIPAL: Usar comparación flexible
+        // Usar comparación flexible
         const coincidencia = response.data.geonames.find((item) => {
           const ciudadAPI = item.name || "";
           const departamentoAPI = item.adminName1 || "";

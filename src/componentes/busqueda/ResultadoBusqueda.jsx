@@ -117,7 +117,7 @@ export default function ResultadoBusqueda({ scrollContainerRef }) {
 
                 {resultados.map((item, index) => (
                     <div
-                        className="w-full p-2 flex flex-row items-center 
+                        className="w-full p-2 flex flex-row items-center gap-3
                                 justify-around cursor-pointer flex-shrink-0
                                 hover:bg-gray-400 dark:hover:bg-gray-700
                                 active:bg-gray-300 dark:active:bg-gray-600

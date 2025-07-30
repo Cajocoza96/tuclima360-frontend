@@ -88,10 +88,12 @@ export default function BarraBusqueda() {
                         touchAction: 'none',
                         overscrollBehavior: 'none'
                     }}
+                    onClick={cerrarFondo}
                 ></div>
             )}
             <div className="my-1 p-2 w-[99%] bg-white dark:bg-gray-900 rounded-md
-                                        flex flex-row items-center justify-around relative gap-2 z-50">
+                                        flex flex-row items-center 
+                                        justify-around relative gap-3 z-50">
                 <Link to="/">
                 <HiHome className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl 
                                     text-black dark:text-gray-300 cursor-pointer"/>
