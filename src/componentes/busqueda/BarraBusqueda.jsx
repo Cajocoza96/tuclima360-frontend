@@ -113,7 +113,7 @@ export default function BarraBusqueda() {
 
                                                     
                     type="text"
-                    placeholder={isOnline ? "Write the name of the city" : "No internet connection"}
+                    placeholder={shouldShowLoading ? "Loading cities... please wait" : isOnline ? "Write the name of the city" : "No internet connection"}
                     onChange={manejarCambio}
                     disabled={!isOnline || shouldShowLoading}
                 />
