@@ -77,7 +77,7 @@ export default function AnimacionBienvenida() {
                 <motion.div
                     className="mt-2 w-full
                                     flex items-center justify-center gap-2 flex-col 
-                                    xs4:flex-row"
+                                    2xs:flex-row"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 0.5 }}>
@@ -85,7 +85,6 @@ export default function AnimacionBienvenida() {
                     <motion.div
                         className="w-[45%] h-auto overflow-hidden 
                                             xss:w-[54%]
-                                            xs4:w-[27%]
                                             2xs:w-[27%] sm:w-[32%] 
                                             md:w-[33%] lg:w-[33%] 
                                             xl:w-[33%] 2xl:w-[38%]
@@ -102,7 +101,6 @@ export default function AnimacionBienvenida() {
                     <motion.div
                         className="w-[45%] h-auto overflow-hidden 
                                             xss:w-[54%]
-                                            xs4:w-[27%]
                                             2xs:w-[27%] sm:w-[32%] 
                                             md:w-[33%] lg:w-[33%] 
                                             xl:w-[33%] 2xl:w-[38%]
