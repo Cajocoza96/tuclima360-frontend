@@ -2,53 +2,26 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import ResultadoBusqueda from "./ResultadoBusqueda";
 import { HiX, HiHome } from "react-icons/hi";
 import { BusquedaContext } from "../../context/BusquedaContext";
-import useConexionInternet from "../../hooks/useConexionInternet"; 
-
+import { useConexion } from "../../context/ConexionContext";
 import { Link } from "react-router-dom";
-
 import { useCloseKeyboardOnScroll } from "../../hooks/useCloseKeyboardOnScroll";
 
 export default function BarraBusqueda() {
-    const { buscarCiudades, limpiarBusqueda, resultados, obtenerCiudadesColombia, cargandoCiudadesColombia } = useContext(BusquedaContext);
+    const { buscarCiudades, limpiarBusqueda, resultados, cargandoCiudadesColombia } = useContext(BusquedaContext);
+    const { 
+        isOnline, 
+        shouldShowOfflineMessage,
+        shouldShowReconnectionMessage
+    } = useConexion();
+    
     const [mostrarFondo, setMostrarFondo] = useState(true);
     const inputRef = useRef(null);
     const overlayRef = useRef(null);
     // Nueva ref para el contenedor de scroll
     const scrollContainerRef = useRef(null);
-    const [mostrandoMensajeReconexion, setMostrandoMensajeReconexion] = useState(false);
-    const timerRef = useRef(null);
-    
-    const { isOnline, justReconnected, resetReconnectionState } = useConexionInternet();
 
-    // Efecto para manejar la reconexión
-    useEffect(() => {
-        if (justReconnected && isOnline) {
-            console.log("Reconectado a internet, mostrando mensaje...");
-            setMostrandoMensajeReconexion(true);
-
-            // Limpiar timer anterior si existe
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
-            }
-
-            // Después de 3 segundos, reintentar carga automáticamente
-            timerRef.current = setTimeout(() => {
-                console.log("3 segundos pasados, reintentando carga...");
-                setMostrandoMensajeReconexion(false);
-                resetReconnectionState();
-                obtenerCiudadesColombia();
-            }, 3000);
-        }
-
-        return () => {
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
-            }
-        };
-    }, [justReconnected, isOnline, obtenerCiudadesColombia, resetReconnectionState]);
-
-    const shouldShowReconnectionMessage = mostrandoMensajeReconexion && isOnline;
-    const shouldShowLoading = cargandoCiudadesColombia && isOnline && !mostrandoMensajeReconexion;
+    // Estados derivados sincronizados
+    const shouldShowLoading = cargandoCiudadesColombia && isOnline && !shouldShowReconnectionMessage;
 
     // Pasar la referencia del contenedor al hook
     useCloseKeyboardOnScroll({
@@ -96,7 +69,7 @@ export default function BarraBusqueda() {
     }, [mostrarFondo, resultados]);
 
     const manejarCambio = (e) => {
-        if (isOnline) {
+        if (isOnline && !shouldShowLoading && !shouldShowReconnectionMessage) {
             buscarCiudades(e.target.value);
             setMostrarFondo(true);
         }
@@ -110,6 +83,15 @@ export default function BarraBusqueda() {
         }
     };
 
+    // Debug logs
+    console.log("Estados actuales BarraBusqueda:", {
+        isOnline,
+        shouldShowOfflineMessage,
+        shouldShowReconnectionMessage,
+        shouldShowLoading,
+        cargandoCiudadesColombia
+    });
+
     return (
         <>
             {mostrarFondo && resultados && resultados.length > 0 && (
@@ -121,7 +103,7 @@ export default function BarraBusqueda() {
                     }}
                 ></div>
             )}
-            <div className={`${!isOnline || shouldShowLoading 
+            <div className={`${shouldShowOfflineMessage || shouldShowLoading 
                             || shouldShowReconnectionMessage ? 'bg-gray-500 dark:bg-gray-700' : 'bg-white dark:bg-gray-900'}
                             my-1 p-2 w-[99%]  rounded-md
                             flex flex-row items-center 
@@ -133,7 +115,7 @@ export default function BarraBusqueda() {
 
                 <input 
                     ref={inputRef}
-                    className={`${!isOnline || shouldShowLoading 
+                    className={`${shouldShowOfflineMessage || shouldShowLoading 
                                 || shouldShowReconnectionMessage ? 'bg-gray-500 dark:bg-gray-700 placeholder:text-gray-800 dark:placeholder:text-gray-400' : 'bg-white dark:bg-gray-900 placeholder:text-gray-500 dark:placeholder:text-gray-500'} 
                                     w-[85%] border-none
                                     focus:outline-none focus:ring-0
@@ -147,7 +129,7 @@ export default function BarraBusqueda() {
                     type="text"
                     placeholder={shouldShowLoading ? "Loading cities... please wait" : shouldShowReconnectionMessage ? "Connection has been re-established" : isOnline ? "Write the name of the city" : "No internet connection"}
                     onChange={manejarCambio}
-                    disabled={!isOnline || shouldShowLoading || shouldShowReconnectionMessage}
+                    disabled={shouldShowOfflineMessage || shouldShowLoading || shouldShowReconnectionMessage}
                 />
 
                 <HiX 

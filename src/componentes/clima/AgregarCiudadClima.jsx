@@ -1,9 +1,9 @@
-import React, { useEffect, useContext, useState, useRef } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import { BusquedaContext } from "../../context/BusquedaContext";
+import { useConexion } from "../../context/ConexionContext";
 import BotonCiudadClima from "../botones/BotonCiudadClima";
 import BarraBusqueda from "../busqueda/BarraBusqueda";
 import AdvDeteccionAutoClima from "./AdvDeteccionAutoClima";
-import useConexionInternet from "../../hooks/useConexionInternet";
 import { useCloseKeyboardOnScroll } from "../../hooks/useCloseKeyboardOnScroll";
 
 import EstadoCargaConexion from "../estado_de_carga/EstadoCargaConexion";
@@ -11,9 +11,12 @@ import InfoEstadoCargaConexion from "../../data/InfoEstadoCargaConexion.json";
 
 export default function AgregarCiudadClima() {
     const { ciudadesColombia, obtenerCiudadesColombia, cargandoCiudadesColombia } = useContext(BusquedaContext);
-    const { isOnline, justReconnected, resetReconnectionState } = useConexionInternet();
-    const [mostrandoMensajeReconexion, setMostrandoMensajeReconexion] = useState(false);
-    const timerRef = useRef(null);
+    const { 
+        isOnline, 
+        shouldShowOfflineMessage, 
+        shouldShowReconnectionMessage,
+        mostrandoMensajeReconexion
+    } = useConexion();
     
     // Ref para el contenedor de scroll donde se mostrará la lista de ciudades
     const scrollContainerRef = useRef(null);
@@ -35,46 +38,28 @@ export default function AgregarCiudadClima() {
         }
     }, []);
 
-    // Efecto para manejar la reconexión
+    // Efecto para manejar la reconexión - ahora solo escucha cuando el mensaje desaparece
     useEffect(() => {
-        if (justReconnected && isOnline) {
-            console.log("Reconectado a internet, mostrando mensaje...");
-            setMostrandoMensajeReconexion(true);
-
-            // Limpiar timer anterior si existe
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
-            }
-
-            // Después de 3 segundos, reintentar carga automáticamente
-            timerRef.current = setTimeout(() => {
-                console.log("3 segundos pasados, reintentando carga...");
-                setMostrandoMensajeReconexion(false);
-                resetReconnectionState();
-                obtenerCiudadesColombia();
-            }, 3000);
+        // Cuando el mensaje de reconexión desaparece, es momento de recargar
+        if (isOnline && !mostrandoMensajeReconexion && ciudadesColombia.length === 0) {
+            console.log("Mensaje de reconexión terminó, recargando ciudades...");
+            obtenerCiudadesColombia();
         }
+    }, [mostrandoMensajeReconexion, isOnline, ciudadesColombia.length, obtenerCiudadesColombia]);
 
-        return () => {
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
-            }
-        };
-    }, [justReconnected, isOnline, obtenerCiudadesColombia, resetReconnectionState]);
-
-    // Determinar qué mostrar
-    const shouldShowOfflineMessage = !isOnline;
-    const shouldShowReconnectionMessage = mostrandoMensajeReconexion && isOnline;
-    const shouldShowLoading = cargandoCiudadesColombia && isOnline && !mostrandoMensajeReconexion;
-    const shouldShowCities = !cargandoCiudadesColombia && ciudadesColombia.length > 0 && isOnline && !mostrandoMensajeReconexion;
+    // Determinar qué mostrar - sincronizado con el contexto
+    const shouldShowLoading = cargandoCiudadesColombia && isOnline && !shouldShowReconnectionMessage;
+    const shouldShowCities = !cargandoCiudadesColombia && ciudadesColombia.length > 0 && isOnline && !shouldShowReconnectionMessage;
 
     // Debug logs
-    console.log("Estados actuales:", {
+    console.log("Estados actuales AgregarCiudadClima:", {
         isOnline,
-        justReconnected,
-        mostrandoMensajeReconexion,
+        shouldShowOfflineMessage,
+        shouldShowReconnectionMessage,
         cargandoCiudadesColombia,
-        ciudadesLength: ciudadesColombia.length
+        ciudadesLength: ciudadesColombia.length,
+        shouldShowLoading,
+        shouldShowCities
     });
 
     return (
