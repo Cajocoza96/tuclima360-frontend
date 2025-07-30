@@ -43,8 +43,7 @@ export default function EstadoCargaConexion({
         <>
             {estadoMensajeCargaCiudadClima && (
                 <div className="z-50 bg-violet-900 dark:bg-black w-screen h-[100svh]  
-                                absolute top-1/2 left-1/2 transform 
-                                -translate-x-1/2 -translate-y-1/2">
+                                fixed inset-0">
                     <div className="p-3 flex flex-col items-center justify-center w-screen h-[100svh]">
                         <div
                             onClick={handleInicio}
@@ -92,8 +91,7 @@ export default function EstadoCargaConexion({
 
             {estadoMensajeConexionCiudadClima && (
                 <div className="z-50 bg-violet-900 dark:bg-black w-screen h-[100svh]  
-                                absolute top-1/2 left-1/2 transform 
-                                -translate-x-1/2 -translate-y-1/2">
+                                fixed inset-0">
                     <div className="p-3 flex flex-col items-center justify-center w-screen h-[100svh]">
                         <div
                             onClick={handleInicio}
