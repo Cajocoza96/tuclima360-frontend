@@ -9,16 +9,45 @@ import { Link } from "react-router-dom";
 import { useCloseKeyboardOnScroll } from "../../hooks/useCloseKeyboardOnScroll";
 
 export default function BarraBusqueda() {
-    const { buscarCiudades, limpiarBusqueda, resultados, cargandoCiudadesColombia } = useContext(BusquedaContext);
+    const { buscarCiudades, limpiarBusqueda, resultados, obtenerCiudadesColombia, cargandoCiudadesColombia } = useContext(BusquedaContext);
     const [mostrarFondo, setMostrarFondo] = useState(true);
     const inputRef = useRef(null);
     const overlayRef = useRef(null);
     // Nueva ref para el contenedor de scroll
     const scrollContainerRef = useRef(null);
+    const [mostrandoMensajeReconexion, setMostrandoMensajeReconexion] = useState(false);
+    const timerRef = useRef(null);
     
-    const { isOnline } = useConexionInternet();
+    const { isOnline, justReconnected, resetReconnectionState } = useConexionInternet();
 
+    // Efecto para manejar la reconexión
+        useEffect(() => {
+            if (justReconnected && isOnline) {
+                console.log("Reconectado a internet, mostrando mensaje...");
+                setMostrandoMensajeReconexion(true);
     
+                // Limpiar timer anterior si existe
+                if (timerRef.current) {
+                    clearTimeout(timerRef.current);
+                }
+    
+                // Después de 3 segundos, reintentar carga automáticamente
+                timerRef.current = setTimeout(() => {
+                    console.log("3 segundos pasados, reintentando carga...");
+                    setMostrandoMensajeReconexion(false);
+                    resetReconnectionState();
+                    obtenerCiudadesColombia();
+                }, 3000);
+            }
+    
+            return () => {
+                if (timerRef.current) {
+                    clearTimeout(timerRef.current);
+                }
+            };
+        }, [justReconnected, isOnline, obtenerCiudadesColombia, resetReconnectionState]);
+
+    const shouldShowReconnectionMessage = mostrandoMensajeReconexion && isOnline;
     const shouldShowLoading = cargandoCiudadesColombia && isOnline;
 
     // Pasar la referencia del contenedor al hook
@@ -113,9 +142,9 @@ export default function BarraBusqueda() {
 
                                                     
                     type="text"
-                    placeholder={shouldShowLoading ? "Loading cities... please wait" : isOnline ? "Write the name of the city" : "No internet connection"}
+                    placeholder={shouldShowLoading ? "Loading cities... please wait" : shouldShowReconnectionMessage ? "Reconnecting... please wait" : isOnline ? "Write the name of the city" : "No internet connection"}
                     onChange={manejarCambio}
-                    disabled={!isOnline || shouldShowLoading}
+                    disabled={!isOnline || shouldShowLoading || shouldShowReconnectionMessage}
                 />
 
                 <HiX 
