@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ValorValorValor({ valor1, valor2, valor3, className="", ...props }) {
     return (
-        <div className="w-[95%]  mt-2 flex flex-row items-center justify-between">
+        <div className="w-[95%] mt-1 lg:mt-2 flex flex-row items-center justify-between">
 
             <div className={`text-xl md:text-2xl 2xl:text-4xl 
                             cursor-pointer${className}`} {...props}>

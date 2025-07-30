@@ -82,7 +82,7 @@ export default function GestionUbicaEditAgre() {
 
                 </div>
 
-                <div className="flex-shrink-0 w-[90%] mb-4
+                <div className="flex-shrink-0 w-[90%] mb-3 lg:mb-4
                                 grid gap-4 overflow-hidden"
                     style={{
                         gridTemplateColumns: modoEdicion || !mostrarBotonEditar ? '1fr' : '1fr 1fr'
