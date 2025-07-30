@@ -145,7 +145,7 @@ export default function BarraBusqueda() {
 
                                                     
                     type="text"
-                    placeholder={shouldShowLoading ? "Loading cities... please wait" : shouldShowReconnectionMessage ? "Reconnecting... please wait" : isOnline ? "Write the name of the city" : "No internet connection"}
+                    placeholder={shouldShowLoading ? "Loading cities... please wait" : shouldShowReconnectionMessage ? "Connection has been re-established" : isOnline ? "Write the name of the city" : "No internet connection"}
                     onChange={manejarCambio}
                     disabled={!isOnline || shouldShowLoading || shouldShowReconnectionMessage}
                 />
