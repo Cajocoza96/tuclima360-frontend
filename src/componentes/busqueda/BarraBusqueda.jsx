@@ -87,7 +87,6 @@ export default function BarraBusqueda() {
                     style={{ 
                         overscrollBehavior: 'none'
                     }}
-                    onClick={cerrarFondo}
                 ></div>
             )}
             <div className="my-1 p-2 w-[99%] bg-white dark:bg-gray-900 rounded-md
