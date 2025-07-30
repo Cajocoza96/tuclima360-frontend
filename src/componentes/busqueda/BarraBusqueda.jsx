@@ -21,34 +21,34 @@ export default function BarraBusqueda() {
     const { isOnline, justReconnected, resetReconnectionState } = useConexionInternet();
 
     // Efecto para manejar la reconexión
-        useEffect(() => {
-            if (justReconnected && isOnline) {
-                console.log("Reconectado a internet, mostrando mensaje...");
-                setMostrandoMensajeReconexion(true);
-    
-                // Limpiar timer anterior si existe
-                if (timerRef.current) {
-                    clearTimeout(timerRef.current);
-                }
-    
-                // Después de 3 segundos, reintentar carga automáticamente
-                timerRef.current = setTimeout(() => {
-                    console.log("3 segundos pasados, reintentando carga...");
-                    setMostrandoMensajeReconexion(false);
-                    resetReconnectionState();
-                    obtenerCiudadesColombia();
-                }, 3000);
+    useEffect(() => {
+        if (justReconnected && isOnline) {
+            console.log("Reconectado a internet, mostrando mensaje...");
+            setMostrandoMensajeReconexion(true);
+
+            // Limpiar timer anterior si existe
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
             }
-    
-            return () => {
-                if (timerRef.current) {
-                    clearTimeout(timerRef.current);
-                }
-            };
-        }, [justReconnected, isOnline, obtenerCiudadesColombia, resetReconnectionState]);
+
+            // Después de 3 segundos, reintentar carga automáticamente
+            timerRef.current = setTimeout(() => {
+                console.log("3 segundos pasados, reintentando carga...");
+                setMostrandoMensajeReconexion(false);
+                resetReconnectionState();
+                obtenerCiudadesColombia();
+            }, 3000);
+        }
+
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
+    }, [justReconnected, isOnline, obtenerCiudadesColombia, resetReconnectionState]);
 
     const shouldShowReconnectionMessage = mostrandoMensajeReconexion && isOnline;
-    const shouldShowLoading = cargandoCiudadesColombia && isOnline;
+    const shouldShowLoading = cargandoCiudadesColombia && isOnline && !mostrandoMensajeReconexion;
 
     // Pasar la referencia del contenedor al hook
     useCloseKeyboardOnScroll({
