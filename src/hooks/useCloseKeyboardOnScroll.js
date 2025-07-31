@@ -10,10 +10,11 @@ export function useCloseKeyboardOnScroll(options = {}) {
 
   // Referencias para controlar el estado
   const lastScrollTop = useRef(0);
-  const isAtBottom = useRef(false);
+  const scrollTimeoutRef = useRef(null);
   const recentInputFocus = useRef(false);
   const focusTimeoutRef = useRef(null);
-  const initialViewportHeight = useRef(null);
+  const initialViewportHeight = useRef(window.innerHeight);
+  const isScrollingRef = useRef(false);
 
   const closeKeyboard = useCallback(() => {
     const activeElement = document.activeElement;
@@ -34,116 +35,125 @@ export function useCloseKeyboardOnScroll(options = {}) {
     
     if (isExcluded) return;
     
-    // Cierra el teclado
-    if (delay > 0) {
-      setTimeout(() => activeElement.blur(), delay);
-    } else {
-      activeElement.blur();
-    }
+    console.log('Cerrando teclado - elemento activo:', activeElement.tagName, activeElement.type);
+    
+    // Cierra el teclado de forma más agresiva
+    activeElement.blur();
+    
+    // Forzar el blur con un enfoque alternativo en caso de que el primero falle
+    setTimeout(() => {
+      if (document.activeElement === activeElement) {
+        activeElement.blur();
+        // Crear un elemento temporal para forzar el cambio de foco
+        const tempElement = document.createElement('div');
+        tempElement.style.position = 'absolute';
+        tempElement.style.left = '-9999px';
+        tempElement.tabIndex = -1;
+        document.body.appendChild(tempElement);
+        tempElement.focus();
+        document.body.removeChild(tempElement);
+      }
+    }, delay || 50);
+    
   }, [delay, excludeSelectors]);
 
-  // Función mejorada para detectar dispositivos móviles/táctiles
-  const isTouchDevice = useCallback(() => {
-    // Método más robusto que funciona mejor con modo de escritorio
+  // Función más agresiva para detectar dispositivos móviles
+  const isMobileDevice = useCallback(() => {
+    // Detectar por User Agent
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    const mobileRegex = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
+    
+    // Detectar por características táctiles
     const hasTouchSupport = (
       'ontouchstart' in window ||
       navigator.maxTouchPoints > 0 ||
       navigator.msMaxTouchPoints > 0
     );
     
-    const isMobileUserAgent = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // Detectar por tamaño de pantalla (incluso en modo de escritorio)
+    const hasSmallScreen = (
+      window.screen.width <= 1024 || 
+      window.screen.height <= 1024 ||
+      window.innerWidth <= 1024
+    );
     
-    // Detectar cambios en el viewport height como indicador de teclado virtual
-    const currentViewportHeight = window.visualViewport ? 
-      window.visualViewport.height : window.innerHeight;
-    
-    if (initialViewportHeight.current === null) {
-      initialViewportHeight.current = currentViewportHeight;
-    }
-    
-    const hasVirtualKeyboard = initialViewportHeight.current - currentViewportHeight > 150;
-    
-    // Si detectamos un teclado virtual, definitivamente es un dispositivo móvil
-    if (hasVirtualKeyboard) return true;
-    
-    // Combinar diferentes métodos de detección para mayor precisión
-    return hasTouchSupport || isMobileUserAgent;
+    // Si cualquiera de estos es verdadero, consideramos que es móvil
+    return mobileRegex.test(userAgent) || hasTouchSupport || hasSmallScreen;
   }, []);
 
-  // Función para verificar si estamos en el fondo del scroll
-  const checkIfAtBottom = useCallback((element) => {
-    if (element === window) {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      return scrollTop + windowHeight >= documentHeight - 10; // 10px de tolerancia
-    } else {
-      return element.scrollTop + element.clientHeight >= element.scrollHeight - 10;
-    }
+  // Detectar si hay un input activo con teclado
+  const hasActiveInput = useCallback(() => {
+    const activeElement = document.activeElement;
+    return activeElement && activeElement.matches('input, textarea, [contenteditable="true"], select');
   }, []);
 
-  // Función para detectar si hay un teclado virtual activo
-  const hasVirtualKeyboard = useCallback(() => {
-    if (window.visualViewport) {
-      return window.visualViewport.height < window.innerHeight * 0.85;
-    }
-    
-    // Fallback: comparar con la altura inicial
+  // Detectar cambios en el viewport que indiquen teclado virtual
+  const detectVirtualKeyboard = useCallback(() => {
     const currentHeight = window.innerHeight;
-    if (initialViewportHeight.current) {
-      return initialViewportHeight.current - currentHeight > 150;
-    }
+    const heightDifference = initialViewportHeight.current - currentHeight;
     
-    return false;
+    // Si la altura se redujo significativamente, probablemente hay un teclado virtual
+    return heightDifference > 100;
   }, []);
 
   useEffect(() => {
-    // Guardar la altura inicial del viewport
-    if (initialViewportHeight.current === null) {
-      initialViewportHeight.current = window.visualViewport ? 
-        window.visualViewport.height : window.innerHeight;
-    }
-
-    // Solo aplica en dispositivos táctiles si está habilitado
-    if (touchOnly && !isTouchDevice()) {
+    // Solo aplicar en dispositivos móviles si touchOnly está habilitado
+    if (touchOnly && !isMobileDevice()) {
+      console.log('No es dispositivo móvil, hook deshabilitado');
       return;
     }
 
     const targetElement = container?.current || window;
+    console.log('Hook habilitado para elemento:', targetElement === window ? 'window' : 'container');
     
     const handleScroll = () => {
-      // Solo proceder si realmente hay un teclado virtual activo
-      const keyboardActive = hasVirtualKeyboard();
-      if (!keyboardActive) return;
-
+      // Marcar que estamos haciendo scroll
+      isScrollingRef.current = true;
+      
+      // Limpiar timeout anterior
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      
       const currentScrollTop = targetElement === window 
         ? window.pageYOffset || document.documentElement.scrollTop
         : targetElement.scrollTop;
       
-      // Actualizar si estamos en el fondo
-      isAtBottom.current = checkIfAtBottom(targetElement);
+      const scrollDifference = Math.abs(currentScrollTop - lastScrollTop.current);
       
-      // Detectar movimiento de scroll real (no solo bounce del navegador)
-      const hasScrollMovement = Math.abs(currentScrollTop - lastScrollTop.current) > 3;
+      console.log('Scroll detectado:', {
+        currentScrollTop,
+        lastScrollTop: lastScrollTop.current,
+        scrollDifference,
+        hasActiveInput: hasActiveInput(),
+        detectVirtualKeyboard: detectVirtualKeyboard(),
+        recentInputFocus: recentInputFocus.current
+      });
       
-      // Condiciones más estrictas para modo de escritorio
-      const shouldCloseKeyboard = (
-        hasScrollMovement && (
-          !isAtBottom.current || 
-          (!recentInputFocus.current && currentScrollTop > lastScrollTop.current)
-        )
-      );
-      
-      if (shouldCloseKeyboard) {
-        closeKeyboard();
-      }
-      
-      // Resetear el flag de focus reciente después de un scroll real
-      if (hasScrollMovement) {
-        recentInputFocus.current = false;
+      // Si hay un input activo y movimiento de scroll real
+      if (hasActiveInput() && scrollDifference > 1) {
+        // En modo de escritorio, ser más agresivo
+        const isDesktopMode = !detectVirtualKeyboard() && hasActiveInput();
+        
+        if (isDesktopMode) {
+          console.log('Modo de escritorio detectado, cerrando teclado inmediatamente');
+          closeKeyboard();
+        } else {
+          // Comportamiento normal para móvil estándar
+          if (!recentInputFocus.current || scrollDifference > 10) {
+            console.log('Cerrando teclado por scroll normal');
+            closeKeyboard();
+          }
+        }
       }
       
       lastScrollTop.current = currentScrollTop;
+      
+      // Resetear el flag de scroll después de un breve delay
+      scrollTimeoutRef.current = setTimeout(() => {
+        isScrollingRef.current = false;
+        recentInputFocus.current = false;
+      }, 150);
     };
 
     // Listener para detectar cuando se hace focus en un input
@@ -153,61 +163,82 @@ export function useCloseKeyboardOnScroll(options = {}) {
       );
       
       if (isInputElement) {
-        // Marcar que hay un focus reciente
+        console.log('Focus en input detectado:', e.target);
         recentInputFocus.current = true;
+        
+        // Actualizar la altura de referencia cuando se hace focus
+        setTimeout(() => {
+          initialViewportHeight.current = window.innerHeight;
+        }, 300); // Wait for keyboard to appear
         
         // Limpiar timeout anterior si existe
         if (focusTimeoutRef.current) {
           clearTimeout(focusTimeoutRef.current);
         }
         
-        // Resetear el flag después de un tiempo (más corto en modo de escritorio)
-        const graceTime = isTouchDevice() ? 800 : 1200;
+        // Resetear el flag después de un tiempo más corto
         focusTimeoutRef.current = setTimeout(() => {
           recentInputFocus.current = false;
-        }, graceTime);
+          console.log('Flag de focus reciente reseteado');
+        }, 500); // Tiempo más corto para ser más responsive
       }
     };
 
-    // Listener para detectar cambios en el viewport (útil para detectar teclado virtual)
-    const handleViewportChange = () => {
-      // Actualizar la referencia de altura cuando cambia el viewport
-      if (window.visualViewport) {
-        const currentHeight = window.visualViewport.height;
-        if (Math.abs(currentHeight - initialViewportHeight.current) > 100) {
-          // Se detectó un cambio significativo, probablemente el teclado
-          setTimeout(() => {
-            initialViewportHeight.current = Math.max(currentHeight, initialViewportHeight.current);
-          }, 100);
-        }
+    // Listener para blur
+    const handleFocusOut = (e) => {
+      if (e.target.matches('input, textarea, [contenteditable="true"], select')) {
+        console.log('Blur en input detectado');
+        // Resetear inmediatamente el flag cuando se pierde el focus
+        recentInputFocus.current = false;
+        
+        // Actualizar la altura de referencia cuando se cierra el teclado
+        setTimeout(() => {
+          initialViewportHeight.current = Math.max(window.innerHeight, initialViewportHeight.current);
+        }, 300);
       }
     };
 
-    // Usar passive para mejor rendimiento en scroll
+    // Event listeners
     targetElement.addEventListener('scroll', handleScroll, { 
       passive: true 
     });
     
-    // Escuchar eventos de focus en todo el documento
     document.addEventListener('focusin', handleFocusIn, { passive: true });
+    document.addEventListener('focusout', handleFocusOut, { passive: true });
 
-    // Escuchar cambios en el visual viewport si está disponible
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', handleViewportChange);
+    // Listener adicional para touchstart que puede ayudar en modo de escritorio
+    const handleTouchStart = () => {
+      if (hasActiveInput() && !recentInputFocus.current) {
+        console.log('Touch detectado con input activo, preparando para cerrar teclado');
+        // Pequeño delay para permitir que el scroll se registre
+        setTimeout(() => {
+          if (isScrollingRef.current) {
+            closeKeyboard();
+          }
+        }, 50);
+      }
+    };
+
+    if (isMobileDevice()) {
+      document.addEventListener('touchstart', handleTouchStart, { passive: true });
     }
 
     return () => {
       targetElement.removeEventListener('scroll', handleScroll);
       document.removeEventListener('focusin', handleFocusIn);
+      document.removeEventListener('focusout', handleFocusOut);
       
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', handleViewportChange);
+      if (isMobileDevice()) {
+        document.removeEventListener('touchstart', handleTouchStart);
       }
       
-      // Limpiar timeout si existe
+      // Limpiar timeouts
       if (focusTimeoutRef.current) {
         clearTimeout(focusTimeoutRef.current);
       }
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
     };
-  }, [container, touchOnly, closeKeyboard, checkIfAtBottom, isTouchDevice, hasVirtualKeyboard]);
+  }, [container, touchOnly, closeKeyboard, isMobileDevice, hasActiveInput, detectVirtualKeyboard]);
 }

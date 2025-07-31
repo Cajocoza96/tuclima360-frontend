@@ -19,9 +19,11 @@ export default function AgregarCiudadClima() {
     const scrollContainerRef = useRef(null);
 
     // Configurar el hook para cerrar el teclado al hacer scroll
+    // Usamos el contenedor específico y agregamos configuración para modo de escritorio
     useCloseKeyboardOnScroll({
         container: scrollContainerRef,
-        delay: 100 // Pequeño delay para mejor UX
+        delay: 50, // Delay más corto para mejor respuesta
+        touchOnly: false // Permitir que funcione también en modo de escritorio
     });
 
     const mensajeCarga = InfoEstadoCargaConexion.cargando.cargSugeCiudades;
@@ -102,7 +104,12 @@ export default function AgregarCiudadClima() {
                     ref={scrollContainerRef}
                     className="flex-1 w-full bg-blue-900 dark:bg-gray-700 py-4 
                                 overflow-y-auto overscroll-contain
-                                min-h-0">
+                                min-h-0"
+                    style={{
+                        /* Forzar el comportamiento de scroll en modo de escritorio */
+                        touchAction: 'pan-y',
+                        overscrollBehavior: 'contain'
+                    }}>
 
                     {shouldShowOfflineMessage ? (
                         <EstadoCargaConexion estadoMensajeConexion={mensajeSinConexion} />
