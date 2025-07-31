@@ -34,10 +34,9 @@ export default function GestionUbicaEditAgre() {
     return (
         <div className="bg-blue-950 dark:bg-gray-800 mx-auto min-h-[100svh]">
 
-            <div className="w-full mx-auto min-h-[100svh]
-                                flex flex-col items-center justify-between"
-                style={{ maxHeight: '100vh' }}>
+            <div className="w-full mx-auto min-h-[100svh] max-h-[100svh] flex flex-col items-center">
 
+                {/* Contenido superior fijo */}
                 <div className="w-full mx-auto flex flex-col items-center justify-center gap-2 flex-shrink-0">
 
                     <ValorValorValor
@@ -65,14 +64,13 @@ export default function GestionUbicaEditAgre() {
 
                 </div>
 
-                <div className="w-[95%] overflow-y-auto overflow-x-hidden rounded-md 
-                                my-2"
+                {/* Contenido del medio que crece para ocupar el espacio disponible */}
+                <div className="flex-1 w-[95%] mx-auto overflow-y-auto overflow-x-hidden rounded-md my-2"
                     style={{
-                        maxHeight: 'calc(100svh - 150px)',
                         minHeight: '20px'
                     }}>
 
-                    <div className="mx-auto w-full  overflow-hidden 
+                    <div className="mx-auto w-full overflow-hidden 
                                         flex flex-col items-center">
                         <ClimasUbicados
                             iconoEliminar={modoEdicion ? <HiTrash /> : null}
@@ -82,7 +80,8 @@ export default function GestionUbicaEditAgre() {
 
                 </div>
 
-                <div className="flex-shrink-0 w-[90%] mb-3 lg:mb-4
+                {/* Botones fijos en la parte inferior */}
+                <div className="flex-shrink-0 w-[90%] mx-auto mb-3 lg:mb-4
                                 grid gap-4 overflow-hidden"
                     style={{
                         gridTemplateColumns: modoEdicion || !mostrarBotonEditar ? '1fr' : '1fr 1fr'
