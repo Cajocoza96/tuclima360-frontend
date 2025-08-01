@@ -4,7 +4,7 @@ import Rutas from "./componentes/rutas/Rutas";
 function App() {
   return (
     <div className="">
-
+      
       <Rutas />
 
     </div>

@@ -16,6 +16,8 @@ export default function TablaPretemVieHumUv() {
 
     // Obtener la temperatura convertida según el modo seleccionado
     const temperaturaConvertida = obtenerTemperaturaConvertida(clima.temperatura, encendidoTemperaturaModo);
+    const datosViento = obtenerDireccionViento(clima.viento.direccion, clima.viento.velocidad);
+    const datosUv = obtenerIndiceUV(clima.uv.textoUv, clima.uv.valorUv);
 
     if (!clima) return <p className="text-white">Loading climate...</p>;
 
@@ -87,7 +89,10 @@ export default function TablaPretemVieHumUv() {
                                 Wind
                             </p>
                             <p className="text-base md:text-xl 2xl:text-4xl text-white">
-                                {obtenerDireccionViento(clima.viento.direccion, clima.viento.velocidad)}
+                                <span>{datosViento.direccion}</span>
+                            </p>
+                            <p className="text-base md:text-xl 2xl:text-4xl text-white">
+                                <span translate="no">{datosViento.velocidad}</span>
                             </p>
                         </div>
                     </div>
@@ -100,7 +105,10 @@ export default function TablaPretemVieHumUv() {
                                 UV Index
                             </p>
                             <p className="text-base md:text-xl 2xl:text-4xl text-white">
-                                {obtenerIndiceUV(clima.uv)}
+                                <span>{datosUv.textoUv}</span>
+                            </p>
+                            <p className="text-base md:text-xl 2xl:text-4xl text-white">
+                                <span translate="no">{datosUv.valorUv}</span>
                             </p>
                         </div>
                     </div>

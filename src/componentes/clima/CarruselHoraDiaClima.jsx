@@ -106,8 +106,8 @@ export default function CarruselHoraDiaClima() {
                     const temperaturaConvertida = obtenerTemperaturaConvertida(hora.temperatura, encendidoTemperaturaModo);
 
                     const humedadFormateada = formatearHumedad(hora.humedad);
-                    const vientoFormateado = obtenerDireccionViento(hora.viento.direccion, hora.viento.velocidad);
-                    const uvFormateado = obtenerIndiceUV(hora.uv);
+                    const datosViento = obtenerDireccionViento(hora.viento.direccion, hora.viento.velocidad);
+                    const datosUV = obtenerIndiceUV(hora.uv.textoUv, hora.uv.valorUv);
 
                     return (
 
@@ -184,18 +184,34 @@ export default function CarruselHoraDiaClima() {
                                     </p>
                                 </div>
 
-                                <div className="flex flex-wrap flex-col 2xs:flex-row items-center justify-center">
+                                <div className="flex flex-col items-center justify-center">
                                     <WiStrongWind className="text-center text-xl md:text-2xl lg:text-3xl 2xl:text-5xl text-white" />
-                                    <span className="text-center text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
-                                        <span translate="no">{vientoFormateado}</span>
-                                    </span>
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div className="h-10 flex flex-col justify-center">
+                                            <p className="text-center text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
+                                                {datosViento.direccion}
+                                            </p>
+                                        </div>
+
+                                        <p className="text-center text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
+                                            <span translate="no">{datosViento.velocidad}</span>
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div className="flex flex-wrap flex-col 2xs:flex-row items-center justify-center">
                                     <WiDaySunny className="text-xl md:text-2xl lg:text-3xl 2xl:text-5xl text-white" />
-                                    <span className="text-center text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
-                                        <span translate="no">{uvFormateado}</span>
-                                    </span>
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div className="h-10 flex flex-col justify-center">
+                                            <p className="text-center text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
+                                                {datosUV.textoUv}
+                                            </p>
+                                        </div>
+
+                                        <p className="text-center text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
+                                            <span translate="no">{datosUV.valorUv}</span>
+                                        </p>
+                                    </div>
                                 </div>
 
                             </div>

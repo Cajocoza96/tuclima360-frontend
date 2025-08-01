@@ -16,8 +16,8 @@ export default function MensajesClimaticos() {
     // Obtener la temperatura convertida según el modo seleccionado
     const temperaturaConvertida = obtenerTemperaturaConvertida(clima.temperatura, encendidoTemperaturaModo);
 
-    const direccionCompleta = obtenerDireccionViento(clima.viento.direccion, clima.viento.velocidad);
-    const direccionViento = direccionCompleta.split(' ')[0];
+    const datosViento = obtenerDireccionViento(clima.viento.direccion, clima.viento.velocidad);
+    const direccionViento = datosViento.direccion;
 
     const mensajes = [
         {

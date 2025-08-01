@@ -54,16 +54,21 @@ export const obtenerDireccionViento = (grados, velocidad) => {
                             "South","South-Southwest","Southwest","West-Southwest",
                             "West","West-Northwest","Northwest","North-Northwest"];
     const index = Math.round(grados / 22.5) % 16;
-    return `${direcciones[index]} ${velocidad} km/h`;
+    return {
+        direccion: direcciones[index],
+        velocidad: `${velocidad} km/h`
+    };
 };
+
+
 
 // 4. Índice UV
 export const obtenerIndiceUV = (uv) => {
-    if (uv <= 2) return `Low (${uv})`;
-    if (uv <= 5) return `Moderate (${uv})`;
-    if (uv <= 7) return `High (${uv})`;
-    if (uv <= 10) return `Very high (${uv})`;
-    return `Extreme (${uv})`;
+    if (uv <= 2) return {textoUv: 'Low', valorUv: `(${uv})`};
+    if (uv <= 5) return {textoUv: 'Moderate', valorUv: `(${uv})`};
+    if (uv <= 7) return {textoUv: 'High', valorUv: `(${uv})`};
+    if (uv <= 10) return {textoUv: 'Very high', valorUv: `(${uv})`};
+    return {textoUv: 'Extreme', valorUv: `(${uv})`};
 };
 
 //Mensaje Segun Temperatura - para Celsius y Fahrenheit
