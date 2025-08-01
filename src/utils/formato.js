@@ -60,15 +60,20 @@ export const obtenerDireccionViento = (grados, velocidad) => {
     };
 };
 
-
-
 // 4. Índice UV
 export const obtenerIndiceUV = (uv) => {
-    if (uv <= 2) return {textoUv: 'Low', valorUv: `(${uv})`};
-    if (uv <= 5) return {textoUv: 'Moderate', valorUv: `(${uv})`};
-    if (uv <= 7) return {textoUv: 'High', valorUv: `(${uv})`};
-    if (uv <= 10) return {textoUv: 'Very high', valorUv: `(${uv})`};
-    return {textoUv: 'Extreme', valorUv: `(${uv})`};
+    let categoria;
+    
+    if (uv <= 2) categoria = "Low";
+    else if (uv <= 5) categoria = "Moderate";
+    else if (uv <= 7) categoria = "High";
+    else if (uv <= 10) categoria = "Very high";
+    else categoria = "Extreme";
+    
+    return {
+        categoria: categoria,
+        valor: `(${uv})`
+    };
 };
 
 //Mensaje Segun Temperatura - para Celsius y Fahrenheit

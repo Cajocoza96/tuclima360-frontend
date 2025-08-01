@@ -107,12 +107,12 @@ export default function CarruselHoraDiaClima() {
 
                     const humedadFormateada = formatearHumedad(hora.humedad);
                     const datosViento = obtenerDireccionViento(hora.viento.direccion, hora.viento.velocidad);
-                    const datosUV = obtenerIndiceUV(hora.uv.textoUv, hora.uv.valorUv);
+                    const datosUv = obtenerIndiceUV(hora.uv);
 
                     return (
 
                         <SwiperSlide className="" key={index}>
-                            <div className="flex flex-col items-center gap-3">
+                            <div className="flex flex-col items-center justify-center gap-5">
                                 <p className="text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
                                     <span translate="no">
                                         {encendidoFormatoHora ? formatearHora24(hora.hora) : formatearHora(hora.hora)}
@@ -199,17 +199,17 @@ export default function CarruselHoraDiaClima() {
                                     </div>
                                 </div>
 
-                                <div className="flex flex-wrap flex-col 2xs:flex-row items-center justify-center">
+                                <div className="flex flex-col items-center justify-center">
                                     <WiDaySunny className="text-xl md:text-2xl lg:text-3xl 2xl:text-5xl text-white" />
                                     <div className="flex flex-col items-center justify-center">
                                         <div className="h-10 flex flex-col justify-center">
                                             <p className="text-center text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
-                                                {datosUV.textoUv}
+                                                {datosUv.categoria}
                                             </p>
                                         </div>
 
                                         <p className="text-center text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
-                                            <span translate="no">{datosUV.valorUv}</span>
+                                            <span translate="no">{datosUv.valor}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -265,10 +265,10 @@ export default function CarruselHoraDiaClima() {
                     const temperaturaMaxConvertida = obtenerTemperaturaMaxConvertida(dia.temperaturaMax, encendidoTemperaturaModo);
                     const temperaturaMinConvertida = obtenerTemperaturaMinConvertida(dia.temperaturaMin, encendidoTemperaturaModo);
                     // UV Max
-                    const uvMaxFormateado = obtenerIndiceUV(dia.uvMax);
+                    const datosUVMax = obtenerIndiceUV(dia.uvMax);
                     return (
                         <SwiperSlide className="" key={index}>
-                            <div className="flex flex-col items-center justify-center gap-3">
+                            <div className="flex flex-col items-center justify-center gap-5">
 
                                 <div className="flex flex-col gap-1 items-center justify-center">
                                     <p className="text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
@@ -384,16 +384,24 @@ export default function CarruselHoraDiaClima() {
 
                                 </div>
 
-                                <div className="flex flex-wrap flex-col 2xs:flex-row items-center justify-center gap-1">
+                                <div className="flex flex-col items-center justify-center gap-1">
                                     <div className="flex flex-row items-center">
                                         <WiDaySunny className="text-xl md:text-2xl lg:text-3xl 2xl:text-5xl text-white" />
                                         <p className="text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
                                             <span translate="no">Max</span>
                                         </p>
                                     </div>
-                                    <span className="text-center text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
-                                        <span translate="no">{uvMaxFormateado}</span>
-                                    </span>
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div className="h-10 flex flex-col justify-center">
+                                            <p className="text-center text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
+                                                {datosUVMax.categoria}
+                                            </p>
+                                        </div>
+
+                                        <p className="text-center text-xs sm:text-base lg:text-xl 2xl:text-3xl text-white">
+                                            <span translate="no">{datosUVMax.valor}</span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </SwiperSlide>
