@@ -3,7 +3,8 @@ import paginaEnMantenimiento1 from "/assets/img/mantenimiento/paginaEnMantenimie
 
 export default function Mantenimiento() {
     return (
-        <div className="w-full min-h-[100svh] flex flex-col items-center">
+        <div className="bg-white dark:bg-black w-full min-h-[100svh] 
+                            flex flex-col items-center">
             <div className="w-[95%] min-h-[100svh] overflow-hidden text-center
                             flex flex-col justify-around items-center">
 
@@ -13,7 +14,8 @@ export default function Mantenimiento() {
                     <span translate="no">TuClima360</span>
                 </p>
 
-                <p className="text-center text-xl lg:text-2xl 2xl:text-4xl text-black">
+                <p className="text-center text-xl lg:text-2xl 2xl:text-4xl 
+                            text-black dark:text-white">
                     This page is currently under maintenance
                 </p>
 
@@ -21,7 +23,8 @@ export default function Mantenimiento() {
                     <img src={paginaEnMantenimiento1} alt="mantenimiento"/>
                 </div>
 
-                <p className="text-center text-xl lg:text-2xl 2xl:text-4xl text-black">
+                <p className="text-center text-xl lg:text-2xl 2xl:text-4xl 
+                            text-black dark:text-white">
                     We’ll be back shortly. Thank you for your patience.
                 </p>
             </div>
