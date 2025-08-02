@@ -94,13 +94,13 @@ export default function AgregarCiudadClima() {
                     />
                 </div>
 
-                <div className="w-full flex-shrink-0 bg-blue-700 dark:bg-gray-700 py-2 h-12 md:14 2xl:h-16">
+                <div className="w-full flex-shrink-0 overflow-hidden bg-blue-700 dark:bg-gray-900 py-2 h-12 md:14 2xl:h-16">
                     <AdvDeteccionAutoClima />
                 </div>
 
                 <div 
                     ref={scrollContainerRef}
-                    className="flex-1 w-full bg-blue-900 dark:bg-gray-700 py-4 
+                    className="flex-1 w-full bg-blue-900 dark:bg-gray-800 py-4 
                                 overflow-y-auto overscroll-contain
                                 min-h-0">
 

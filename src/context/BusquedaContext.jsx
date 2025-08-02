@@ -144,9 +144,11 @@ export const BusquedaProvider = ({ children }) => {
     if (rutasValidas.includes(pathname)) {
       return true;
     }
-
-    // Verificar si es una ruta dinámica válida (formato /:ciudad/:departamento/:pais)
-    const pathRegex = /^\/([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*)$/;
+  
+    // 🌍 REGEX MEJORADA: Permite caracteres internacionales después de normalización
+    // Esta regex acepta letras (incluyendo caracteres normalizados), números y guiones
+    // \w incluye a-z, A-Z, 0-9 y _, suficiente después de la normalización
+    const pathRegex = /^\/([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*)$/i;
     return pathRegex.test(pathname);
   };
 
@@ -450,7 +452,7 @@ export const BusquedaProvider = ({ children }) => {
       }
 
       // ✅ SEGUNDO PASO: Verificar si cumple el formato correcto (solo minúsculas)
-      const pathRegex = /^\/([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*)$/;
+      const pathRegex = /^\/([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*)$/i;
       const match = location.pathname.match(pathRegex);
 
       if (!match) {

@@ -24,7 +24,7 @@ export default function BotonCiudadClima({ ciudad, departamento, pais }) {
             className="border border-none rounded-md p-2 
                                         bg-blue-950 hover:bg-green-950 active:bg-green-700
                                         dark:bg-gray-950 dark:hover:bg-gray-900
-                                        dark:active:bg-gray-600
+                                        dark:active:bg-gray-700
                                         py-2  flex flex-col items-center justify-center 
                                         gap-2 cursor-pointer"
             whileTap={{ scale: 0.95 }}

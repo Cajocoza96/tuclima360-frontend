@@ -38,7 +38,6 @@ export default function MenuHamburguesa({ className = "" }) {
     }, [isOpen]);
 
     const fondoVivo = true;
-    const notificacion = true;
 
     const toggleMenu = () => {
         if (menuAnimationComplete) {
@@ -97,7 +96,6 @@ export default function MenuHamburguesa({ className = "" }) {
 
         menuItems.push(
             { id: "darkmode", label: <IconoDarkMode2 /> },
-            { id: "notifications", label: <IconoFondoVivoNotificaciones notificacion={notificacion} /> },
             { id: "livebackground", label: <IconoFondoVivoNotificaciones fondoVivo={fondoVivo} /> },
             { id: "hourformat", label: <IconoFormatoHoras /> },
             { id: "temperaturamode", label: <IconoTemperatura /> },

@@ -255,7 +255,7 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
                         <motion.div
                             key={ubicacion.id}
                             className={`border-2 2xl:border-4 rounded-lg relative ${esActiva
-                                ? 'border-green-400'
+                                ? 'border-green-400 dark:border-white'
                                 : 'border-violet-900 dark:border-gray-900'}`}
                             whileTap={{ scale: iconoEliminar ? 1 : 0.95 }}
                             transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -264,14 +264,14 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
 
                             {/* Indicador de ubicación activa */}
                             {esActiva && !iconoEliminar && (
-                                <div className="bg-green-400 w-fit absolute right-0 bottom-0">
-                                    <HiCheck className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white" />
+                                <div className="bg-green-400 dark:bg-white w-fit absolute right-0 bottom-0">
+                                    <HiCheck className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white dark:text-black" />
                                 </div>
                             )}
 
-                            <div className={`bg-violet-900 dark:bg-gray-900
+                            <div className={`bg-violet-900 dark:bg-gray-950
                                                 h-23 2xs:h-19 md:h-19 lg:h-18 2xl:h-23 overflow-hidden
-                                    ${!iconoEliminar ? 'hover:bg-violet-700 dark:hover:bg-gray-700 active:bg-violet-600 dark:active:bg-gray-600' : 'hover:bg-red-800 dark:hover:bg-blue-900'}
+                                    ${!iconoEliminar ? 'hover:bg-violet-700 dark:hover:bg-gray-900 active:bg-violet-600 dark:active:bg-gray-700' : 'hover:bg-red-800 dark:hover:bg-red-950'}
                                     w-full p-1 rounded-lg
                                     flex flex-row items-center justify-around
                                     gap-1 cursor-pointer`}>

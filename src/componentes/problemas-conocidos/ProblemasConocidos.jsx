@@ -12,7 +12,7 @@ export default function ProblemasConocidos() {
 
     return (
         <div className="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-gray-900">
-            
+
             <ConexionSinConexion />
 
             <div className="max-w-4xl mx-auto px-4 py-8">
@@ -56,12 +56,15 @@ export default function ProblemasConocidos() {
                                 When selecting or saving certain locations, the app may automatically redirect to the /error route.
                             </p>
                             <p className="text-base 2xl:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed">
-                                This occurs with locations that contain hyphens or special characters, such as:
+                                This occurs with locations that contain special characters, such as:
                             </p>
                             <ul className="text-base 2xl:text-2xl list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
-                                <li>St Petersburg St.-Petersburg, Russia</li>
-                                <li>Bil-Loca Ilocos, Philippines</li>
-                                <li>La Brée-les-Bains - Nouvelle-Aquitaine / France</li>
+                                <li>
+                                    <span translate='no'>Bursa Bursa Province, Türkiye</span>
+                                </li>
+                                <li>
+                                    <span translate='no'>Malatya Malatya, Türkiye</span>
+                                </li>
                             </ul>
                             <p className="text-base 2xl:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed">
                                 These characters cause conflicts when building dynamic routes.

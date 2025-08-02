@@ -50,8 +50,9 @@ export default function GestionUbicaEditAgre() {
                         valor2={<p className="text-white">Manage location</p>}
                     />
 
-                    <div className={`bg-blue-700 dark:bg-gray-700
-                                            w-full py-2 overflow-hidden
+                    <div className={`bg-blue-700 dark:bg-gray-900
+                                            w-full overflow-hidden
+                                            py-2 h-12 md:14 2xl:h-16
                                             flex items-center ${!isOnline ? "justify-center" : ""}`}>
 
                         {isOnline ? (
@@ -98,7 +99,7 @@ export default function GestionUbicaEditAgre() {
                                     className="p-1 w-full 
                                 border border-gray-300  dark:border-gray-800
                                 bg-gray-300 dark:bg-gray-950
-                                active:bg-gray-100 dark:active:bg-gray-600
+                                active:bg-gray-100 dark:active:bg-gray-700
                                 text-blue-700 dark:text-white
                                 rounded-md cursor-pointer"
                                 />
@@ -112,7 +113,7 @@ export default function GestionUbicaEditAgre() {
                                     className="p-1 w-full
                                 border border-gray-300  dark:border-gray-800
                                 bg-gray-300 dark:bg-gray-950
-                                active:bg-gray-100 dark:active:bg-gray-600
+                                active:bg-gray-100 dark:active:bg-gray-700
                                 text-blue-700 dark:text-white
                                 rounded-md cursor-pointer"
                                 />
@@ -129,7 +130,7 @@ export default function GestionUbicaEditAgre() {
                             className="p-1 w-full
                             border border-gray-300  dark:border-gray-800
                             bg-gray-300 dark:bg-gray-950
-                            active:bg-gray-100 dark:active:bg-gray-600
+                            active:bg-gray-100 dark:active:bg-gray-700
                             text-blue-700 dark:text-white
                             rounded-md cursor-pointer"
                         />
