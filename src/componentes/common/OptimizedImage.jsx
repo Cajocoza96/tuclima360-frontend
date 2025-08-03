@@ -81,7 +81,7 @@ const OptimizedImage = ({
       <div className="text-center p-3">
         <div className="text-xl mb-1 opacity-60">📷</div>
         <p className="text-xs text-red-600 dark:text-red-400 opacity-80">
-          Error al cargar imagen
+          Error loading image
         </p>
       </div>
     </div>

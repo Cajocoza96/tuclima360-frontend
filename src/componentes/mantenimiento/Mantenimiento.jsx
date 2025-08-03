@@ -27,7 +27,6 @@ export default function Mantenimiento() {
                         alt="Página en mantenimiento - TuClima360"
                         className="rounded-lg shadow-lg"
                         aspectRatio="auto"
-                        showSkeleton = {true}
                         {...IMAGE_CONFIGS.CRITICAL}
                     />
                 </div>

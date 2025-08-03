@@ -29,7 +29,7 @@ export default function AnimacionBienvenida() {
 
     const isMobile = useIsMobile();
     const imgSrc = isMobile ? bienvenidaVistaVertical : bienvenidaVistaHorizontal;
-    const imgAlt = isMobile ? "Bienvenida vista vertical" : "Bienvenida vista horizontal";
+    const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
 
     const { ubicaciones, ubicacionActiva } = useVariasUbicaciones();
     const navigate = useNavigate();
