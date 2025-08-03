@@ -202,24 +202,3 @@ export const IMAGE_CONFIGS = {
 };
 
 export default OptimizedImage;
-
-// ===== EJEMPLO DE USO =====
-/*
-import OptimizedImage, { IMAGE_CONFIGS } from './common/OptimizedImage';
-
-// Imagen crítica
-<OptimizedImage 
-  src={imagen} 
-  alt="Descripción" 
-  {...IMAGE_CONFIGS.CRITICAL} 
-/>
-
-// Imagen normal
-<OptimizedImage 
-  src={imagen} 
-  alt="Descripción" 
-  className="rounded-lg"
-  aspectRatio="square"
-  {...IMAGE_CONFIGS.NORMAL} 
-/>
-*/

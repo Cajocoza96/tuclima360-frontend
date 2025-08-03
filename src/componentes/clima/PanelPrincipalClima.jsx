@@ -16,6 +16,7 @@ import useImagenFondo from "../../hooks/useImagenFondo";
 import useConexionInternet from "../../hooks/useConexionInternet";
 
 import ConexionSinConexion from "../conexion_sin_conexion/ConexionSinConexion";
+import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
 
 import GraficoDiarioClima from "./GraficoDiarioClima";
 
@@ -55,36 +56,10 @@ export default function PanelPrincipalClima() {
         return obtenerImagenFondo(clima.codigoClima, hora24, isMobile, true);
     }, [encendidoFondoVivo, clima, hora24, isMobile, obtenerImagenFondo]);
 
-    useEffect(() => {
-        if(encendidoFondoVivo && imagenFondo){
-            const preloadImg = new Image();
-            preloadImg.src = imagenFondo;
-        }
-    }, [imagenFondo, encendidoFondoVivo]);
-
-    // Memoizar el estilo de fondo para evitar recreaciones
-    const estiloFondo = useMemo(() => {
-        if (!encendidoFondoVivo || !imagenFondo) {
-            return {};
-        }
-        return {
-            backgroundImage: `url(${imagenFondo})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-        };
-    }, [encendidoFondoVivo, imagenFondo]);
-
     // Memoizar las clases CSS del fondo para evitar cambios innecesarios
-    const clasesFondo = useMemo(() => {
-        const clasesBase = 'fixed w-screen h-[100svh] inset-0 bg-violet-900 dark:bg-black';
-
-        if (!encendidoFondoVivo || !imagenFondo) {
-            return `${clasesBase} brightness-60 dark:brightness-50`;
-        }
-
-        return `${clasesBase} brightness-60 dark:brightness-50`;
-    }, [encendidoFondoVivo, imagenFondo]);
+    const clasesFondoSinImagen = useMemo(() => {
+        return 'fixed w-screen h-[100svh] inset-0 bg-violet-900 dark:bg-black brightness-60 dark:brightness-50';
+    }, []);
 
     const estaCargando = cargandoBusquedaCiudad || cargandoClima || cargandoFechaHora;
     const datosCompletos = ciudadSeleccionada &&
@@ -158,12 +133,27 @@ export default function PanelPrincipalClima() {
 
     return (
         <>
-            {/* Div de fondo con key para forzar re-render cuando cambie la orientación */}
-            <div
-                key={`fondo-${isMobile}-${encendidoFondoVivo}-${imagenFondo}-${windowSize.width}x${windowSize.height}`}
-                className={clasesFondo}
-                style={estiloFondo}
-            />
+            {/* Fondo optimizado con OptimizedImage */}
+            {encendidoFondoVivo && imagenFondo ? (
+                <div 
+                    key={`fondo-${isMobile}-${encendidoFondoVivo}-${imagenFondo}-${windowSize.width}x${windowSize.height}`}
+                    className="fixed w-screen h-[100svh] inset-0 brightness-60 dark:brightness-50"
+                >
+                    <OptimizedImage
+                        src={imagenFondo}
+                        alt="Fondo del clima"
+                        className="w-full h-full object-cover"
+                        showSkeleton={false}
+                        {...IMAGE_CONFIGS.CRITICAL}
+                    />
+                </div>
+            ) : (
+                // Fondo por defecto sin imagen
+                <div
+                    key={`fondo-default-${windowSize.width}x${windowSize.height}`}
+                    className={clasesFondoSinImagen}
+                />
+            )}
 
             {datosCompletos && (
                 <ConexionSinConexion />
