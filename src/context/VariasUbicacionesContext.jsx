@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect, useRef } from "react";
 import { BusquedaContext } from "./BusquedaContext";
 import { ClimaContext } from "./ClimaContext";
+import useTimeAgo from "../hooks/useTimeAgo";
 
 export const VariasUbicacionesContext = createContext();
 
@@ -22,6 +23,13 @@ export const VariasUbicacionesProvider = ({ children }) => {
 
   const { ciudadSeleccionada, setCiudadSeleccionada } = useContext(BusquedaContext);
   const { clima } = useContext(ClimaContext);
+
+  // Hook para manejar el tiempo transcurrido
+  const { 
+    initializeTimeForLocation, 
+    removeTimeForLocation, 
+    clearAllTimeData 
+  } = useTimeAgo();
 
   const ciudadEnEsperaRef = useRef(null);
 
@@ -81,7 +89,7 @@ export const VariasUbicacionesProvider = ({ children }) => {
   useEffect(() => {
     if (!ciudadSeleccionada) return;
 
-    const existe = ubicaciones.some(
+    const existe = ubicaciones.find(
       (ubicacion) =>
         ubicacion.ciudad === ciudadSeleccionada.ciudad &&
         ubicacion.departamento === ciudadSeleccionada.departamento &&
@@ -101,14 +109,13 @@ export const VariasUbicacionesProvider = ({ children }) => {
 
       setUbicaciones(prev => [...prev, nuevaUbicacion]);
       ciudadEnEsperaRef.current = nuevaUbicacion;
+      
+      // Inicializar el tiempo para la nueva ubicación
+      initializeTimeForLocation(nuevaUbicacion.id);
     } else {
-      const ubicacionExistente = ubicaciones.find(
-        (ubicacion) =>
-          ubicacion.ciudad === ciudadSeleccionada.ciudad &&
-          ubicacion.departamento === ciudadSeleccionada.departamento &&
-          ubicacion.pais === ciudadSeleccionada.pais
-      );
-      ciudadEnEsperaRef.current = ubicacionExistente;
+      // Si la ubicación ya existe, reinicializar su tiempo
+      initializeTimeForLocation(existe.id);
+      ciudadEnEsperaRef.current = existe;
     }
   }, [ciudadSeleccionada]);
 
@@ -169,7 +176,23 @@ export const VariasUbicacionesProvider = ({ children }) => {
       };
 
       setUbicaciones(prev => [...prev, nuevaUbicacion]);
+      
+      // Inicializar el tiempo para la nueva ubicación
+      initializeTimeForLocation(nuevaUbicacion.id);
+      
       return nuevaUbicacion;
+    } else {
+      // Si ya existe, reinicializar su tiempo
+      const ubicacionExistente = ubicaciones.find(
+        (ubicacion) =>
+          ubicacion.ciudad === datosUbicacion.ciudad &&
+          ubicacion.departamento === datosUbicacion.departamento &&
+          ubicacion.pais === datosUbicacion.pais
+      );
+      
+      if (ubicacionExistente) {
+        initializeTimeForLocation(ubicacionExistente.id);
+      }
     }
 
     return null; // Ya existe
@@ -188,6 +211,9 @@ export const VariasUbicacionesProvider = ({ children }) => {
       delete nuevoEstado[id];
       return nuevoEstado;
     });
+
+    // Eliminar los datos de tiempo para esta ubicación
+    removeTimeForLocation(id);
 
     // Si eliminamos la ubicación activa, establecer una nueva automáticamente
     if (ubicacionActiva?.id === id) {
@@ -210,6 +236,9 @@ export const VariasUbicacionesProvider = ({ children }) => {
         lat: ubicacion.lat,
         lon: ubicacion.lon
       });
+      
+      // Reinicializar el tiempo para la ubicación activa
+      initializeTimeForLocation(ubicacion.id);
     }
   };
 
@@ -245,6 +274,10 @@ export const VariasUbicacionesProvider = ({ children }) => {
     setUbicacionActiva(null);
     setClimasUbicaciones({});
     setCiudadSeleccionada(null);
+    
+    // Limpiar también todos los datos de tiempo
+    clearAllTimeData();
+    
     localStorage.removeItem("ubicaciones");
     localStorage.removeItem("climasUbicaciones");
     localStorage.removeItem("ubicacionActiva");

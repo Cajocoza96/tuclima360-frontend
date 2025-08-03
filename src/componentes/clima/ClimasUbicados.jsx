@@ -1,8 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { HiCheck } from "react-icons/hi";
 import { motion } from "framer-motion";
 import { BusquedaContext } from "../../context/BusquedaContext";
+import { ClimaContext } from "../../context/ClimaContext";
 import { useVariasUbicaciones } from "../../context/VariasUbicacionesContext";
+import useTimeAgo from "../../hooks/useTimeAgo";
 
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +13,8 @@ import { normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula } from ".
 import ModalConfirmacion from "../modal/ModalConfirmacion";
 import ModalExitoError from "../modal/ModalExitoError";
 import useConexionInternet from "../../hooks/useConexionInternet";
+
+import { useFonVivoFormHoraTemp } from "../../context/FonVivoFormHoraTempContext";
 
 import infoModal from "../../data/infoModal.json";
 
@@ -26,7 +30,17 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
         tieneClimaValido } = useVariasUbicaciones();
 
     const { setCiudadSeleccionada } = useContext(BusquedaContext);
+    const { obtenerTemperaturaConvertida } = useContext(ClimaContext);
     const { isOnline } = useConexionInternet();
+
+    const { encendidoTemperaturaModo } = useFonVivoFormHoraTemp();
+    
+    // Hook para manejar el tiempo transcurrido
+    const { 
+        initializeTimeForLocation, 
+        getTimeAgoForLocation, 
+        removeTimeForLocation 
+    } = useTimeAgo();
 
     const navigate = useNavigate();
 
@@ -43,8 +57,31 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
     const [ciudadEliminada, setCiudadEliminada] = useState("");
     const [esError, setEsError] = useState(false);
 
+    // Estado para forzar re-render cada 30 segundos
+    const [, setForceUpdate] = useState(0);
+
     // Obtener solo las ubicaciones con clima válido
     const ubicacionesValidas = obtenerUbicacionesValidas();
+
+    // Efecto para inicializar tiempo para ubicaciones existentes al cargar el componente
+    useEffect(() => {
+        ubicacionesValidas.forEach(ubicacion => {
+            const timeData = getTimeAgoForLocation(ubicacion.id);
+            // Si no existe tiempo para esta ubicación, inicializarlo
+            if (timeData.value === 0 && timeData.unit === 'second') {
+                initializeTimeForLocation(ubicacion.id);
+            }
+        });
+    }, []);
+
+    // Efecto para actualizar el componente cada 30 segundos
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setForceUpdate(prev => prev + 1);
+        }, 30000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const manejarClickUbicacion = (ubicacion) => {
         // Verificar que la ubicación tenga clima válido antes de cualquier acción
@@ -62,6 +99,9 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
         // Si la ubicación ya es la activa, navegar directamente sin modal
         const esActiva = ubicacionActiva?.id === ubicacion.id;
         if (esActiva) {
+            // Reinicializar el tiempo de creación para la ubicación consultada nuevamente
+            initializeTimeForLocation(ubicacion.id);
+
             // Actualizar la ciudad seleccionada para disparar la lógica de actualización
             setCiudadSeleccionada({
                 ciudad: ubicacion.ciudad,
@@ -114,12 +154,15 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
             // Guardar el nombre de la ciudad antes de eliminar
             const ciudadAEliminar = ubicacionAEliminar.ciudad;
             setCiudadEliminada(ciudadAEliminar);
-            
+
             try {
                 // Verificar conexión a internet
                 if (!isOnline) {
                     throw new Error("No hay conexión a internet");
                 }
+
+                // Eliminar datos de tiempo para esta ubicación
+                removeTimeForLocation(ubicacionAEliminar.id);
 
                 // Intentar eliminar la ubicación
                 const resultado = await eliminarUbicacion(ubicacionAEliminar.id);
@@ -166,6 +209,9 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
 
     const confirmarUbicacionPredeterminada = () => {
         if (ubicacionPredeterminada && tieneClimaValido(ubicacionPredeterminada.id)) {
+            // Reinicializar el tiempo de creación para la nueva ubicación activa
+            initializeTimeForLocation(ubicacionPredeterminada.id);
+
             // Actualizar la ciudad seleccionada en el contexto
             setCiudadSeleccionada({
                 ciudad: ubicacionPredeterminada.ciudad,
@@ -245,11 +291,18 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
                 b.id === ubicacionActiva?.id ? 1 : 0)).map((ubicacion) => {
                     const esActiva = ubicacionActiva?.id === ubicacion.id;
                     const clima = obtenerClimaUbicacion(ubicacion.id);
+                    const timeAgo = getTimeAgoForLocation(ubicacion.id);
 
                     // Verificación adicional: solo renderizar si tiene clima válido
                     if (!tieneClimaValido(ubicacion.id)) {
                         return null;
                     }
+
+                    // Obtener temperatura convertida
+                    const temperaturaConvertida = obtenerTemperaturaConvertida(
+                        clima?.temperatura, 
+                        encendidoTemperaturaModo
+                    );
 
                     return (
                         <motion.div
@@ -270,7 +323,7 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
                             )}
 
                             <div className={`bg-violet-900 dark:bg-gray-950
-                                                h-23 2xs:h-19 md:h-19 lg:h-18 2xl:h-23 overflow-hidden
+                                                h-30 2xs:h-19 md:h-19 lg:h-18 2xl:h-23 overflow-hidden
                                     ${!iconoEliminar ? 'hover:bg-violet-700 dark:hover:bg-gray-900 active:bg-violet-600 dark:active:bg-gray-700' : 'hover:bg-red-800 dark:hover:bg-red-950'}
                                     w-full p-1 rounded-lg
                                     flex flex-row items-center justify-around
@@ -297,6 +350,52 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
                                     <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
                                         <span translate="no">{ubicacion?.departamento || null}<span translate="no">,</span></span> <span translate="no">{ubicacion?.pais || null}</span>
                                     </p>
+
+                                    <div className="ml-2 flex flex-row items-center gap-3">
+
+                                        {/*Aqui va la temperatura*/}
+                                        <div className="flex flex-row items-center">
+                                            <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                                <span translate="no">{temperaturaConvertida}</span>
+                                            </p>
+                                            {encendidoTemperaturaModo ? (
+                                                <>
+                                                    <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                                        <span translate="no">°</span>
+                                                    </p>
+                                                    <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                                        <span translate="no">C</span>
+                                                    </p>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                                        <span translate="no">°</span>
+                                                    </p>
+                                                    <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                                        <span translate="no">F</span>
+                                                    </p>
+                                                </>
+                                            )}
+                                        </div>
+                                        
+                                        {/*Aqui se va a mostrar el tiempo que se hizo la consulta
+                                        de la ubicacion y de la temperatura */}
+                                        <div className="flex flex-row items-center gap-2">
+                                            <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                                <span translate="no">{timeAgo.value}</span>
+                                            </p>
+
+                                            <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                                <span>{timeAgo.text}</span>
+                                            </p>
+                                        </div>
+
+                                        <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                            <span>Ago</span>
+                                        </p>
+                                    </div>
+
                                 </div>
 
                             </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import OptimizedImage, { IMAGE_CONFIGS } from "./common/OptimizedImage";
 import paginaEnMantenimiento1 from "/assets/img/mantenimiento/paginaEnMantenimiento1.webp";
 
 export default function Mantenimiento() {
@@ -19,16 +20,22 @@ export default function Mantenimiento() {
                     This page is currently under maintenance
                 </p>
 
-                <div className="w-60 2xs:w-50 lg:w-70 2xl:w-100 overflow-hidden">
-                    <img src={paginaEnMantenimiento1} alt="mantenimiento"/>
+                {/* Imagen optimizada con configuración crítica */}
+                <div className="w-60 2xs:w-50 lg:w-70 2xl:w-100">
+                    <OptimizedImage
+                        src={paginaEnMantenimiento1}
+                        alt="Página en mantenimiento - TuClima360"
+                        className="rounded-lg shadow-lg"
+                        aspectRatio="auto"
+                        {...IMAGE_CONFIGS.CRITICAL}
+                    />
                 </div>
 
                 <p className="text-center text-xl lg:text-2xl 2xl:text-4xl 
                             text-black dark:text-white">
-                    We’ll be back shortly. Thank you for your patience.
+                    We'll be back shortly. Thank you for your patience.
                 </p>
             </div>
-
         </div>
     );
 }

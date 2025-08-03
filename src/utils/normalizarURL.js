@@ -28,6 +28,21 @@ export const normalizarTexto = (texto) => {
         .replace(/ā/g, "a").replace(/Ā/g, "a")
         .replace(/ī/g, "i").replace(/Ī/g, "i")
         .replace(/ū/g, "u").replace(/Ū/g, "u")
+        .replace(/ḩ/g, "h").replace(/Ḩ/g, "h") // h con punto debajo (árabe romanizado)
+        .replace(/ḥ/g, "h").replace(/Ḥ/g, "h") // h con punto debajo alternativo
+        .replace(/ṣ/g, "s").replace(/Ṣ/g, "s") // s con punto debajo
+        .replace(/ṭ/g, "t").replace(/Ṭ/g, "t") // t con punto debajo
+        .replace(/ḍ/g, "d").replace(/Ḍ/g, "d") // d con punto debajo
+        .replace(/ẓ/g, "z").replace(/Ẓ/g, "z") // z con punto debajo
+        .replace(/ġ/g, "gh").replace(/Ġ/g, "gh") // g con punto arriba (alternativo para árabe)
+        .replace(/ḫ/g, "kh").replace(/Ḫ/g, "kh") // kh con punto debajo
+        .replace(/ḥ/g, "h").replace(/Ḥ/g, "h") // h con punto debajo alternativo
+        .replace(/ṣ/g, "s").replace(/Ṣ/g, "s") // s con punto debajo
+        .replace(/ṭ/g, "t").replace(/Ṭ/g, "t") // t con punto debajo
+        .replace(/ḍ/g, "d").replace(/Ḍ/g, "d") // d con punto debajo
+        .replace(/ẓ/g, "z").replace(/Ẓ/g, "z") // z con punto debajo
+        .replace(/ġ/g, "gh").replace(/Ġ/g, "gh") // g con punto arriba (alternativo para árabe)
+        .replace(/ḫ/g, "kh").replace(/Ḫ/g, "kh") // kh con punto debajo
         // Otros caracteres especiales comunes
         .replace(/ß/g, "ss") // alemán
         .replace(/æ/g, "ae").replace(/Æ/g, "ae") // nórdico
@@ -42,7 +57,7 @@ export const normalizarTexto = (texto) => {
         .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // quita tildes
         .replace(/[–—]/g, "-") // convierte en-dash y em-dash a guión normal
         .replace(/[^\w\s-]/g, "") // elimina caracteres especiales excepto letras, números, espacios y guiones
-        .replace(/[-\s]+/g, " ") // ⭐ CAMBIO CLAVE: convierte guiones Y espacios múltiples a espacios únicos
+        .replace(/[-\s]+/g, " ") // convierte guiones Y espacios múltiples a espacios únicos
         .replace(/\s+/g, " ") // unifica espacios múltiples
         .trim();
 };
@@ -77,6 +92,7 @@ export const normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula = (te
         .replace(/ā/g, "a").replace(/Ā/g, "a")
         .replace(/ī/g, "i").replace(/Ī/g, "i")
         .replace(/ū/g, "u").replace(/Ū/g, "u")
+        .replace(/ḩ/g, "h").replace(/Ḩ/g, "h") // h con punto debajo (árabe romanizado)
         // Otros caracteres especiales comunes
         .replace(/ß/g, "ss") // alemán
         .replace(/æ/g, "ae").replace(/Æ/g, "ae") // nórdico
