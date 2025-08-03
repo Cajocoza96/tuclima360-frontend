@@ -1,5 +1,5 @@
 import React from "react";
-import OptimizedImage, { IMAGE_CONFIGS } from "./common/OptimizedImage";
+import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
 import paginaEnMantenimiento1 from "/assets/img/mantenimiento/paginaEnMantenimiento1.webp";
 
 export default function Mantenimiento() {
