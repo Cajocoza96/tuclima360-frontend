@@ -1,5 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
+// Agregar estilos CSS para el efecto shimmer
+const shimmerStyles = `
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) skewX(-12deg);
+    }
+    100% {
+      transform: translateX(200%) skewX(-12deg);
+    }
+  }
+`;
+
+// Insertar estilos una sola vez
+if (typeof document !== 'undefined' && !document.getElementById('shimmer-styles')) {
+  const styleSheet = document.createElement('style');
+  styleSheet.id = 'shimmer-styles';
+  styleSheet.textContent = shimmerStyles;
+  document.head.appendChild(styleSheet);
+}
+
 const OptimizedImage = ({
   src,
   alt,
@@ -48,7 +68,7 @@ const OptimizedImage = ({
   };
 
   // ===== LÓGICA DE UI =====
-  
+
   // Clases de aspect ratio
   const aspectRatioClasses = {
     square: 'aspect-square',
@@ -60,14 +80,50 @@ const OptimizedImage = ({
 
   const aspectClass = aspectRatioClasses[aspectRatio] || '';
 
-  // Skeleton por defecto
+  // Skeleton estilo ecommerce profesional
   const defaultSkeleton = (
     <div className={`
-      bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 
-      rounded-lg animate-pulse flex items-center justify-center
-      ${aspectClass} ${skeletonClass}
+      relative w-full overflow-hidden
+      bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200 
+      dark:from-gray-800 dark:via-gray-700 dark:to-gray-800
+      ${aspectClass === '' ? 'min-h-[200px] sm:min-h-[250px] lg:min-h-[300px] 2xl:min-h-[400px]' : aspectClass}
+      ${className}
+      ${skeletonClass}
     `}>
-      <div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin opacity-50" />
+      {/* Shimmer effect - animación de brillo */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 dark:via-gray-600/30 to-transparent 
+                      animate-[shimmer_2s_ease-in-out_infinite] transform -skew-x-12"
+        style={{
+          animation: 'shimmer 2s ease-in-out infinite',
+          backgroundSize: '200% 100%'
+        }} />
+
+      {/* Contenido del skeleton */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 space-y-3">
+        {/* Icono de imagen */}
+        <div className="w-12 h-12 lg:w-16 lg:h-16 2xl:w-20 2xl:h-20 
+                        bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center
+                        animate-pulse">
+          <svg className="w-6 h-6 lg:w-8 lg:h-8 2xl:w-10 2xl:h-10 text-gray-400 dark:text-gray-500"
+            fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+          </svg>
+        </div>
+
+        {/* Barras de carga simuladas */}
+        <div className="w-full max-w-[120px] space-y-2">
+          <div className="h-2 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
+          <div className="h-2 bg-gray-300 dark:bg-gray-600 rounded animate-pulse w-3/4 mx-auto"></div>
+        </div>
+
+        {/* Texto de carga */}
+        <p className="text-xs text-gray-500 dark:text-gray-400 animate-pulse font-medium">
+          Loading image...
+        </p>
+      </div>
+
+      {/* Efecto de bordes sutiles */}
+      <div className="absolute inset-0 border border-gray-200 dark:border-gray-700 rounded-lg pointer-events-none"></div>
     </div>
   );
 
@@ -91,7 +147,7 @@ const OptimizedImage = ({
     <div className="relative w-full overflow-hidden">
       {/* Skeleton loader */}
       {showSkeleton && !imageLoaded && !imageError && defaultSkeleton}
-      
+
       {/* Imagen principal */}
       {imageSrc && (
         <img
@@ -107,7 +163,7 @@ const OptimizedImage = ({
           {...props}
         />
       )}
-      
+
       {/* Error fallback */}
       {imageError && (errorFallback || defaultErrorFallback)}
     </div>
@@ -122,21 +178,21 @@ export const IMAGE_CONFIGS = {
     loading: 'eager',
     preload: true
   },
-  
+
   // Imágenes importantes en viewport inicial
   IMPORTANT: {
     priority: 'auto',
     loading: 'eager',
     preload: false
   },
-  
+
   // Imágenes normales (lazy loading)
   NORMAL: {
     priority: 'auto',
     loading: 'lazy',
     preload: false
   },
-  
+
   // Iconos y elementos pequeños
   ICON: {
     priority: 'low',

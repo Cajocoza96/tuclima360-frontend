@@ -20,13 +20,15 @@ export default function Mantenimiento() {
                     This page is currently under maintenance
                 </p>
 
-                {/* Imagen optimizada con configuración crítica */}
+                {/* Imagen optimizada con skeleton*/}
                 <div className="w-60 2xs:w-50 lg:w-70 2xl:w-100">
                     <OptimizedImage
                         src={paginaEnMantenimiento1}
-                        alt="Página en mantenimiento - TuClima360"
+                        alt="Page under maintenance - TuClima360"
                         className="rounded-lg shadow-lg"
                         aspectRatio="auto"
+                        showSkeleton={true}
+                        skeletonClass="shadow-lg"
                         {...IMAGE_CONFIGS.CRITICAL}
                     />
                 </div>
