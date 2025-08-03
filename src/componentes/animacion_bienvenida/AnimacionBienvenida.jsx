@@ -9,6 +9,7 @@ import MenuHamburguesa from "../menu_hamburguesa/MenuHamburguesa";
 import { useAuth } from "../../context/AuthContext";
 
 import useIsMobile from "../../hooks/useIsMobile";
+import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
 import bienvenidaVistaVertical from "/assets/img/bienvenida/bienvenidaVistaVertical.webp";
 import bienvenidaVistaHorizontal from "/assets/img/bienvenida/bienvenidaVistaHorizontal.webp";
 
@@ -27,7 +28,8 @@ export default function AnimacionBienvenida() {
     const { encendidoFondoVivo } = useFonVivoFormHoraTemp();
 
     const isMobile = useIsMobile();
-    const imgUrl = isMobile ? bienvenidaVistaVertical : bienvenidaVistaHorizontal;
+    const imgSrc = isMobile ? bienvenidaVistaVertical : bienvenidaVistaHorizontal;
+    const imgAlt = isMobile ? "Bienvenida vista vertical" : "Bienvenida vista horizontal";
 
     const { ubicaciones, ubicacionActiva } = useVariasUbicaciones();
     const navigate = useNavigate();
@@ -43,22 +45,27 @@ export default function AnimacionBienvenida() {
         }
     };
 
-    const backgroundClasses = encendidoFondoVivo
-        ? "fixed w-screen h-[100svh]  inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-violet-900 dark:bg-black"
-        : "fixed w-screen h-[100svh]  inset-0 bg-cover bg-center bg-no-repeat brightness-60 dark:brightness-50 bg-violet-900 dark:bg-black";
-
-    const backgroundStyle = encendidoFondoVivo
-        ? { backgroundImage: `url(${imgUrl})` }
-        : {};
-
     return (
         <div className="min-h-[100svh] w-full overflow-y-auto touch-pan-y">
             <ConexionSinConexion />
 
-            <div
-                className={backgroundClasses}
-                style={backgroundStyle}>
-            </div>
+            {/* Imagen de fondo optimizada */}
+            {encendidoFondoVivo && (
+                <div className="fixed w-screen h-[100svh] inset-0 z-0">
+                    <OptimizedImage
+                        src={imgSrc}
+                        alt={imgAlt}
+                        className="w-full h-full object-cover brightness-60 dark:brightness-50"
+                        {...IMAGE_CONFIGS.CRITICAL}
+                        showSkeleton={false} // Sin skeleton para fondo
+                    />
+                </div>
+            )}
+
+            {/* Fallback para cuando no hay fondo vivo */}
+            {!encendidoFondoVivo && (
+                <div className="fixed w-screen h-[100svh] inset-0 bg-violet-900 dark:bg-black z-0"></div>
+            )}
 
             <motion.div
                 className="mt-3 absolute left-4 z-50"
@@ -72,7 +79,7 @@ export default function AnimacionBienvenida() {
             </motion.div>
 
             <div className="w-full min-h-[100svh] flex flex-col
-                        items-center justify-between relative touch-pan-y">
+                        items-center justify-between relative touch-pan-y z-10">
 
                 <motion.div
                     className="mt-2 w-full
