@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { HiHome } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import cargaInfoCiudadClima from "../../assets/animaciones/lottie_animation/carga_info_ciudad_clima/cargaInfoCiudadClima.json";
@@ -96,12 +95,16 @@ export default function EstadoCargaConexion({
                         <div
                             onClick={handleInicio}
                             className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-col items-center justify-center">
+                            
+                            {/*
                             <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
                                 Is it taking longer than an avocado to ripen?
                             </p>
                             <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
                                 Click here to return home.
                             </p>
+                            */}
+
                         </div>
 
                         <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
