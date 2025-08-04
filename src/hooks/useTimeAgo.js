@@ -48,7 +48,7 @@ const useTimeAgo = () => {
         const isPlural = value > 1;
 
         const unitTranslations = {
-            second: isPlural ? 'secs' : 'sec',
+            second: isPlural ? 'seconds' : 'second',
             minute: isPlural ? 'minutes' : 'minute',
             hour: isPlural ? 'hours' : 'hour',
             day: isPlural ? 'days' : 'day',

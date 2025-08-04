@@ -388,10 +388,6 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
                                         <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
                                             {timeAgo.text}
                                         </p>
-
-                                        <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                            ago
-                                        </p>
                                     </div>
 
 
