@@ -1,5 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
+// Agregar estilos CSS para el efecto shimmer
+const shimmerStyles = `
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) skewX(-12deg);
+    }
+    100% {
+      transform: translateX(200%) skewX(-12deg);
+    }
+  }
+`;
+
+// Insertar estilos una sola vez
+if (typeof document !== 'undefined' && !document.getElementById('shimmer-styles')) {
+  const styleSheet = document.createElement('style');
+  styleSheet.id = 'shimmer-styles';
+  styleSheet.textContent = shimmerStyles;
+  document.head.appendChild(styleSheet);
+}
+
 const OptimizedImage = ({
   src,
   alt,
@@ -60,59 +80,31 @@ const OptimizedImage = ({
 
   const aspectClass = aspectRatioClasses[aspectRatio] || '';
 
-  // Estilos CSS-in-JS para shimmer (evita manipulación del DOM)
-  const shimmerKeyframes = `
-    @keyframes shimmer-slide {
-      0% { transform: translateX(-100%) skewX(-12deg); }
-      100% { transform: translateX(200%) skewX(-12deg); }
-    }
-  `;
-
-  // Skeleton estilo ecommerce profesional - CORREGIDO
+  // Skeleton estilo ecommerce profesional
   const defaultSkeleton = (
     <div className={`
       relative w-full overflow-hidden
       bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200 
       dark:from-gray-800 dark:via-gray-700 dark:to-gray-800
-      ${aspectClass || 'h-48 md:h-64 lg:h-80'}
+      ${aspectClass === '' ? 'min-h-[100vh]' : aspectClass}
       ${className}
       ${skeletonClass}
     `}>
-      {/* Shimmer effect - usando CSS-in-JS */}
-      <style dangerouslySetInnerHTML={{ __html: shimmerKeyframes }} />
-      <div 
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 dark:via-gray-600/30 to-transparent transform -skew-x-12"
+      {/* Shimmer effect - animación de brillo */}
+      <div className="fixed inset-0 bg-gradient-to-r from-transparent via-white/20 dark:via-gray-600/30 to-transparent 
+                      animate-[shimmer_2s_ease-in-out_infinite] transform -skew-x-12"
         style={{
-          animation: 'shimmer-slide 2s ease-in-out infinite'
-        }} 
-      />
+          animation: 'shimmer 2s ease-in-out infinite',
+          backgroundSize: '200% 100%'
+        }} />
 
       {/* Contenido del skeleton */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 space-y-3">
+      <div className="fixed inset-0 flex flex-col items-center justify-center p-4 space-y-3">
         {/* Icono de imagen */}
-        <div className="w-12 h-12 lg:w-16 lg:h-16 
-                        bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center
-                        animate-pulse">
-          <svg className="w-6 h-6 lg:w-8 lg:h-8 text-gray-400 dark:text-gray-500"
-            fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-          </svg>
+        <div className="w-12 min-h-[100svh] 
+                        bg-gray-300 dark:bg-gray-600">
         </div>
-
-        {/* Barras de carga simuladas */}
-        <div className="w-full max-w-[120px] space-y-2">
-          <div className="h-2 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
-          <div className="h-2 bg-gray-300 dark:bg-gray-600 rounded animate-pulse w-3/4 mx-auto"></div>
-        </div>
-
-        {/* Texto de carga */}
-        <p className="text-xs text-gray-500 dark:text-gray-400 animate-pulse font-medium">
-          Loading image...
-        </p>
       </div>
-
-      {/* Efecto de bordes sutiles */}
-      <div className="absolute inset-0 border border-gray-200 dark:border-gray-700 rounded-lg pointer-events-none"></div>
     </div>
   );
 
@@ -121,8 +113,7 @@ const OptimizedImage = ({
     <div className={`
       bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 
       border border-red-200 dark:border-red-800 rounded-lg flex items-center justify-center
-      ${aspectClass || 'h-48 md:h-64 lg:h-80'}
-      ${className}
+      ${aspectClass}
     `}>
       <div className="text-center p-3">
         <div className="text-xl mb-1 opacity-60">📷</div>
@@ -133,21 +124,20 @@ const OptimizedImage = ({
     </div>
   );
 
-  // ESTRUCTURA CORREGIDA - Sin posicionamiento absoluto conflictivo
   return (
-    <div className={`relative w-full overflow-hidden ${aspectClass}`}>
-      {/* Mostrar skeleton mientras carga */}
-      {showSkeleton && !imageLoaded && !imageError && imageSrc && defaultSkeleton}
+    <div className="relative w-full overflow-hidden">
+      {/* Skeleton loader */}
+      {showSkeleton && !imageLoaded && !imageError && defaultSkeleton}
 
       {/* Imagen principal */}
-      {imageSrc && !imageError && (
+      {imageSrc && (
         <img
           src={imageSrc}
           alt={alt}
           sizes={sizes}
           className={`
-            w-full h-full object-cover transition-opacity duration-300
-            ${imageLoaded ? 'opacity-100' : 'opacity-0'}
+            w-full h-auto object-cover transition-opacity duration-300
+            ${imageLoaded ? 'opacity-100' : 'opacity-0 absolute inset-0'}
             ${className}
           `}
           {...imageProps}
