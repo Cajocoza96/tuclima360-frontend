@@ -34,15 +34,6 @@ export default function AnimacionBienvenida() {
     const { ubicaciones, ubicacionActiva } = useVariasUbicaciones();
     const navigate = useNavigate();
 
-    const recargarDatos = () => {
-        console.log('Recargando página automáticamente...');
-        // Limpiar cache de módulos de Vite si es necesario
-        if (import.meta.hot) {
-            import.meta.hot.invalidate();
-        }
-        window.location.reload();
-    };
-
     const handleExplorarClick = () => {
         if (ubicaciones.length === 0) {
             navigate("/add-city-weather");
@@ -51,7 +42,6 @@ export default function AnimacionBienvenida() {
             const departamento = normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula(ubicacionActiva.departamento);
             const pais = normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula(ubicacionActiva.pais);
             navigate(`/${ciudad}/${departamento}/${pais}`);
-            recargarDatos();
         }
     };
 
