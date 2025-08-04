@@ -28,29 +28,7 @@ export default function MenuHamburguesa({ className = "" }) {
 
     const navigate = useNavigate();
 
-    const handleInicio = () => {
-        if (isRootPathInicio) {
-            // Si ya estamos en la página de inicio, solo recargamos los datos
-            recargarDatos();
-        } else {
-            // Si no estamos en inicio, navegamos primero y luego recargamos
-            navigate("/");
-            // Pequeño delay para asegurar que la navegación se complete antes de recargar
-            setTimeout(() => {
-                recargarDatos();
-            }, 100);
-        }
-        closeMenu(); // Cerrar el menú después de la acción
-    };
-
-    const recargarDatos = () => {
-        console.log('Recargando página automáticamente...');
-        // Limpiar cache de módulos de Vite si es necesario
-        if (import.meta.hot) {
-            import.meta.hot.invalidate();
-        }
-        window.location.reload();
-    };
+    const handleInicio = () => navigate("/");
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? "hidden" : "auto";

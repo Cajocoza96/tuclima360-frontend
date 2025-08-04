@@ -32,6 +32,16 @@ export default function AnimacionBienvenida() {
     const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
 
     const { ubicaciones, ubicacionActiva } = useVariasUbicaciones();
+    
+    // Función para recargar todos los datos
+    const recargarDatos = () => {
+        console.log('Recargando página automáticamente...');
+        // Limpiar cache de módulos de Vite si es necesario
+        if (import.meta.hot) {
+            import.meta.hot.invalidate();
+        }
+        window.location.reload();
+    };
     const navigate = useNavigate();
 
     const handleExplorarClick = () => {
@@ -41,7 +51,14 @@ export default function AnimacionBienvenida() {
             const ciudad = normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula(ubicacionActiva.ciudad);
             const departamento = normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula(ubicacionActiva.departamento);
             const pais = normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula(ubicacionActiva.pais);
-            navigate(`/${ciudad}/${departamento}/${pais}`);
+            
+            // Cambiar la URL y recargar inmediatamente
+            const nuevaURL = `/${ciudad}/${departamento}/${pais}`;
+            
+            // Usar replace para cambiar la URL sin agregar al historial
+            // y luego recargar inmediatamente
+            window.history.replaceState(null, '', nuevaURL);
+            recargarDatos();
         }
     };
 
