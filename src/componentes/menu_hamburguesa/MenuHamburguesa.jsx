@@ -30,20 +30,6 @@ export default function MenuHamburguesa({ className = "" }) {
 
     const handleInicio = () => navigate("/");
 
-    const recargarDatos = () => {
-        console.log('Recargando página automáticamente...');
-        // Limpiar cache de módulos de Vite si es necesario
-        if (import.meta.hot) {
-            import.meta.hot.invalidate();
-        }
-        window.location.reload();
-    };
-
-    const irAInicioRecargar = () => {
-        handleInicio();
-        recargarDatos();
-    }
-
     useEffect(() => {
         document.body.style.overflow = isOpen ? "hidden" : "auto";
         return () => {
@@ -219,7 +205,7 @@ export default function MenuHamburguesa({ className = "" }) {
                                         lg:w-150 xl:w-170 2xl:w-175
                                 bg-amber-100 dark:bg-black shadow-2xl z-50 p-6 flex flex-col gap-8 cursor-default"
                         >
-                            <p onClick={irAInicioRecargar} className="w-fit 
+                            <p onClick={handleInicio} className="w-fit 
                                         text-2xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-5xl
                                         font-extrabold text-transparent bg-clip-text 
                                         bg-gradient-to-r from-blue-500 to-green-400 cursor-pointer">
