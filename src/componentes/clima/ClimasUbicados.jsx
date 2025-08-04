@@ -380,20 +380,13 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
                                         )}
                                     </div>
 
-                                    <div className="flex flex-row items-center gap-2">
+                                    <div className="flex flex-row items-center">
                                         <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                            <span translate="no">{timeAgo.value}</span>
-                                        </p>
-
-                                        <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                            {timeAgo.text}
+                                            <span>Revised </span> <span>in </span> <span translate="no">{timeAgo.value}</span> <span>{timeAgo.text}</span>
                                         </p>
                                     </div>
 
-
                                 </div>
-
-
 
                             </div>
                         </motion.div>
