@@ -50,8 +50,8 @@ export default function AnimacionBienvenida() {
             const ciudad = normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula(ubicacionActiva.ciudad);
             const departamento = normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula(ubicacionActiva.departamento);
             const pais = normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula(ubicacionActiva.pais);
-            recargarDatos();
             navigate(`/${ciudad}/${departamento}/${pais}`);
+            recargarDatos();
         }
     };
 
