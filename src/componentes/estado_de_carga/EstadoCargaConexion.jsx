@@ -48,16 +48,13 @@ export default function EstadoCargaConexion({
                         <div
                             onClick={handleInicio}
                             className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-row items-center justify-center gap-2 2xl-gap-4">
-                            <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
+                            <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
                                 Is it taking longer than an avocado to ripen? Click here to return home.
                             </p>
-                            <HiHome className="text-white
-                                            text-xl md:text-2xl 2xl:text-4xl" />
                         </div>
 
-
                         <motion.p
-                            className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl"
+                            className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl"
                             initial={{ opacity: 0.2 }}
                             animate={{ opacity: [0.2, 1, 0.2] }}
                             transition={{ duration: 1.2, repeat: Infinity }}
@@ -96,14 +93,12 @@ export default function EstadoCargaConexion({
                         <div
                             onClick={handleInicio}
                             className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-row items-center justify-center gap-2 2xl-gap-4">
-                            <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
+                            <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
                                 Is it taking longer than an avocado to ripen? Click here to return home.
                             </p>
-                            <HiHome className="text-white
-                                            text-xl md:text-2xl 2xl:text-4xl" />
                         </div>
 
-                        <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
+                        <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
                             {estadoMensajeConexionCiudadClima}
                         </p>
 
