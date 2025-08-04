@@ -34,12 +34,12 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
     const { isOnline } = useConexionInternet();
 
     const { encendidoTemperaturaModo } = useFonVivoFormHoraTemp();
-    
+
     // Hook para manejar el tiempo transcurrido
-    const { 
-        initializeTimeForLocation, 
-        getTimeAgoForLocation, 
-        removeTimeForLocation 
+    const {
+        initializeTimeForLocation,
+        getTimeAgoForLocation,
+        removeTimeForLocation
     } = useTimeAgo();
 
     const navigate = useNavigate();
@@ -300,7 +300,7 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
 
                     // Obtener temperatura convertida
                     const temperaturaConvertida = obtenerTemperaturaConvertida(
-                        clima?.temperatura, 
+                        clima?.temperatura,
                         encendidoTemperaturaModo
                     );
 
@@ -323,10 +323,10 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
                             )}
 
                             <div className={`bg-violet-900 dark:bg-gray-950
-                                                h-30 2xs:h-19 md:h-19 lg:h-18 2xl:h-23 overflow-hidden
+                                                h-32 2xs:h-20 lg:h-18 2xl:h-23 overflow-hidden
                                     ${!iconoEliminar ? 'hover:bg-violet-700 dark:hover:bg-gray-900 active:bg-violet-600 dark:active:bg-gray-700' : 'hover:bg-red-800 dark:hover:bg-red-950'}
                                     w-full p-1 rounded-lg
-                                    flex flex-row items-center justify-around
+                                    flex flex-col justify-around
                                     gap-1 cursor-pointer`}>
 
                                 <div className="w-[90%] h-auto flex flex-wrap items-center gap-2">
@@ -351,52 +351,53 @@ export default function ClimasUbicados({ onClose, iconoEliminar, miUbicacion }) 
                                         <span translate="no">{ubicacion?.departamento || null}<span translate="no">,</span></span> <span translate="no">{ubicacion?.pais || null}</span>
                                     </p>
 
-                                    <div className="ml-2 flex flex-row items-center gap-3">
+                                </div>
 
-                                        {/*Aqui va la temperatura*/}
-                                        <div className="flex flex-row items-center">
-                                            <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                                <span translate="no">{temperaturaConvertida}</span>
-                                            </p>
-                                            {encendidoTemperaturaModo ? (
-                                                <>
-                                                    <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                                        <span translate="no">°</span>
-                                                    </p>
-                                                    <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                                        <span translate="no">C</span>
-                                                    </p>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                                        <span translate="no">°</span>
-                                                    </p>
-                                                    <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                                        <span translate="no">F</span>
-                                                    </p>
-                                                </>
-                                            )}
-                                        </div>
-                                        
-                                        {/*Aqui se va a mostrar el tiempo que se hizo la consulta
-                                        de la ubicacion y de la temperatura */}
-                                        <div className="flex flex-row items-center gap-2">
-                                            <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                                <span translate="no">{timeAgo.value}</span>
-                                            </p>
+                                <div className="ml-2 flex flex-row gap-3">
 
-                                            <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                                <span>{timeAgo.text}</span>
-                                            </p>
-                                        </div>
+                                    <div className="flex flex-row items-center">
+                                        <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                            <span translate="no">{temperaturaConvertida}</span>
+                                        </p>
+                                        {encendidoTemperaturaModo ? (
+                                            <>
+                                                <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                                    <span translate="no">°</span>
+                                                </p>
+                                                <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                                    <span translate="no">C</span>
+                                                </p>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                                    <span translate="no">°</span>
+                                                </p>
+                                                <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                                    <span translate="no">F</span>
+                                                </p>
+                                            </>
+                                        )}
+                                    </div>
+
+                                    <div className="flex flex-row items-center gap-2">
+                                        <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                            <span translate="no">{timeAgo.value}</span>
+                                        </p>
 
                                         <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
-                                            <span>Ago</span>
+                                            {timeAgo.text}
+                                        </p>
+
+                                        <p className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl text-white">
+                                            ago
                                         </p>
                                     </div>
 
+
                                 </div>
+
+
 
                             </div>
                         </motion.div>

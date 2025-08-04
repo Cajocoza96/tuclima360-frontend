@@ -18,6 +18,8 @@ import useConexionInternet from "../../hooks/useConexionInternet";
 import ConexionSinConexion from "../conexion_sin_conexion/ConexionSinConexion";
 import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
 
+import { motion } from "framer-motion";
+
 import GraficoDiarioClima from "./GraficoDiarioClima";
 
 export default function PanelPrincipalClima() {
@@ -194,7 +196,11 @@ export default function PanelPrincipalClima() {
                                     <EstadoCargaConexion estadoMensajeCargaCiudadClima={mensajeCarga} />
                                 </div>
                             ) : (
-                                <div className="flex flex-col items-center w-full space-y-4">
+                                <motion.div 
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 1, delay: 1 }}
+                                    className="flex flex-col items-center w-full space-y-4">
                                     <div className="w-[95%] flex flex-col gap-1">
                                         <CabeceraCiudadClima onOpenUbicacion={() => setMostrarUbicacion(true)} />
                                         <ClimCentEstadFechaActual />
@@ -202,7 +208,7 @@ export default function PanelPrincipalClima() {
                                     <CarruselHoraDiaClima />
                                     
                                     <GraficoDiarioClima />
-                                </div>
+                                </motion.div>
                             )}
                         </>
                     )}

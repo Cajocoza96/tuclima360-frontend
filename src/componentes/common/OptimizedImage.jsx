@@ -61,7 +61,7 @@ const OptimizedImage = ({
   // Props de la imagen
   const imageProps = {
     loading: priority === 'high' ? 'eager' : loading,
-    fetchpriority: priority,
+    fetchPriority: priority,
     decoding: 'async',
     onLoad: handleLoad,
     onError: handleError
