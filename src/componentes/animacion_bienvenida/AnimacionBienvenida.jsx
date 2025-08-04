@@ -55,9 +55,8 @@ export default function AnimacionBienvenida() {
             // Cambiar la URL y recargar inmediatamente
             const nuevaURL = `/${ciudad}/${departamento}/${pais}`;
             
-            // Usar replace para cambiar la URL sin agregar al historial
-            // y luego recargar inmediatamente
-            window.history.replaceState(null, '', nuevaURL);
+            // Usar pushState para agregar al historial y luego recargar inmediatamente
+            window.history.pushState(null, '', nuevaURL);
             recargarDatos();
         }
     };
