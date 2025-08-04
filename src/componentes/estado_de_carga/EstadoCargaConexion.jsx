@@ -49,7 +49,7 @@ export default function EstadoCargaConexion({
                             onClick={handleInicio}
                             className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-row items-center justify-center gap-2 2xl-gap-4">
                             <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
-                                Go back home?
+                                Is it taking longer than an avocado to ripen? Click here to return home.
                             </p>
                             <HiHome className="text-white
                                             text-xl md:text-2xl 2xl:text-4xl" />
@@ -97,7 +97,7 @@ export default function EstadoCargaConexion({
                             onClick={handleInicio}
                             className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-row items-center justify-center gap-2 2xl-gap-4">
                             <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
-                                Go back home?
+                                Is it taking longer than an avocado to ripen? Click here to return home.
                             </p>
                             <HiHome className="text-white
                                             text-xl md:text-2xl 2xl:text-4xl" />
