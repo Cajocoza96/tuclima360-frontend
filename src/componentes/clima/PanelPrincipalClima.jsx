@@ -143,8 +143,12 @@ export default function PanelPrincipalClima() {
                 >
                     <OptimizedImage
                         src={imagenFondo}
-                        alt="Fondo del clima"
-                        className="w-full h-full object-cover"
+                        alt="weather background"
+                        asBackground={true}
+                        backgroundSize="cover"
+                        backgroundPosition="center"
+                        minHeight="100svh"
+                        className="w-screen h-[100svh] fixed inset-0"
                         showSkeleton={false}
                         {...IMAGE_CONFIGS.CRITICAL}
                     />

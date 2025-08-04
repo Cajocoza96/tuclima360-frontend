@@ -55,9 +55,13 @@ export default function AnimacionBienvenida() {
                     <OptimizedImage
                         src={imgSrc}
                         alt={imgAlt}
-                        className="w-full h-full object-cover brightness-60 dark:brightness-50"
+                        className="w-screen h-[100svh] fixed inset-0 brightness-60 dark:brightness-50"
+                        asBackground={true}
+                        backgroundSize="cover"
+                        backgroundPosition="center"
+                        minHeight="100svh"
+                        showSkeleton={false}
                         {...IMAGE_CONFIGS.CRITICAL}
-                        showSkeleton={false} // Sin skeleton para fondo
                     />
                 </div>
             )}

@@ -1,4 +1,5 @@
 import React from "react";
+import OptimizedImage, { IMAGE_CONFIGS } from "../common/OptimizedImage";
 import paginaEnMantenimiento1 from "/assets/img/mantenimiento/paginaEnMantenimiento1.webp";
 
 export default function Mantenimiento() {
@@ -20,9 +21,16 @@ export default function Mantenimiento() {
                 </p>
 
                 {/* Imagen optimizada con skeleton*/}
-                <div className="w-60 2xs:w-50 lg:w-70 2xl:w-100" 
-                    alt="Page under maintenance - TuClima360">
-                    src={paginaEnMantenimiento1}
+                <div className="w-60 2xs:w-50 lg:w-70 2xl:w-100">
+                    <OptimizedImage
+                        src={paginaEnMantenimiento1}
+                        alt="Page under maintenance - TuClima360"
+                        className="rounded-lg shadow-lg"
+                        aspectRatio="auto"
+                        showSkeleton={true}
+                        skeletonClass="shadow-lg"
+                        {...IMAGE_CONFIGS.CRITICAL}
+                    />
                 </div>
 
                 <p className="text-center text-xl lg:text-2xl 2xl:text-4xl 
