@@ -137,7 +137,9 @@ export default function EstadoCargaConexion({
                                 top-1/2 left-1/2 transform -translate-x-1/2  
                                 -translate-y-1/2
                                 flex flex-col items-center justify-center">
-                    <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
+                    <p className="text-white text-center 
+                                    text-base xss:text-base 2xs:text-base 
+                                    md:text-xl 2xl:text-3xl">
                         {estadoMensajeCargaCiudColom}
                     </p>
                 </div>
@@ -148,7 +150,9 @@ export default function EstadoCargaConexion({
                                 top-1/2 left-1/2 transform -translate-x-1/2  
                                 -translate-y-1/2
                                 flex flex-col items-center justify-center">
-                    <p className="text-white text-center text-xl 2xs:text-2xl 2xl:text-3xl">
+                    <p className="text-white text-center
+                                    text-base xss:text-base 2xs:text-base 
+                                    md:text-xl 2xl:text-3xl">
                         {estadoMensajeConexion}
                     </p>
                 </div>

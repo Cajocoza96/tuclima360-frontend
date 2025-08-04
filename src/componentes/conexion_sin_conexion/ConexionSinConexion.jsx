@@ -57,7 +57,8 @@ export default function ConexionSinConexion() {
                 >
                     <div className="bg-yellow-500 py-2 px-2 rounded-md shadow-lg">
                         <p className="text-black text-center font-semibold
-                                        text-xl 2xs:text-2xl 2xl:text-3xl">
+                                        text-base xss:text-base 2xs:text-base 
+                                        md:text-xl 2xl:text-3xl">
                             {mensajeSinConexion}
                         </p>
                     </div>
@@ -91,7 +92,8 @@ export default function ConexionSinConexion() {
                 >
                     <div className="bg-yellow-500 py-2 px-2 rounded-md shadow-lg">
                         <p className="text-black text-center font-semibold
-                                        text-xl 2xs:text-2xl 2xl:text-3xl">
+                                        text-base xss:text-base 2xs:text-base 
+                                        md:text-xl 2xl:text-3xl">
                             {mensajeConexion}
                         </p>
                     </div>
