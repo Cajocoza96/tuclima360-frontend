@@ -47,9 +47,12 @@ export default function EstadoCargaConexion({
                     <div className="p-3 flex flex-col items-center justify-center w-screen h-[100svh]">
                         <div
                             onClick={handleInicio}
-                            className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-row items-center justify-center gap-2 2xl-gap-4">
+                            className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-col items-center justify-center">
                             <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
-                                Is it taking longer than an avocado to ripen? Click here to return home.
+                                Is it taking longer than an avocado to ripen?
+                            </p>
+                            <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
+                                Click here to return home.
                             </p>
                         </div>
 
@@ -94,7 +97,10 @@ export default function EstadoCargaConexion({
                             onClick={handleInicio}
                             className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-row items-center justify-center gap-2 2xl-gap-4">
                             <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
-                                Is it taking longer than an avocado to ripen? Click here to return home.
+                                Is it taking longer than an avocado to ripen?
+                            </p>
+                            <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
+                                Click here to return home.
                             </p>
                         </div>
 
