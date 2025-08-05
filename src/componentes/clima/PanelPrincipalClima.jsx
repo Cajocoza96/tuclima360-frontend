@@ -27,7 +27,17 @@ export default function PanelPrincipalClima() {
     const { clima, pronosticoHora, pronosticoDiario, cargandoClima } = useContext(ClimaContext);
     const { hora24, cargandoFechaHora, datosIniciales } = useContext(FechaHoraContext);
     const { encendidoFondoVivo } = useFonVivoFormHoraTemp();
+
     const isMobile = useIsMobile();
+
+    // Estado para controlar el reinicio de animaciones
+    const [animationKey, setAnimationKey] = useState(0);
+
+    // Efecto para reiniciar animaciones cuando cambie isMobile
+    useEffect(() => {
+        setAnimationKey(prev => prev + 1);
+    }, [isMobile]);
+
     const { obtenerImagenFondo } = useImagenFondo();
     const { isOnline, justReconnected, timeOffline, resetReconnectionState } = useConexionInternet();
 
@@ -137,7 +147,7 @@ export default function PanelPrincipalClima() {
         <>
             {/* Fondo optimizado con OptimizedImage */}
             {encendidoFondoVivo && imagenFondo ? (
-                <div 
+                <div
                     key={`fondo-${isMobile}-${encendidoFondoVivo}-${imagenFondo}-${windowSize.width}x${windowSize.height}`}
                     className="fixed w-screen h-[100svh] inset-0 brightness-60 dark:brightness-50"
                 >
@@ -171,7 +181,7 @@ export default function PanelPrincipalClima() {
                 {/* Overlay */}
                 {mostrarUbicacion && (
                     <div className="fixed inset-0 z-60 bg-black/70"
-                    onClick={() => setMostrarUbicacion(false)}
+                        onClick={() => setMostrarUbicacion(false)}
                     />
                 )}
 
@@ -200,7 +210,8 @@ export default function PanelPrincipalClima() {
                                     <EstadoCargaConexion estadoMensajeCargaCiudadClima={mensajeCarga} />
                                 </div>
                             ) : (
-                                <motion.div 
+                                <motion.div
+                                    key={`contenido-${animationKey}`}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 1, delay: 1 }}
@@ -210,7 +221,7 @@ export default function PanelPrincipalClima() {
                                         <ClimCentEstadFechaActual />
                                     </div>
                                     <CarruselHoraDiaClima />
-                                    
+
                                     <GraficoDiarioClima />
                                 </motion.div>
                             )}
