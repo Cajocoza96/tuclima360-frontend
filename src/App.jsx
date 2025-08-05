@@ -3,7 +3,7 @@ import Rutas from "./componentes/rutas/Rutas";
 
 function App() {
   return (
-    <div className="">
+    <div className="bg-blue-950 dark:bg-black">
       
       <Rutas />
 
