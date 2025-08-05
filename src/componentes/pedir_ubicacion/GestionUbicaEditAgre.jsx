@@ -24,13 +24,11 @@ export default function GestionUbicaEditAgre() {
         setModoEdicion(false);
     };
 
-    // CAMBIO: Usar ubicaciones válidas en lugar de todas las ubicaciones
     const ubicacionesValidas = obtenerUbicacionesValidas();
     const mostrarBotonEditar = ubicacionesValidas.length > 0;
 
     const mensajeNoConexion = InfoEstadoCargaConexion.conexion.sinConexion;
 
-    // Hook para detectar conexión a internet
     const { isOnline } = useConexionInternet();
 
     return (

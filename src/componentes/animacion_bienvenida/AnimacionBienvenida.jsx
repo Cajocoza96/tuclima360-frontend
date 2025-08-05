@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import bienvenida1 from "../../assets/animaciones/lottie_animation/bienvenida/bienvenida1.json";
 import bienvenida2 from "../../assets/animaciones/lottie_animation/bienvenida/bienvenida2.json";
@@ -28,6 +28,15 @@ export default function AnimacionBienvenida() {
     const { encendidoFondoVivo } = useFonVivoFormHoraTemp();
 
     const isMobile = useIsMobile();
+    
+    // Estado para controlar el reinicio de animaciones
+    const [animationKey, setAnimationKey] = useState(0);
+    
+    // Efecto para reiniciar animaciones cuando cambie isMobile
+    useEffect(() => {
+        setAnimationKey(prev => prev + 1);
+    }, [isMobile]);
+    
     const imgSrc = isMobile ? bienvenidaVistaVertical : bienvenidaVistaHorizontal;
     const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
 
@@ -89,6 +98,7 @@ export default function AnimacionBienvenida() {
             )}
 
             <motion.div
+                key={`menu-${animationKey}`}
                 className="mt-3 absolute left-4 z-50"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -103,6 +113,7 @@ export default function AnimacionBienvenida() {
                         items-center justify-between relative touch-pan-y z-10">
 
                 <motion.div
+                    key={`animations-container-${animationKey}`}
                     className="mt-2 w-full
                                     flex items-center justify-center gap-2 flex-col 
                                     xs4:flex-row"
@@ -111,6 +122,7 @@ export default function AnimacionBienvenida() {
                     transition={{ duration: 0.5, delay: 0.5 }}>
 
                     <motion.div
+                        key={`lottie1-${animationKey}`}
                         className="w-[45%] h-auto overflow-hidden 
                                             xss:w-[54%]
                                             xs4:w-[27%]
@@ -128,6 +140,7 @@ export default function AnimacionBienvenida() {
                     </motion.div>
 
                     <motion.div
+                        key={`lottie2-${animationKey}`}
                         className="w-[45%] h-auto overflow-hidden 
                                             xss:w-[54%]
                                             xs4:w-[27%]
@@ -147,6 +160,7 @@ export default function AnimacionBienvenida() {
                 </motion.div>
 
                 <motion.div
+                    key={`title-${animationKey}`}
                     className="mb-1 z-40"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -160,7 +174,9 @@ export default function AnimacionBienvenida() {
                 </motion.div>
 
                 {!tipoUsuario && (
-                    <motion.div className="mb-3 lg:mb-5 w-full flex flex-row items-center justify-around z-40"
+                    <motion.div 
+                        key={`buttons-no-user-${animationKey}`}
+                        className="mb-3 lg:mb-5 w-full flex flex-row items-center justify-around z-40"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 2 }}>
@@ -188,7 +204,9 @@ export default function AnimacionBienvenida() {
                 )}
 
                 {tipoUsuario && (
-                    <motion.div className="mb-3 lg:mb-5 w-full flex flex-row items-center justify-around z-40"
+                    <motion.div 
+                        key={`buttons-user-${animationKey}`}
+                        className="mb-3 lg:mb-5 w-full flex flex-row items-center justify-around z-40"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 2 }}>
