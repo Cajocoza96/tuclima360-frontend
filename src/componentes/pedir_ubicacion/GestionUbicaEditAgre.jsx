@@ -14,7 +14,7 @@ const MotionBoton = motion.create(BotonAccion);
 
 export default function GestionUbicaEditAgre() {
     const [modoEdicion, setModoEdicion] = useState(false);
-    const { ubicaciones } = useVariasUbicaciones();
+    const { obtenerUbicacionesValidas } = useVariasUbicaciones();
 
     const manejarEditar = () => {
         setModoEdicion(true);
@@ -24,7 +24,9 @@ export default function GestionUbicaEditAgre() {
         setModoEdicion(false);
     };
 
-    const mostrarBotonEditar = ubicaciones.length > 0;
+    // CAMBIO: Usar ubicaciones válidas en lugar de todas las ubicaciones
+    const ubicacionesValidas = obtenerUbicacionesValidas();
+    const mostrarBotonEditar = ubicacionesValidas.length > 0;
 
     const mensajeNoConexion = InfoEstadoCargaConexion.conexion.sinConexion;
 

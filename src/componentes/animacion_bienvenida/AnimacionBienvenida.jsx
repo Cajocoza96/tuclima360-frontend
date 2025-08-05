@@ -31,7 +31,7 @@ export default function AnimacionBienvenida() {
     const imgSrc = isMobile ? bienvenidaVistaVertical : bienvenidaVistaHorizontal;
     const imgAlt = isMobile ? "Welcome vertical view" : "Welcome horizontal view";
 
-    const { ubicaciones, ubicacionActiva } = useVariasUbicaciones();
+    const { obtenerUbicacionesValidas, ubicacionActiva } = useVariasUbicaciones();
     
     // Función para recargar todos los datos
     const recargarDatos = () => {
@@ -45,7 +45,8 @@ export default function AnimacionBienvenida() {
     const navigate = useNavigate();
 
     const handleExplorarClick = () => {
-        if (ubicaciones.length === 0) {
+        const ubicacionesValidas = obtenerUbicacionesValidas();
+        if (ubicacionesValidas.length === 0) {
             navigate("/add-city-weather");
         } else if (ubicacionActiva) {
             const ciudad = normalizarURLConGuionesSinEspaciosCaracterEspecialEnMinuscula(ubicacionActiva.ciudad);

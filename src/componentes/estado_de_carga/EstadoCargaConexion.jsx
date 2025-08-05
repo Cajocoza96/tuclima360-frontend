@@ -92,21 +92,6 @@ export default function EstadoCargaConexion({
                 <div className="z-50 bg-violet-900 dark:bg-black w-screen h-[100svh]  
                                 fixed inset-0">
                     <div className="p-3 flex flex-col items-center justify-center w-screen h-[100svh]">
-                        <div
-                            onClick={handleInicio}
-                            className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-col items-center justify-center">
-                            
-                            {/*
-                            <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
-                                Is it taking longer than an avocado to ripen?
-                            </p>
-                            <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
-                                Click here to return home.
-                            </p>
-                            */}
-
-                        </div>
-
                         <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
                             {estadoMensajeConexionCiudadClima}
                         </p>
