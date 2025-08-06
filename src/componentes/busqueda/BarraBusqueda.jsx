@@ -16,7 +16,6 @@ export default function BarraBusqueda({
     const [mostrarFondo, setMostrarFondo] = useState(true);
     const inputRef = useRef(null);
     const overlayRef = useRef(null);
-    // Nueva ref para el contenedor de scroll
     const scrollContainerRef = useRef(null);
     
     const { isOnline } = useConexionInternet();
@@ -24,7 +23,7 @@ export default function BarraBusqueda({
     // Pasar la referencia del contenedor al hook
     useCloseKeyboardOnScroll({
         container: scrollContainerRef,
-        delay: 100 // Pequeño delay para mejor UX
+        delay: 100
     });
 
     useEffect(() => {
@@ -43,7 +42,6 @@ export default function BarraBusqueda({
         if (!overlay) return;
 
         const handleTouchMove = (e) => {
-            // Prevenir el scroll del fondo cuando el overlay está activo
             if (resultados && resultados.length > 0) {
                 e.preventDefault();
             }
@@ -66,6 +64,48 @@ export default function BarraBusqueda({
         };
     }, [mostrarFondo, resultados]);
 
+    // Nuevo useEffect para sincronizar el placeholder traducido
+    useEffect(() => {
+        if (inputRef.current) {
+            const input = inputRef.current;
+            
+            // Función para obtener el placeholder apropiado basado en el estado
+            const updatePlaceholder = () => {
+                let targetElement = null;
+                
+                if (!isOnline) {
+                    targetElement = input.parentElement?.querySelector('[data-translate="no-connection"]');
+                } else if (shouldShowReconnectionMessage) {
+                    targetElement = input.parentElement?.querySelector('[data-translate="reconnected"]');
+                } else if (shouldShowLoading) {
+                    targetElement = input.parentElement?.querySelector('[data-translate="loading"]');
+                } else {
+                    targetElement = input.parentElement?.querySelector('[data-translate="search-city"]');
+                }
+                
+                if (targetElement) {
+                    input.placeholder = targetElement.textContent || targetElement.getAttribute('data-original');
+                }
+            };
+            
+            // Actualizar inmediatamente
+            updatePlaceholder();
+            
+            // Observer para detectar cambios en el DOM (traducción)
+            const observer = new MutationObserver(() => {
+                updatePlaceholder();
+            });
+            
+            // Observar cambios en los elementos de traducción
+            const translateElements = input.parentElement?.querySelectorAll('[data-translate]');
+            translateElements?.forEach(el => {
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            return () => observer.disconnect();
+        }
+    }, [isOnline, shouldShowReconnectionMessage, shouldShowLoading]);
+
     const manejarCambio = (e) => {
         if (isOnline && !shouldShowLoading && !shouldShowReconnectionMessage) {
             buscarCiudades(e.target.value);
@@ -79,14 +119,6 @@ export default function BarraBusqueda({
         if (inputRef.current) {
             inputRef.current.value = "";
         }
-    };
-
-    // Estados sincronizados con AgregarCiudadClima
-    const getPlaceholderText = () => {
-        if (!isOnline) return "No internet connection";
-        if (shouldShowReconnectionMessage) return "Connection has been re-established";
-        if (shouldShowLoading) return "Loading cities... please wait";
-        return "Write the name of the city";
     };
 
     const getInputState = () => {
@@ -108,6 +140,21 @@ export default function BarraBusqueda({
                             my-1 p-2 w-[99%]  rounded-md
                             flex flex-row items-center 
                             justify-around relative gap-3 z-50`}>
+                
+                {/* Elementos ocultos para que el navegador los traduzca */}
+                <span data-translate="no-connection" data-original="No internet connection" style={{ display: 'none' }}>
+                    No internet connection
+                </span>
+                <span data-translate="reconnected" data-original="Connection has been re-established" style={{ display: 'none' }}>
+                    Connection has been re-established
+                </span>
+                <span data-translate="loading" data-original="Loading cities... please wait" style={{ display: 'none' }}>
+                    Loading cities... please wait
+                </span>
+                <span data-translate="search-city" data-original="Write the name of the city" style={{ display: 'none' }}>
+                    Write the name of the city
+                </span>
+
                 <Link to="/">
                 <HiHome className="text-base xss:text-base 2xs:text-base md:text-xl 2xl:text-3xl 
                                     text-black dark:text-gray-300 cursor-pointer"/>
@@ -124,7 +171,7 @@ export default function BarraBusqueda({
                                     placeholder:2xs:text-base placeholder:md:text-xl
                                     placeholder:2xl:text-3xl`}
                     type="text"
-                    placeholder={getPlaceholderText()}
+                    placeholder="Write the name of the city" // Placeholder inicial
                     onChange={manejarCambio}
                     disabled={getInputState()}
                 />
