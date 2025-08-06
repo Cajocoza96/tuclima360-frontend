@@ -15,6 +15,11 @@ export default function AgregarCiudadClima() {
     const [mostrandoMensajeReconexion, setMostrandoMensajeReconexion] = useState(false);
     const timerRef = useRef(null);
     
+    // Estados para mensajes traducidos
+    const [mensajeTraducidoSinConexion, setMensajeTraducidoSinConexion] = useState("No connection");
+    const [mensajeTraducidoConConexion, setMensajeTraducidoConConexion] = useState("Connection has been re-established");
+    const [mensajeTraducidoCarga, setMensajeTraducidoCarga] = useState("Loading suggestion of cities...");
+    
     // Ref para el contenedor de scroll donde se mostrará la lista de ciudades
     const scrollContainerRef = useRef(null);
 
@@ -27,6 +32,53 @@ export default function AgregarCiudadClima() {
     const mensajeCarga = InfoEstadoCargaConexion.cargando.cargSugeCiudades;
     const mensajeSinConexion = InfoEstadoCargaConexion.conexion.sinConexion;
     const mensajeConConexion = InfoEstadoCargaConexion.conexion.conConexion;
+
+    // Efecto para sincronizar mensajes traducidos
+    useEffect(() => {
+        // Función para obtener texto traducido de los elementos ocultos
+        const updateTranslatedMessages = () => {
+            const sinConexionEl = document.querySelector('[data-translate="no-connection-status"]');
+            const conConexionEl = document.querySelector('[data-translate="reconnected-status"]');
+            const cargaEl = document.querySelector('[data-translate="loading-status"]');
+            
+            if (sinConexionEl) {
+                const newText = sinConexionEl.textContent || sinConexionEl.getAttribute('data-original');
+                if (newText !== mensajeTraducidoSinConexion) {
+                    setMensajeTraducidoSinConexion(newText);
+                }
+            }
+            
+            if (conConexionEl) {
+                const newText = conConexionEl.textContent || conConexionEl.getAttribute('data-original');
+                if (newText !== mensajeTraducidoConConexion) {
+                    setMensajeTraducidoConConexion(newText);
+                }
+            }
+            
+            if (cargaEl) {
+                const newText = cargaEl.textContent || cargaEl.getAttribute('data-original');
+                if (newText !== mensajeTraducidoCarga) {
+                    setMensajeTraducidoCarga(newText);
+                }
+            }
+        };
+
+        // Actualizar inmediatamente
+        updateTranslatedMessages();
+
+        // Observer para detectar cambios en el DOM (traducción)
+        const observer = new MutationObserver(() => {
+            updateTranslatedMessages();
+        });
+
+        // Observar cambios en los elementos de traducción
+        const translateElements = document.querySelectorAll('[data-translate="no-connection-status"], [data-translate="reconnected-status"], [data-translate="loading-status"]');
+        translateElements.forEach(el => {
+            observer.observe(el, { childList: true, subtree: true, characterData: true });
+        });
+
+        return () => observer.disconnect();
+    }, [mensajeTraducidoSinConexion, mensajeTraducidoConConexion, mensajeTraducidoCarga]);
 
     // Efecto para manejar la carga inicial
     useEffect(() => {
@@ -83,6 +135,17 @@ export default function AgregarCiudadClima() {
                         overflow-hidden touch-none overscroll-none
                         fixed inset-0">
 
+            {/* Elementos ocultos para que el navegador los traduzca */}
+            <span data-translate="no-connection-status" data-original="No connection" style={{ display: 'none' }}>
+                No connection
+            </span>
+            <span data-translate="reconnected-status" data-original="Connection has been re-established" style={{ display: 'none' }}>
+                Connection has been re-established
+            </span>
+            <span data-translate="loading-status" data-original="Loading suggestion of cities..." style={{ display: 'none' }}>
+                Loading suggestion of cities...
+            </span>
+
             <div className="mt-5 w-full h-full 
                             flex flex-col items-center justify-between gap-2
                             overflow-hidden">
@@ -105,11 +168,11 @@ export default function AgregarCiudadClima() {
                                 min-h-0">
 
                     {shouldShowOfflineMessage ? (
-                        <EstadoCargaConexion estadoMensajeConexion={mensajeSinConexion} />
+                        <EstadoCargaConexion estadoMensajeConexion={mensajeTraducidoSinConexion} />
                     ) : shouldShowReconnectionMessage ? (
-                        <EstadoCargaConexion estadoMensajeConexion={mensajeConConexion} />
+                        <EstadoCargaConexion estadoMensajeConexion={mensajeTraducidoConConexion} />
                     ) : shouldShowLoading ? (
-                        <EstadoCargaConexion estadoMensajeCargaCiudColom={mensajeCarga} />
+                        <EstadoCargaConexion estadoMensajeCargaCiudColom={mensajeTraducidoCarga} />
                     ) : shouldShowCities ? (
                         <div className="mx-auto w-[97%]
                                     grid gap-4 
