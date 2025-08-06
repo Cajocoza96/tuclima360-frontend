@@ -108,7 +108,7 @@ export default function PoliticaDePrivacidad() {
                   In future releases, we will be implementing registration and login options that will include:
                 </p>
                 <ul className="list-disc pl-6 space-y-2 text-base 2xl:text-2xl">
-                  <li><strong>Phone number:</strong> For account verification and recovery</li>
+                  <li><strong>The phone number:</strong> For account verification and recovery</li>
                   <li><strong>Email:</strong> For communications and updates</li>
                   <li><strong>Google:</strong> Login via <span translate="no">OAuth</span></li>
                   <li><strong>Facebook:</strong> Login via <span translate="no">OAuth</span></li>
