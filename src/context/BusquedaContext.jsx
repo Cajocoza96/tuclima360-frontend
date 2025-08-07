@@ -114,14 +114,14 @@ export const BusquedaProvider = ({ children }) => {
     }
   }
 
-  const limpiarBusqueda = () => {
+  const limpiarBusqueda = useCallback(() => {
     setTerminoBusqueda("");
     setResultados([]);
     // Limpiar debounce pendiente
     if (debounceTimerRef.current) {
       clearTimeout(debounceTimerRef.current);
     }
-  };
+  }, []);
 
   // 🔧 Función para comparar ubicaciones de manera flexible
   const compararUbicaciones = (ubicacion1, ubicacion2) => {
