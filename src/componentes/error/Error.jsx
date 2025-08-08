@@ -10,7 +10,7 @@ export default function Error({numeroError, iconoError, tituloError, mensajeErro
   };
 
   return (
-    <div className="flex flex-col items-center gap-3 2xs:gap-1 lg:gap-6 justify-center min-h-screen 
+    <div className="flex flex-col items-center gap-3 2xs:gap-1 lg:gap-6 justify-center min-h-[100svh] 
                   bg-amber-50 dark:bg-black px-6 py-10 text-center">
       
       <h1 className="text-[4.5rem] md:text-[5.5rem] 2xl:text-[6.5rem] font-extrabold text-transparent 
