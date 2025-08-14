@@ -10,7 +10,8 @@ export default function ModalExitoError({ ciudad, mensaje, onCerrar, esError = f
             <div className="bg-white dark:bg-gray-800 
                                 z-50 p-3 absolute
                                 top-1/2 left-1/2 transform -translate-x-1/2  -translate-y-1/2
-                                w-[80%] 2xs:w-[50%] lg:w-[40%] h-auto ">
+                                w-[80%] 2xs:w-[50%] lg:w-[40%] h-auto"
+                                onClick={(e) => e.stopPropagation()}>
 
                 <div className="mx-auto w-full flex flex-col items-center gap-4 2xl:gap-8">
                     <div className="flex flex-col items-center gap-2 2xl:gap-6">

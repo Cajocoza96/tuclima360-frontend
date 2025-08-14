@@ -11,7 +11,7 @@ export default function ModalConfirmacion({ciudad, mensaje, onCancelar, onAcepta
             <div className="bg-white dark:bg-gray-800 
                             z-50 p-3
         |               absolute top-1/2 left-1/2 transform -translate-x-1/2  -translate-y-1/2
-                        w-[90%] h-auto ">
+                        w-[90%] h-auto " onClick={(e) => e.stopPropagation()}>
 
                 <div className="mx-auto w-full flex flex-col gap-4 2xl:gap-5">
                     <div className="flex flex-col gap-2 2xl:gap-3">
