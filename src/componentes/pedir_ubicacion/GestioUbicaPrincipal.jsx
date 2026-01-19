@@ -15,7 +15,7 @@ export default function GestioUbicaPrincipal({ visible, onClose }) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -50 }}
                     transition={{ duration: 0.3 }}
-                    className="h-[75vh] w-[90%]
+                    className="h-[75dvh] w-[90%]
                         bg-blue-900 dark:bg-gray-800
                         absolute top-10 z-70
                         flex flex-col items-center justify-between overflow-hidden">

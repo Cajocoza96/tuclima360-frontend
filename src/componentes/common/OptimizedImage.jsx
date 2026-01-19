@@ -272,7 +272,7 @@ export const IMAGE_CONFIGS = {
     preload: false,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    minHeight: '50vh'
+    minHeight: '50dvh'
   }
 };
 
