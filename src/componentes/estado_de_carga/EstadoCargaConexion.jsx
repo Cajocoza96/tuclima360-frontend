@@ -41,9 +41,9 @@ export default function EstadoCargaConexion({
     return (
         <>
             {estadoMensajeCargaCiudadClima && (
-                <div className="z-50 bg-violet-900 dark:bg-black w-screen h-[100svh]  
+                <div className="z-50 bg-violet-900 dark:bg-black w-screen h-[100dvh]  
                                 fixed inset-0">
-                    <div className="p-3 flex flex-col items-center justify-center w-screen h-[100svh]">
+                    <div className="p-3 flex flex-col items-center justify-center w-screen h-[100dvh]">
                         <div
                             onClick={handleInicio}
                             className="mb-5 2xl:mb-10 cursor-pointer w-fit flex flex-col items-center justify-center">
@@ -89,9 +89,9 @@ export default function EstadoCargaConexion({
             )}
 
             {estadoMensajeConexionCiudadClima && (
-                <div className="z-50 bg-violet-900 dark:bg-black w-screen h-[100svh]  
+                <div className="z-50 bg-violet-900 dark:bg-black w-screen h-[100dvh]  
                                 fixed inset-0">
-                    <div className="p-3 flex flex-col items-center justify-center w-screen h-[100svh]">
+                    <div className="p-3 flex flex-col items-center justify-center w-screen h-[100dvh]">
                         <p className="text-white text-center text-base 2xs:text-xl lg:text-2xl 2xl:text-3xl">
                             {estadoMensajeConexionCiudadClima}
                         </p>
@@ -121,7 +121,7 @@ export default function EstadoCargaConexion({
             )}
 
             {estadoMensajeCargaCiudColom && (
-                <div className="h-[100svh] z-50 p-3 absolute 
+                <div className="h-[100dvh] z-50 p-3 absolute 
                                 top-1/2 left-1/2 transform -translate-x-1/2  
                                 -translate-y-1/2
                                 flex flex-col items-center justify-center">
@@ -134,7 +134,7 @@ export default function EstadoCargaConexion({
             )}
 
             {estadoMensajeConexion && (
-                <div className="h-[100svh] z-50 p-3 absolute 
+                <div className="h-[100dvh] z-50 p-3 absolute 
                                 top-1/2 left-1/2 transform -translate-x-1/2  
                                 -translate-y-1/2
                                 flex flex-col items-center justify-center">

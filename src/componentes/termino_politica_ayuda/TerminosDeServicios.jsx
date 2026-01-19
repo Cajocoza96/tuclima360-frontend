@@ -42,7 +42,7 @@ export default function TerminosDeServicios() {
             <h2 className="text-2xl 2xl:text-2xl font-semibold mb-2"><span translate="no">TuClima360</span></h2>
             <p className="text-base 2xl:text-2xl text-gray-600 dark:text-gray-400 flex items-center justify-center gap-2">
               <Calendar size={16} />
-              Last updated: June 27, 2025
+              Last updated: January 19, 2026
             </p>
           </div>
 
@@ -111,14 +111,14 @@ export default function TerminosDeServicios() {
             <section>
               <h3 className="text-xl 2xl:text-3xl font-semibold mb-4">7. Contact</h3>
               <p className="text-base 2xl:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed">
-                If you have any questions about these Terms of Service, you can contact us through official channels. <span translate="no"> TuClima360</span>.
+              If you have any questions about these Terms of Service, you can contact us via email at. <span translate="no"> carloscogoza@gmail.com</span>.
               </p>
             </section>
           </div>
 
           <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 text-center">
             <p className="text-base 2xl:text-2xl text-gray-600 dark:text-gray-400">
-              © 2025 <span translate="no"> TuClima360</span>. All rights reserved.
+              © 2026 <span translate="no"> TuClima360</span>. All rights reserved.
             </p>
           </div>
         </div>

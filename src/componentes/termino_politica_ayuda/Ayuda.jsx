@@ -368,7 +368,7 @@ export default function Ayuda() {
 
           <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 text-center">
             <p className="text-gray-600 dark:text-gray-400 text-base 2xl:text-2xl">
-              © 2025 <span translate="no"> TuClima360</span>. All rights reserved.
+              © 2026 <span translate="no"> TuClima360</span>. All rights reserved.
             </p>
           </div>
         </div>

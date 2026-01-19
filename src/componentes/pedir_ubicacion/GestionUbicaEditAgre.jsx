@@ -32,9 +32,9 @@ export default function GestionUbicaEditAgre() {
     const { isOnline } = useConexionInternet();
 
     return (
-        <div className="bg-blue-950 dark:bg-gray-800 mx-auto min-h-[100svh]">
+        <div className="bg-blue-950 dark:bg-gray-800 mx-auto min-h-[100dvh]">
 
-            <div className="w-full mx-auto min-h-[100svh] max-h-[100svh] flex flex-col items-center">
+            <div className="w-full mx-auto min-h-[100dvh] max-h-[100dvh] flex flex-col items-center">
 
                 {/* Contenido superior fijo */}
                 <div className="w-full mx-auto flex flex-col items-center justify-center gap-2 flex-shrink-0">

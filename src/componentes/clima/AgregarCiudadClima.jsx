@@ -130,7 +130,7 @@ export default function AgregarCiudadClima() {
     });
 
     return (
-        <div className="w-full h-[100svh] bg-blue-950 dark:bg-gray-800 
+        <div className="w-full h-[100dvh] bg-blue-950 dark:bg-gray-800 
                         flex flex-col items-center 
                         overflow-hidden touch-none overscroll-none
                         fixed inset-0">

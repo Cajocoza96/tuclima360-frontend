@@ -37,7 +37,7 @@ const OptimizedImage = ({
   backgroundSize = 'cover', // 'cover', 'contain', 'auto', etc.
   backgroundPosition = 'center', // 'center', 'top', 'bottom', etc.
   backgroundRepeat = 'no-repeat', // 'no-repeat', 'repeat', etc.
-  minHeight = '100svh', // altura mínima cuando se usa como background
+  minHeight = '100dvh', // altura mínima cuando se usa como background
   ...props
 }) => {
   // ===== LÓGICA DEL HOOK INTEGRADA =====
@@ -262,7 +262,7 @@ export const IMAGE_CONFIGS = {
     preload: true,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    minHeight: '100svh'
+    minHeight: '100dvh'
   },
 
   BACKGROUND_SECTION: {

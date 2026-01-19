@@ -72,20 +72,20 @@ export default function AnimacionBienvenida() {
     };
 
     return (
-        <div className="min-h-[100svh] w-full overflow-y-auto touch-pan-y">
+        <div className="min-h-[100dvh] w-full overflow-y-auto touch-pan-y">
             <ConexionSinConexion />
 
             {/* Imagen de fondo optimizada */}
             {encendidoFondoVivo && (
-                <div className="fixed w-screen h-[100svh] inset-0 z-0">
+                <div className="fixed w-screen h-[100dvh] inset-0 z-0">
                     <OptimizedImage
                         src={imgSrc}
                         alt={imgAlt}
-                        className="w-screen h-[100svh] fixed inset-0 brightness-60 dark:brightness-50"
+                        className="w-screen h-[100dvh] fixed inset-0 brightness-60 dark:brightness-50"
                         asBackground={true}
                         backgroundSize="cover"
                         backgroundPosition="center"
-                        minHeight="100svh"
+                        minHeight="100dvh"
                         showSkeleton={false}
                         {...IMAGE_CONFIGS.CRITICAL}
                     />
@@ -94,7 +94,7 @@ export default function AnimacionBienvenida() {
 
             {/* Fallback para cuando no hay fondo vivo */}
             {!encendidoFondoVivo && (
-                <div className="fixed w-screen h-[100svh] inset-0 bg-violet-900 dark:bg-black z-0"></div>
+                <div className="fixed w-screen h-[100dvh] inset-0 bg-violet-900 dark:bg-black z-0"></div>
             )}
 
             <motion.div
@@ -109,7 +109,7 @@ export default function AnimacionBienvenida() {
                     } />
             </motion.div>
 
-            <div className="w-full min-h-[100svh] flex flex-col
+            <div className="w-full min-h-[100dvh] flex flex-col
                         items-center justify-between relative touch-pan-y z-10">
 
                 <motion.div

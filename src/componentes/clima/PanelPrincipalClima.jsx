@@ -70,7 +70,7 @@ export default function PanelPrincipalClima() {
 
     // Memoizar las clases CSS del fondo para evitar cambios innecesarios
     const clasesFondoSinImagen = useMemo(() => {
-        return 'fixed w-screen h-[100svh] inset-0 bg-violet-900 dark:bg-black brightness-60 dark:brightness-50';
+        return 'fixed w-screen h-[100dvh] inset-0 bg-violet-900 dark:bg-black brightness-60 dark:brightness-50';
     }, []);
 
     const estaCargando = cargandoBusquedaCiudad || cargandoClima || cargandoFechaHora;
@@ -149,7 +149,7 @@ export default function PanelPrincipalClima() {
             {encendidoFondoVivo && imagenFondo ? (
                 <div
                     key={`fondo-${isMobile}-${encendidoFondoVivo}-${imagenFondo}-${windowSize.width}x${windowSize.height}`}
-                    className="fixed w-screen h-[100svh] inset-0 brightness-60 dark:brightness-50"
+                    className="fixed w-screen h-[100dvh] inset-0 brightness-60 dark:brightness-50"
                 >
                     <OptimizedImage
                         src={imagenFondo}
@@ -157,8 +157,8 @@ export default function PanelPrincipalClima() {
                         asBackground={true}
                         backgroundSize="cover"
                         backgroundPosition="center"
-                        minHeight="100svh"
-                        className="w-screen h-[100svh] fixed inset-0"
+                        minHeight="100dvh"
+                        className="w-screen h-[100dvh] fixed inset-0"
                         showSkeleton={false}
                         {...IMAGE_CONFIGS.CRITICAL}
                     />
@@ -175,7 +175,7 @@ export default function PanelPrincipalClima() {
                 <ConexionSinConexion />
             )}
 
-            <div className={`min-h-[100svh] max-h-[100svh] flex flex-col 
+            <div className={`min-h-[100dvh] max-h-[100dvh] flex flex-col 
                         items-center justify-start relative py-4 ${mostrarUbicacion ? 'overflow-hidden touch-none overscroll-none' : 'overflow-y-auto'}`}>
 
                 {/* Overlay */}

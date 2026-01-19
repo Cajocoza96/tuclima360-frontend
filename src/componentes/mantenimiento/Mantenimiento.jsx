@@ -4,9 +4,9 @@ import paginaEnMantenimiento1 from "/assets/img/mantenimiento/paginaEnMantenimie
 
 export default function Mantenimiento() {
     return (
-        <div className="bg-white dark:bg-black w-full min-h-[100svh] 
+        <div className="bg-white dark:bg-black w-full min-h-[100dvh] 
                             flex flex-col items-center">
-            <div className="w-[95%] min-h-[100svh] overflow-hidden text-center
+            <div className="w-[95%] min-h-[100dvh] overflow-hidden text-center
                             flex flex-col justify-around items-center">
 
                 <p className="font-extrabold text-transparent bg-clip-text 
